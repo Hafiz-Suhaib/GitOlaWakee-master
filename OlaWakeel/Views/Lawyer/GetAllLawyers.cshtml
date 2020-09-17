@@ -1,0 +1,129 @@
+﻿@model List<OlaWakeel.Models.Lawyer>
+@{
+    ViewData["Title"] = "GetAllLawyers";
+    Layout = "~/Views/Shared/_Layout1.cshtml";
+}
+<div class="app-page-title">
+    <div class="page-title-wrapper">
+        <div class="page-title-heading">
+            <div class="page-title-icon">
+                <i class="lnr-user icon-gradient bg-ripe-malin"> </i>
+            </div>
+            <div>
+                All Lawyers
+                @*<div class="page-title-subheading">Lets Get Started With Basics.</div>*@
+            </div>
+        </div>
+
+    </div>
+</div>
+<div class="card mb-3">
+    <div class="card-header-tab card-header">
+        <div class="card-header-title font-size-lg text-capitalize font-weight-normal">
+            @*<i class="header-icon lnr-laptop-phone mr-3 text-muted opacity-6"> </i>*@Lawyer List
+        </div>
+        <div class="btn-actions-pane-right actions-icon-btn">
+            @*<a href="~/LicenseDistrict/Create" class="mb-2 mr-2 btn-icon btn-square btn btn-success">Add</a>*@
+            @*<div class="btn-group dropdown">
+                    <button type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="btn-icon btn-icon-only btn btn-link">
+                        <i class="pe-7s-menu btn-icon-wrapper"></i>
+                    </button>
+                    <div tabindex="-1" role="menu" aria-hidden="true" class="dropdown-menu-right rm-pointers dropdown-menu-shadow dropdown-menu-hover-link dropdown-menu" style="">
+                        <h6 tabindex="-1" class="dropdown-header">Header</h6>
+                        <button type="button" tabindex="0" class="dropdown-item">
+                            <i class="dropdown-icon lnr-inbox"> </i><span>Menus</span>
+                        </button>
+                        <button type="button" tabindex="0" class="dropdown-item">
+                            <i class="dropdown-icon lnr-file-empty"> </i><span>Settings</span>
+                        </button>
+                        <button type="button" tabindex="0" class="dropdown-item">
+                            <i class="dropdown-icon lnr-book"> </i><span>Actions</span>
+                        </button>
+                        <div tabindex="-1" class="dropdown-divider"></div>
+                        <div class="p-3 text-right">
+                            <button class="mr-2 btn-shadow btn-sm btn btn-link">View Details</button>
+                            <button class="mr-2 btn-shadow btn-sm btn btn-primary">Action</button>
+                        </div>
+                    </div>
+                </div>*@
+        </div>
+    </div>
+    <div class="card-body">
+        <div id="example_wrapper" class="dataTables_wrapper dt-bootstrap4">
+
+            <div class="row">
+                <div class="col-sm-12">
+                    <table style="width: 100%;" id="example" class="table table-hover table-striped table-bordered dataTable dtr-inline" role="grid" aria-describedby="example_info">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>UserName</th>
+                                <th>Email</th>
+                                <th>Contact</th>
+                                <th>Gender</th>
+                                <th>cnic</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+
+                                    <td>@item.FirstName @item.LastName</td>
+                                    @*@foreach (var user in item.AppUser) {
+                                        <td>@item.AppUser.UserName</td>
+                                        <td>@item.AppUser.Email</td>
+                                        }*@
+                                    <td>@item.AppUser.UserName</td>
+                                    <td>@item.AppUser.Email</td>
+                                    <td>@item.Contact</td>
+                                    <td>@item.Gender</td>
+                                    <td>
+                                        @item.Cnic
+                                    </td>
+                                    <td>
+                                        @if (item.OnlineStatus == "Online")
+                                        {<div class="badge col-green">Online</div> }
+                                        else
+                                        { <div class="badge col-red">Offline</div>}
+
+                                    </td>
+                                    <td>
+                                        <a class="mb-2 mr-2 btn-icon btn-icon-only btn-shadow btn-dashed btn btn-outline-warning" href="~/Lawyer/EditLawyer/@item.AppUser.Id"><i class="lnr-pencil"></i></a>
+                                        <a class="mb-2 mr-2 btn-icon btn-icon-only btn-shadow btn-dashed btn btn-outline-danger" href="~/Lawyer/Delete/@item.AppUser.Id"><i class="lnr-trash"> </i></a>
+                                        @if (item.OnlineStatus == "Online")
+                                        {<a class="mb-2 mr-2 btn-icon btn-icon-only btn-shadow btn-dashed btn btn-outline-success" onclick="ChangeLawyerStatus(@item.LawyerId)" @*href="~/Lawyer/ChangeLawyerStatus/@item.LawyerId"*@><i class="fa fa-fw" aria-hidden="true" title="Click For Offline"></i></a> }
+                                        else
+                                        { <a class="mb-2 mr-2 btn-icon btn-icon-only btn-shadow btn-dashed btn btn-outline-danger" onclick="ChangeLawyerStatus(@item.LawyerId)" @*href="~/Lawyer/ChangeLawyerStatus/@item.LawyerId"*@><i class="fa fa-fw" aria-hidden="true" title="Click For online"></i></a>}
+
+                                        <a class="mb-2 mr-2 btn-icon btn-icon-only btn-shadow btn-dashed btn btn-outline-info" href="~/Lawyer/LawyerProfile/@item.AppUser.Id"><i class="lnr-user"> </i></a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <th>Name</th>
+                                <th>UserName</th>
+                                <th>Email</th>
+                                <th>Contact</th>
+                                <th>Gender</th>
+                                <th>cnic</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+@section scripts{
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="~/js/CommonJs.js"></script>
+
+}

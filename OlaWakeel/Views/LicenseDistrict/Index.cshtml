@@ -1,0 +1,214 @@
+﻿@model OlaWakeel.Dto.DistrictCityDto
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout1.cshtml";
+}
+@section css{
+    @*<link href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css" rel="stylesheet" />*@
+}
+<div class="app-page-title">
+    <div class="page-title-wrapper">
+        <div class="page-title-heading">
+            <div class="page-title-icon">
+                <i class="pe-7s-map-marker"> </i>
+            </div>
+            <div>
+                Districts & Cities
+                <div class="page-title-subheading"></div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<div>
+
+
+
+    <div class="main-card mb-3 card">
+        <div class="card-header">
+            @*<i class="header-icon lnr-gift icon-gradient bg-grow-early"> </i>Header Tabs Standard Buttons*@
+            <div class="btn-actions-pane-left">
+                <div class="nav">
+                    <a data-toggle="tab" href="#tab-eg4-0" class="border-0 btn-pill btn-wide btn-transition btn btn-outline-primary active">Districts</a>
+                    <a data-toggle="tab" href="#tab-eg4-1" class="mr-1 ml-1 btn-pill btn-wide border-0 btn-transition btn btn-outline-primary">Cities</a>
+                    @*<a data-toggle="tab" href="#tab-eg4-2" class="border-0 btn-pill btn-wide btn-transition btn btn-outline-primary">Tab 3</a>*@
+                </div>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="tab-content">
+                <div class="tab-pane active" id="tab-eg4-0" role="tabpanel">
+                    <div class="card mb-3">
+                        <div class="card-header-tab card-header">
+                            <div class="card-header-title font-size-lg text-capitalize font-weight-normal">
+                                @*<i class="header-icon lnr-laptop-phone mr-3 text-muted opacity-6"> </i>*@All Districts
+                            </div>
+                            <div class="btn-actions-pane-right actions-icon-btn">
+                                <a href="~/LicenseDistrict/Create" class="mb-2 mr-2 btn btn-shadow btn-success">Add</a>
+                                @*<div class="btn-group dropdown">
+                                        <button type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="btn-icon btn-icon-only btn btn-link">
+                                            <i class="pe-7s-menu btn-icon-wrapper"></i>
+                                        </button>
+                                        <div tabindex="-1" role="menu" aria-hidden="true" class="dropdown-menu-right rm-pointers dropdown-menu-shadow dropdown-menu-hover-link dropdown-menu" style="">
+                                            <h6 tabindex="-1" class="dropdown-header">Header</h6>
+                                            <button type="button" tabindex="0" class="dropdown-item">
+                                                <i class="dropdown-icon lnr-inbox"> </i><span>Menus</span>
+                                            </button>
+                                            <button type="button" tabindex="0" class="dropdown-item">
+                                                <i class="dropdown-icon lnr-file-empty"> </i><span>Settings</span>
+                                            </button>
+                                            <button type="button" tabindex="0" class="dropdown-item">
+                                                <i class="dropdown-icon lnr-book"> </i><span>Actions</span>
+                                            </button>
+                                            <div tabindex="-1" class="dropdown-divider"></div>
+                                            <div class="p-3 text-right">
+                                                <button class="mr-2 btn-shadow btn-sm btn btn-link">View Details</button>
+                                                <button class="mr-2 btn-shadow btn-sm btn btn-primary">Action</button>
+                                            </div>
+                                        </div>
+                                    </div>*@
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div id="example_wrapper" class="dataTables_wrapper dt-bootstrap4">
+
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <table style="width: 100%;" id="example" class="table table-hover table-striped table-bordered dataTable dtr-inline" role="grid" aria-describedby="example_info">
+                                            <thead>
+                                                <tr>
+                                                    <th>District Name</th>
+                                                    <th>Action</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @foreach (var district in Model.LicenseDistricts)
+                                                {
+                                                    <tr>
+                                                        <td width="80%">@district.DistrictName</td>
+                                                        <td width="20%">
+                                                            <a asp-action="Edit" asp-controller="LicenseDistrict" asp-route-id="@district.LicenseDistrictId" class="mb-2 mr-2 btn-icon btn-icon-only btn-shadow btn-dashed btn btn-outline-warning"><i class="lnr-pencil"> </i></a><a asp-action="Delete" asp-controller="LicenseDistrict" asp-route-id="@district.LicenseDistrictId" class="mb-2 mr-2 btn-icon btn-icon-only btn-shadow btn-dashed btn btn-outline-danger"><i class="lnr-trash"> </i></a>
+                                                            @*<a asp-action="Delete" asp-controller="LicenseDistrict" asp-route-id="@district.LicenseDistrictId" class=" btn-icon btn-icon-only btn-shadow btn-dashed btn btn-outline-danger"><i class="pe-7s-trash btn-icon-wrapper"> </i></a>*@
+                                                        </td>
+
+                                                    </tr>
+                                                }
+                                            </tbody>
+                                            <tfoot>
+                                                <tr>
+                                                    <th>District Name</th>
+                                                    <th>Action</th>
+                                                </tr>
+                                            </tfoot>
+                                        </table>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-pane" id="tab-eg4-1" role="tabpanel">
+                    <div class="card mb-3">
+                        <div class="card-header-tab card-header">
+                            <div class="card-header-title font-size-lg text-capitalize font-weight-normal">
+                                @*<i class="header-icon lnr-laptop-phone mr-3 text-muted opacity-6"> </i>*@All Cities
+                            </div>
+
+                            <div class="btn-actions-pane-right actions-icon-btn">
+                                <a href="~/LicenseDistrict/Create" class="mb-2 mr-2 btn btn-shadow btn-success">Add</a>
+                                @*<div class="btn-group dropdown">
+                                        <button type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="btn-icon btn-icon-only btn btn-link">
+                                            <i class="pe-7s-menu btn-icon-wrapper"></i>
+                                        </button>
+                                        <div tabindex="-1" role="menu" aria-hidden="true" class="dropdown-menu-right rm-pointers dropdown-menu-shadow dropdown-menu-hover-link dropdown-menu" style="">
+                                            <h6 tabindex="-1" class="dropdown-header">Header</h6>
+                                            <button type="button" tabindex="0" class="dropdown-item">
+                                                <i class="dropdown-icon lnr-inbox"> </i><span>Menus</span>
+                                            </button>
+                                            <button type="button" tabindex="0" class="dropdown-item">
+                                                <i class="dropdown-icon lnr-file-empty"> </i><span>Settings</span>
+                                            </button>
+                                            <button type="button" tabindex="0" class="dropdown-item">
+                                                <i class="dropdown-icon lnr-book"> </i><span>Actions</span>
+                                            </button>
+                                            <div tabindex="-1" class="dropdown-divider"></div>
+                                            <div class="p-3 text-right">
+                                                <button class="mr-2 btn-shadow btn-sm btn btn-link">View Details</button>
+                                                <button class="mr-2 btn-shadow btn-sm btn btn-primary">Action</button>
+                                            </div>
+                                        </div>
+                                    </div>*@
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div id="example_wrapper" class="dataTables_wrapper dt-bootstrap4">
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <table style="width: 100%;" id="example1" class="table table-hover table-striped table-bordered dataTable dtr-inline listing-datatable" role="grid" aria-describedby="example_info">
+                                            <thead>
+                                                <tr>
+                                                    <th>City Name</th>
+                                                    <th>District Name</th>
+                                                    <th>Exist</th>
+                                                    <th>Action</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @foreach (var city in Model.LicenseCities)
+                                                {
+                                                    <tr>
+                                                        <td>@city.CityName</td>
+                                                        <td>@city.LicenseDistrict.DistrictName</td>
+                                                        <td>@city.LicenseExist</td>
+                                                        <td width="20%">
+                                                            <a asp-action="Edit" asp-controller="LicenseCity" asp-route-id="@city.LicenseCityId" class="mb-2 mr-2 btn-icon btn-icon-only btn-shadow btn-dashed btn btn-outline-warning"><i class="lnr-pencil"> </i></a>
+                                                            <a asp-action="Delete" asp-controller="LicenseCity" asp-route-id="@city.LicenseCityId" class="mb-2 mr-2 btn-icon btn-icon-only btn-shadow btn-dashed btn btn-outline-danger"><i class="lnr-trash"> </i></a>
+                                                        </td>
+                                                    </tr>
+                                                }
+                                            </tbody>
+                                            <tfoot>
+                                                <tr>
+                                                    <th>City Name</th>
+                                                    <th>District Name</th>
+                                                    <th>Exist</th>
+                                                    <th>Action</th>
+                                                </tr>
+                                            </tfoot>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                @*<div class="tab-pane" id="tab-eg4-2" role="tabpanel">
+                        <p>
+                            Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a
+                            type specimen book. It has
+                            survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.
+                        </p>
+                    </div>*@
+            </div>
+        </div>
+        @*<div class="d-block text-right card-footer">
+            <a href="javascript:void(0);" class="btn-wide btn btn-success">Save</a>
+        </div>*@
+    </div>
+
+</div>
+@section scripts{
+    @*<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+        <script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>*@
+    <script src="~/assets/js/main - Copy.d810cf0ae7f39f28f336.js"></script>
+    <script>
+
+//        $(document).ready(function() {
+//    $('#example3').DataTable( {
+
+//    } );
+//} );
+    </script>
+}

@@ -1,0 +1,146 @@
+﻿@model OlaWakeel.Dto.Auth.RegisterDto
+@{
+    ViewData["Title"] = "Add New User";
+    Layout = "~/Views/Shared/_Layout1.cshtml";
+}
+<style>
+    .field-icon {
+        float: right;
+        margin-right: 8px;
+        margin-top: -30px;
+        position: relative;
+        z-index: 2;
+        cursor: pointer;
+    }
+</style>
+<div class="app-page-title">
+    <div class="page-title-wrapper">
+        <div class="page-title-heading">
+            <div class="page-title-icon">
+                <i class="pe-7s-id icon-gradient bg-mean-fruit"></i>
+            </div>
+            <div>
+                Register Application User
+                @*<div class="page-title-subheading">This is an example dashboard created using build-in elements and components.</div>*@
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid">
+    <div class="card">
+        <form method="post" asp-action="Register" asp-controller="Auth">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="card-body">
+                    <div class="body">
+                        <h5 class="card-inside-title"><b>Register User</b></h5><hr />
+                        <div class="row clearfix">
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <div class="form-line">
+                                        <label class="form-label">First Name</label>
+                                        <input type="text" required asp-for="firstName" class="form-control" placeholder="First Name" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <div class="form-line">
+                                        <label class="form-label">Last Name</label>
+                                        <input type="text" required asp-for="lastName" class="form-control" placeholder="Last Name" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row clearfix">
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <div class="form-line">
+                                        <label class="form-label">User Name</label>
+                                        <input type="text" required asp-for="userName" class="form-control" placeholder="Username" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <div class="form-line">
+                                        <label class="form-label">Email</label>
+                                        <input type="email" required asp-for="email" class="form-control" placeholder="email" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row clearfix">
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <div class="form-line">
+                                        <label class="form-label">City</label>
+                                        <input type="text" required asp-for="city" class="form-control" placeholder="City" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <div class="form-line">
+                                        <label class="form-label">Address</label>
+                                        <input type="text" required asp-for="address" class="form-control" placeholder="Address" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row clearfix">
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <div class="form-line">
+                                        <label class="form-label">Phone Number</label>
+                                        <input type="text" required asp-for="phoneNumber" class="form-control" placeholder="Phone Number" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Password</label>
+                                <input id="password-field" required asp-for="password" type="password" placeholder="set password" class="form-control">
+                                <span toggle="#password-field" class="fa fa-lg fa-eye field-icon toggle-password"></span>
+                            </div>
+                            <div class="col-md-12">
+                                <label class="form-label">Select Role</label>
+                                <div class="form-group">
+                                    <div class="select-wrapper focused">
+                                        <select class="multiselect-dropdown form-control" asp-for="RoleName" asp-items="@ViewBag.Rolelist as SelectList" tabindex="-1" required>
+                                            <option disabled hidden>Select Role</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-6">
+                                <button class="mb-2 mr-2 btn btn-shadow btn-info btn-hover" type="submit" style="margin-left:-1px;">Register</button>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+@section scripts{
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script>
+
+        $(".toggle-password").click(function () {
+
+            $(this).toggleClass("fa-eye fa-eye-slash");
+            var input = $($(this).attr("toggle"));
+            if (input.attr("type") == "password") {
+                input.attr("type", "text");
+            } else {
+                input.attr("type", "password");
+            }
+        });
+    </script>
+
+}

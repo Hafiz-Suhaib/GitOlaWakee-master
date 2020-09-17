@@ -1,0 +1,43 @@
+﻿@model OlaWakeel.Models.LicenseDistrict
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Views/Shared/_Layout1.cshtml";
+}
+
+<div class="app-page-title">
+    <div class="page-title-wrapper">
+        <div class="page-title-heading">
+            <div class="page-title-icon">
+                <i class="lnr-map"> </i>
+            </div>
+            <div>
+                Edit District
+                @*<div class="page-title-subheading">Lets Get Started With Basics.</div>*@
+            </div>
+        </div>
+
+    </div>
+</div>
+<div class="main-card mb-3 card">
+    <form asp-controller="LicenseDistrict" asp-action="Create" method="post">
+        <div class="card-body">
+            <h5 class="card-title">Edit District</h5><hr />
+            <div class="form-row">
+                <div class="col-md-12">
+                    <div class="position-relative form-group">
+                        <label for="exampleEmail55"><b>District Name</b></label>
+                        <input type="hidden" asp-for="LicenseDistrictId" />
+                        <input placeholder="Enter First Name" asp-for="DistrictName" required type="text" class="mb-2 form-control">
+                    </div>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="col-md-2">
+                    <button class="mb-2 mr-2 btn btn-shadow btn-success">Save</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+

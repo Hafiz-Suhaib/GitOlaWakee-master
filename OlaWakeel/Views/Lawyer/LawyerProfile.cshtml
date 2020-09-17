@@ -1,0 +1,542 @@
+﻿@model Lawyer
+@{
+    ViewData["Title"] = "LawyerProfile";
+    Layout = "~/Views/Shared/_Layout1.cshtml";
+}
+
+@section css{
+
+}
+<div class="app-page-title">
+    <div class="page-title-wrapper">
+        <div class="page-title-heading">
+            <div class="page-title-icon">
+                <i class="lnr-user icon-gradient bg-ripe-malin"> </i>
+            </div>
+            <div>
+                Profile
+                @*<div class="page-title-subheading">Lets Get Started With Basics.</div>*@
+            </div>
+        </div>
+
+    </div>
+</div>
+<div class="col-md-12 col-lg-6 col-xl-12">
+    <div class="card-hover-shadow profile-responsive card-border border-success mb-3 card">
+        <div class="dropdown-menu-header">
+            <div class="dropdown-menu-header-inner bg-success">
+                <div class="menu-header-content">
+                    <div class="avatar-icon-wrapper btn-hover-shine mb-2 avatar-icon-xl">
+                        <div class="avatar-icon rounded">
+                            <img src="~/Uploads/@Model.ProfilePic" alt="Avatar 6">
+                        </div>
+                    </div>
+                    <div>
+                        <h5 class="menu-header-title">@Model.FirstName @Model.LastName</h5>
+                        <h6 class="menu-header-subtitle" style="margin-left:45%">
+                            <select id="css-stars" asp-for="Rating">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                            </select>
+                        </h6>
+                        <h6 class="menu-header-subtitle">@Model.TotalExperience Year Experience</h6>
+                    </div>
+                    <div class="menu-header-btn-pane pt-2">
+                        <div role="group" class="btn-group text-center">
+                            <div class="nav">
+                                <a href="#tab-2-eg1" data-toggle="tab" class="active btn btn-dark mr-1 ml-1">Personal Info</a>
+                                <a href="#tab-2-eg2" data-toggle="tab" class="btn btn-dark mr-1 ml-1">Qualification</a>
+                                <a href="#tab-2-eg3" data-toggle="tab" class="btn btn-dark mr-1 ml-1">Experienece</a>
+                                <a href="#tab-2-eg4" data-toggle="tab" class="btn btn-dark mr-1 ml-1">Clients</a>
+                                <a href="#tab-2-eg5" data-toggle="tab" class="btn btn-dark mr-1 ml-1">TimeSlots</a>
+                                <a href="#tab-2-eg6" data-toggle="tab" class="btn btn-dark mr-1 ml-1">License</a>
+                                <a href="#tab-2-eg7" data-toggle="tab" class="btn btn-dark mr-1 ml-1">Services</a>
+                                <a href="#tab-2-eg8" data-toggle="tab" class="btn btn-dark mr-1 ml-1">Offices</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="p-0 card-body">
+            <div class="tab-content">
+                <div class="tab-pane active show" id="tab-2-eg1">
+                    <div class="p-3">
+                        <div class="main-card mb-3 card" style="height:296px">
+                            <div class="card-header">
+                                <i class="fa fa-fw" aria-hidden="true" title="Copy to use info-circle"></i>&nbsp;
+                                Personal Info
+                                @*<div class="btn-actions-pane-right actions-icon-btn">
+                            <button class="btn-icon btn-icon-only btn btn-link"><i class="pe-7s-leaf btn-icon-wrapper"></i></button>
+                            <button class="btn-icon btn-icon-only btn btn-link"><i class="pe-7s-cloud-download btn-icon-wrapper"></i></button>
+                            <div class="btn-group">
+                                <button type="button" aria-haspopup="true" aria-expanded="false" class="btn-icon btn-icon-only btn btn-link"><i class="pe-7s-menu btn-icon-wrapper"></i></button>
+                                <div tabindex="-1" role="menu" aria-hidden="true" class="dropdown-menu-right dropdown-menu-shadow dropdown-menu-hover-link dropdown-menu">
+                                    <h6 tabindex="-1" class="dropdown-header">Header</h6>
+                                    <button type="button" tabindex="0" class="dropdown-item"><i class="dropdown-icon lnr-inbox"> </i><span>Menus</span></button>
+                                    <button type="button" tabindex="0" class="dropdown-item"><i class="dropdown-icon lnr-file-empty"> </i><span>Settings</span></button>
+                                    <button type="button" tabindex="0" class="dropdown-item"><i class="dropdown-icon lnr-book"> </i><span>Actions</span></button>
+                                    <div tabindex="-1" class="dropdown-divider"></div>
+                                    <div class="p-3 text-right">
+                                        <button class="mr-2 btn-shadow btn-sm btn btn-link">View Details</button>
+                                        <button class="mr-2 btn-shadow btn-sm btn btn-primary">Action</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>*@
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-3"><b>Date Of Birth</b></div>
+                                    <div class="col-md-3"><b>Gender</b></div>
+                                    <div class="col-md-3"><b>Cnic</b></div>
+                                    <div class="col-md-3"><b>Contact</b></div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-3">@Model.DateOfBirth</div>
+                                    <div class="col-md-3">@Model.Gender</div>
+                                    <div class="col-md-3">@Model.Cnic</div>
+                                    <div class="col-md-3">@Model.Contact</div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-3"><b>UserName</b></div>
+                                    <div class="col-md-3"><b>Email</b></div>
+                                    <div class="col-md-3"><b>City</b></div>
+                                    <div class="col-md-3"><b>Country</b></div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-3">@Model.AppUser.UserName</div>
+                                    <div class="col-md-3">@Model.AppUser.Email</div>
+                                    <div class="col-md-3">@Model.City</div>
+                                    <div class="col-md-3">@Model.Country</div>
+                                </div><br />
+                                <div class="row">
+                                    <div class="col-md-12"><b>Biography</b></div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">@Model.Biography</div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12"><b>Languages</b></div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <table>
+                                            <tr>
+                                                @foreach (var lang in Model.lawyerLanguages)
+                                                {
+                                                    <td>
+                                                        @lang.Language
+                                                    </td>
+                                                }
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </div>
+
+                            </div>
+                            @*<div class="d-block text-right card-footer">
+                        <button class="mr-2 btn btn-link btn-sm">Cancel</button>
+                        <button class="btn btn-success btn-lg">Save</button>
+                    </div>*@
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-pane" id="tab-2-eg2">
+                    <div class="p-3">
+                        <div class="main-card mb-3 card">
+                            <div class="card-header">
+                                <i class="fa fa-fw" aria-hidden="true" title="Copy to use graduation-cap"></i>&nbsp;
+                                Qualification
+                            </div>
+                            <div class="card-body">
+                                <div class="scroll-area-sm">
+                                    <div class="scrollbar-container ps--active-y">
+                                        <div class="table-responsive">
+                                            <table id="new-orders-table" class="table table-hover table-xl mb-0">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Degree Type</th>
+                                                        <th>Degree Name</th>
+                                                        <th>Field Name</th>
+                                                        <th>Complilition Year</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @foreach (var quali in Model.LawyerQualifications)
+                                                    {
+                                                        <tr>
+                                                            <td>@quali.Degree.DegreeTypes.TypeName</td>
+                                                            <td>@quali.Degree.Name</td>
+                                                            @if (quali.SpecializationId != null)
+                                                            {
+                                                                <td>@quali.Specialization.SpecializationName</td>
+                                                            }
+                                                            else
+                                                            {
+                                                                <td>None</td>
+                                                            }
+                                                            <td>@quali.CompletionYear</td>
+                                                        </tr>
+                                                    }
+
+                                                </tbody>
+                                                <tfoot>
+                                                    <tr>
+                                                        <th>Degree Type</th>
+                                                        <th>Degree Name</th>
+                                                        <th>Field Name</th>
+                                                        <th>Complilition Year</th>
+                                                    </tr>
+                                                </tfoot>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-pane" id="tab-2-eg3">
+                    <div class="p-3">
+                        <div class="main-card mb-3 card">
+                            <div class="card-header">
+                                <i class="fa fa-fw" aria-hidden="true" title="Copy to use shopping-bag"></i>&nbsp;
+                                Experience
+
+                            </div>
+                            <div class="card-body">
+                                <div class="scroll-area-sm">
+                                    <div class="scrollbar-container ps--active-y">
+                                        <div class="table-responsive">
+                                            <table id="new-orders-table" class="table table-hover table-xl mb-0">
+                                                <thead>
+                                                    <tr>
+
+                                                        <th>Service Name</th>
+                                                        <th>Experience Years</th>
+
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @foreach (var expe in Model.LawyerExperiences)
+                                                    {
+                                                        <tr>
+                                                            <td>@expe.CaseCategory.Name</td>
+                                                            @*<td>@quali.CaseCategory.Name</td>*@
+                                                            @*<td>@quali.Location</td>*@
+                                                            <td>@expe.ExperienceYears YEAR</td>
+                                                        </tr>
+                                                    }
+
+                                                </tbody>
+                                                <tfoot>
+                                                    <tr>
+
+                                                        <th>Service Name</th>
+                                                        <th>Experience Years</th>
+
+                                                    </tr>
+                                                </tfoot>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-pane" id="tab-2-eg4">
+                    <div class="p-3">
+                        <div class="main-card mb-3 card">
+                            <div class="card-header">
+                                <i class="fa fa-fw" aria-hidden="true" title="Copy to use user-circle"></i>&nbsp;
+                                Clients
+
+                            </div>
+                            <div class="card-body">
+                                <div class="scroll-area-sm">
+                                    <div class="scrollbar-container ps--active-y">
+                                        <div class="table-responsive">
+                                            <table id="new-orders-table" class="table table-hover table-xl mb-0">
+                                                <thead>
+                                                    <tr>
+                                                        <th> Name</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @foreach (var cli in Model.LawyerClients)
+                                                    {
+                                                        <tr>
+                                                            <td>@cli.ClientName</td>
+                                                        </tr>
+                                                    }
+
+                                                </tbody>
+                                                <tfoot>
+                                                    <tr>
+                                                        <th>Name</th>
+                                                    </tr>
+                                                </tfoot>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-pane" id="tab-2-eg5">
+                    <div class="p-3">
+                        <div class="main-card mb-3 card">
+                            <div class="card-header">
+                                <i class="fa fa-fw" aria-hidden="true" title="Copy to use clock-o"></i>&nbsp;
+                                Time Slots
+                            </div>
+                            <div class="card-body">
+                                <div class="scroll-area-sm">
+                                    <div class="scrollbar-container ps--active-y">
+                                        <div class="table-responsive">
+                                            <table id="new-orders-table" class="table table-hover table-xl mb-0">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Day</th>
+                                                        <th>Slot Type</th>
+                                                        <th>Location</th>
+                                                        <th>Appoinment Fee</th>
+                                                        <th>Charges</th>
+                                                        <th>Time From</th>
+                                                        <th>Time To</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @foreach (var time in Model.LawerTimings)
+                                                    {
+                                                        <tr>
+                                                            <td>@time.Day</td>
+                                                            <td>@time.SlotType</td>
+                                                            @if (time.LawyerAddressId != null)
+                                                            {
+                                                                var addr = Model.LawyerAddresses.Where(x => x.LawyerAddressId == time.LawyerAddressId).SingleOrDefault().Address;
+                                                                <td>@addr</td>
+
+                                                            }
+                                                            else
+                                                            {
+                                                                <td></td>
+}
+
+
+                                                            <td>@time.AppoinmentFee</td>
+                                                            <td>@time.Charges</td>
+                                                            <td>@time.TimeFrom</td>
+                                                            <td>@time.TimeTo</td>
+                                                        </tr>
+                                                    }
+
+                                                </tbody>
+                                                <tfoot>
+                                                    <tr>
+                                                        <th>Day</th>
+                                                        <th>Slot Type</th>
+                                                        <th>Location</th>
+                                                        <th>Appoinment Fee</th>
+                                                        <th>Charges</th>
+                                                        <th>Time From</th>
+                                                        <th>Time To</th>
+                                                    </tr>
+                                                </tfoot>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-pane" id="tab-2-eg6">
+                    <div class="p-3">
+                        <div class="main-card mb-3 card">
+                            <div class="card-header">
+                                <i class="fa fa-fw" aria-hidden="true" title="Copy to use drivers-license"></i>&nbsp;
+                                License
+                            </div>
+                            <div class="card-body">
+                                <div class="scroll-area-sm">
+                                    <div class="scrollbar-container ps--active-y">
+                                        <div class="table-responsive">
+                                            <table id="new-orders-table" class="table table-hover table-xl mb-0">
+                                                <thead>
+                                                    <tr>
+                                                        <th>City Name</th>
+                                                        <th>City Bar Association</th>
+                                                        <th>District Bar Association</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @foreach (var license in Model.LawyerLicenses)
+                                                    {
+                                                        <tr>
+                                                            <td>@license.LicenseCity.CityName</td>
+                                                            <td>@license.CityBar</td>
+                                                            <td>@license.DistrictBar</td>
+                                                        </tr>
+                                                    }
+                                                </tbody>
+                                                <tfoot>
+                                                    <tr>
+                                                        <th>City Name</th>
+                                                        <th>City Bar Association</th>
+                                                        <th>District Bar Association</th>
+                                                    </tr>
+                                                </tfoot>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-pane" id="tab-2-eg7">
+                    <div class="p-3">
+                        <div class="main-card mb-3 card">
+                            <div class="card-header">
+                                <i class="fa fa-fw" aria-hidden="true" title="Copy to use th-list"></i>&nbsp;Services
+                            </div>
+                            <div class="card-body">
+                                <div class="scroll-area-sm">
+                                    <div class="scrollbar-container ps--active-y">
+                                        <div class="table-responsive">
+                                            <table id="new-orders-table" class="table table-hover table-xl mb-0">
+                                                <thead>
+                                                    <tr>
+
+                                                        <th>Service Name</th>
+                                                        @*<th>Experience Years</th>*@
+
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @foreach (var service in Model.LawyerCaseCategories)
+                                                    {
+                                                        <tr>
+                                                            <td>@service.CaseCategory.Name</td>
+                                                            @*<td>@quali.CaseCategory.Name</td>*@
+                                                            @*<td>@quali.Location</td>*@
+
+                                                        </tr>
+                                                    }
+
+                                                </tbody>
+                                                <tfoot>
+                                                    <tr>
+
+                                                        <th>Service Name</th>
+                                                        @*<th>Experience Years</th>*@
+
+                                                    </tr>
+                                                </tfoot>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-pane" id="tab-2-eg8">
+                    <div class="p-3">
+                        <div class="main-card mb-3 card">
+                            <div class="card-header">
+                                <i class="fa fa-fw" aria-hidden="true" title="Copy to use location-arrow"></i>&nbsp;Offices
+                            </div>
+                            <div class="card-body">
+                                <div class="scroll-area-sm">
+                                    <div class="scrollbar-container ps--active-y">
+                                        <div class="table-responsive">
+                                            <table id="new-orders-table" class="table table-hover table-xl mb-0">
+                                                <thead>
+                                                    <tr>
+
+                                                        <th>Office Address</th>
+                                                        @*<th>Experience Years</th>*@
+
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @foreach (var addr in Model.LawyerAddresses)
+                                                    {
+                                                        <tr>
+                                                            <td>@addr.Address</td>
+                                                            @*<td>@quali.CaseCategory.Name</td>*@
+                                                            @*<td>@quali.Location</td>*@
+
+                                                        </tr>
+                                                    }
+
+                                                </tbody>
+                                                <tfoot>
+                                                    <tr>
+
+                                                        <th>Service Name</th>
+                                                        @*<th>Experience Years</th>*@
+
+                                                    </tr>
+                                                </tfoot>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+@section scripts{
+    @* <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>*@
+    @*<script>
+             $(document).ready(function () {
+                 // document.getElementsByClassName('slimScrollDiv').st = 'height', '100px';
+                 // $('div').attr('.slimScrollDiv', 'custom');
+                 //  $('div').attr('.media-list', 'custom');
+                 // var test = $(".slimScrollDiv").addClass('myclass');
+                 // var test2 = $(".media-list").addClass('myclass');
+                 // test.css("height", "110px");
+
+                 //$("#custom").css("height", "110px");
+                 //$("#custom").css("position", "relative");
+                 //$("#custom").css("overflow", "hidden");
+                 //$("#custom").css("width", "auto");
+                 //$(".media-list").css("position", "relative");
+                 //$(".media-list").css("overflow", "hidden");
+                 //$(".media-list").css("width", "auto");
+
+
+                 //   // $(".scrollouter .slimScrollDiv").css("height", "110px");
+               // //  $(".br-theme-css-stars").css("margin-left", "45%");
+
+
+                 // var el = document.getElementsByClassName("slimScrollDiv");
+                 // el.style.height = "100px";
+
+             });
+
+        </script>*@
+}

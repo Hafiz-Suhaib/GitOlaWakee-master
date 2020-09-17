@@ -1,0 +1,345 @@
+﻿@model OlaWakeel.Dto.CatDto
+
+@{
+    ViewData["Title"] = "GetAllCaseList";
+    Layout = "~/Views/Shared/_Layout1.cshtml";
+}
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<style>
+    ul, #myUL {
+        list-style-type: none;
+    }
+
+    #myUL {
+        margin: 0;
+        padding: 0;
+    }
+
+    .caret {
+        cursor: pointer;
+        -webkit-user-select: none; /* Safari 3.1+ */
+        -moz-user-select: none; /* Firefox 2+ */
+        -ms-user-select: none; /* IE 10+ */
+        user-select: none;
+    }
+
+        .caret::before {
+            content: "\25B6";
+            color: black;
+            display: inline-block;
+            margin-right: 6px;
+        }
+
+    .caret-down::before {
+        -ms-transform: rotate(90deg); /* IE 9 */
+        -webkit-transform: rotate(90deg); /* Safari */
+        ' transform: rotate(90deg);
+    }
+
+    .nested {
+        display: none;
+    }
+
+    .active {
+        display: block;
+    }
+</style>
+
+@functions {
+
+    int inc = 1;
+    IEnumerable<CaseCategory> PrintCategories(IEnumerable<CaseCategory> category, int dash = 1)
+    {
+        <ul id="ft-id-1" class="ui-fancytree fancytree-container fancytree-plain" tabindex="0" role="tree" aria-multiselectable="true">
+
+            @foreach (var item in category)
+            {
+
+                string path = "~/VectorIconImages/" + item.VectorIcon;
+
+                <span class="fancytree-node fancytree-expanded fancytree-folder fancytree-has-children fancytree-exp-e fancytree-ico-ef">
+                    <span role="button" class="fancytree-expander"></span>
+                    <span role="checkbox" class="fancytree-checkbox"></span>
+                    <span role="presentation" class="fancytree-icon"></span>
+                    <img src=@Url.Content(path) style="width:30px;height:30px;" />&nbsp;
+                    <span class="fancytree-title">@item.Name</span>
+                    @*@if (item.Children != null)
+                    {
+                        <span>
+                            <a>Abdullah is here</a>
+                        </span>
+                    }*@
+                    <a style="color:gray;margin-left:10%;" href="/CaseCategory/Delete/@item.CaseCategoryId">
+                        <i class="fas fa-trash-alt"></i>
+                    </a>
+                    <a style="color:gray;" href="/CaseCategory/EditCaseCategory/@item.CaseCategoryId">
+                        <i class="fas fa-pencil-alt">
+                        </i>
+                    </a>
+                </span>
+                var subCategory = item.Children;
+                if (subCategory != null && subCategory.Count > 0)
+                {
+                    inc++;
+                    PrintCategories(subCategory, inc);
+                    inc--;
+                }
+            }
+        </ul>
+
+        return category;
+    }
+
+}
+
+
+<div class="app-page-title">
+    <div class="page-title-wrapper">
+        <div class="page-title-heading">
+            <div class="page-title-icon">
+                <i class="pe-7s-network icon-gradient bg-mean-fruit"></i>
+            </div>
+            <div>
+                Case Categories
+            </div>
+        </div>
+    </div>
+</div>
+@*Start tree structure*@
+@*<div class="row">
+        <div class="col-md-6">
+            <div class="main-card mb-3 card">
+                <div class="card-body">
+                    <h5 class="card-title">Basic Tree Example</h5>
+                    <div>
+                        <ul id="ft-id-1" class="ui-fancytree fancytree-container fancytree-plain" tabindex="0" role="tree" aria-multiselectable="true">
+                            <li role="treeitem" aria-expanded="true" aria-selected="false">
+                                <span class="fancytree-node fancytree-expanded fancytree-folder fancytree-has-children fancytree-exp-e fancytree-ico-ef">
+                                    <span role="button" class="fancytree-expander"></span>
+                                    <span role="checkbox" class="fancytree-checkbox"></span>
+                                    <span role="presentation" class="fancytree-icon"></span>
+                                    <span class="fancytree-title">Abdulla</span>
+                                </span>
+                                <ul role="group">
+                                    <li role="treeitem" aria-selected="false">
+                                        <span class="fancytree-node fancytree-exp-n fancytree-ico-c">
+                                            <span class="fancytree-expander"></span>
+                                            <span role="checkbox" class="fancytree-checkbox"></span>
+                                            <span role="presentation" class="fancytree-icon"></span>
+                                            <span class="fancytree-title">Art of War</span>
+                                        </span>
+                                    </li>
+                                    <li role="treeitem" aria-selected="false">
+                                        <span class="fancytree-node fancytree-exp-n fancytree-ico-c">
+                                            <span class="fancytree-expander"></span>
+                                            <span role="checkbox" class="fancytree-checkbox">
+                                            </span>
+                                            <span role="presentation" class="fancytree-icon"></span>
+                                            <span class="fancytree-title">The Hobbit</span>
+                                        </span>
+                                    </li>
+                                    <li role="treeitem" aria-selected="false">
+                                        <span class="fancytree-node fancytree-exp-n fancytree-ico-c">
+                                            <span class="fancytree-expander"></span>
+                                            <span role="checkbox" class="fancytree-checkbox"></span>
+                                            <span role="presentation" class="fancytree-icon"></span>
+                                            <span class="fancytree-title">The Little Prince</span>
+                                        </span>
+                                    </li>
+                                    <li role="treeitem" aria-selected="false" class="fancytree-lastsib">
+                                        <span class="fancytree-node fancytree-lastsib fancytree-exp-nl fancytree-ico-c">
+                                            <span class="fancytree-expander"></span>
+                                            <span role="checkbox" class="fancytree-checkbox"></span>
+                                            <span role="presentation" class="fancytree-icon"></span>
+                                            <span class="fancytree-title">Don Quixote</span>
+                                        </span>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li role="treeitem" aria-expanded="false" aria-selected="false">
+                                <span class="fancytree-node fancytree-folder fancytree-has-children fancytree-exp-c fancytree-ico-cf">
+                                    <span role="button" class="fancytree-expander">
+                                    </span><span role="checkbox" class="fancytree-checkbox"></span>
+                                    <span role="presentation" class="fancytree-icon"></span>
+                                    <span class="fancytree-title">Music</span>
+                                </span>
+                            </li>
+                            <li role="treeitem" aria-expanded="true" aria-selected="false">
+                                <span class="fancytree-node fancytree-expanded fancytree-folder fancytree-has-children fancytree-exp-e fancytree-ico-ef">
+                                    <span role="button" class="fancytree-expander"></span>
+                                    <span role="checkbox" class="fancytree-checkbox"></span>
+                                    <span role="presentation" class="fancytree-icon"></span>
+                                    <span class="fancytree-title">Electronics &amp; Computers</span>
+                                </span>
+                                <ul role="group">
+                                    <li role="treeitem" aria-expanded="false" aria-selected="false">
+                                        <span class="fancytree-node fancytree-folder fancytree-has-children fancytree-exp-c fancytree-ico-cf">
+                                            <span role="button" class="fancytree-expander"></span>
+                                            <span role="checkbox" class="fancytree-checkbox"></span>
+                                            <span role="presentation" class="fancytree-icon"></span>
+                                            <span class="fancytree-title">Cell Phones</span>
+                                        </span>
+                                    </li>
+                                    <li role="treeitem" aria-expanded="false" aria-selected="false" class="fancytree-lastsib">
+                                        <span class="fancytree-node fancytree-folder fancytree-has-children fancytree-lastsib fancytree-exp-cl fancytree-ico-cf"><span role="button" class="fancytree-expander"></span><span role="checkbox" class="fancytree-checkbox"></span><span role="presentation" class="fancytree-icon"></span><span class="fancytree-title">Computers</span></span>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li role="treeitem" aria-expanded="false" aria-selected="false" class="fancytree-lastsib"><span class="fancytree-node fancytree-folder fancytree-has-children fancytree-lastsib fancytree-lazy fancytree-exp-cdl fancytree-ico-cf"><span role="button" class="fancytree-expander"></span><span role="checkbox" class="fancytree-checkbox"></span><span role="presentation" class="fancytree-icon"></span><span class="fancytree-title">More...</span></span></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>*@
+@*End Staructure*@
+<div class="" @*ng-controller="CategoryCtrl"*@>
+    <div style="margin-bottom: 20px">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Add Case Categories</h4><hr />
+                <form asp-controller="CaseCategory" asp-action="AddCaseCategory" enctype="multipart/form-data">
+                   
+                    <div class="form-group" style="width:100%;">
+                        <h6 style="width:10%; float:left">Parent</h6>
+                        @*<input type="checkbox" checked="" data-toggle="toggle" data-size="small">*@
+                        <div class="switch" style="width:25%;">
+                            
+                                <input id="Tog" type="checkbox" onchange="checking()" data-on="Children" data-off="Parent" data-toggle="toggle" data-size="small" @*style="height: 30px; width: 30px"*@ @*ng-click="toggleClick()"*@>
+                                <span class="lever switch-col-light-blue"></span>
+                            
+                            <h6 style="float:right;">Children</h6>
+                        </div>
+                    </div>
+
+
+                    <div class="row">
+                        <div class="col-3">
+                            <label class=""><b>Name</b></label>
+                            <input class="form-control" required asp-for="Name" placeholder="Enter Name..." type="text" />@Html.ValidationSummary(false, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="col-3">
+                            <label class=""><b>Description</b></label>
+                            <input class="form-control" required asp-for="Description" placeholder="Enter Description..." type="text" />
+                        </div>
+                        @*<div class="col-3" ng-if="displayed">
+                                <select class="form-control" asp-for="ParentId" asp-items="@( new SelectList(Model.CaseCategoryList,"Id","Name" ))">
+                                    <option value="0">selected as a parent</option>
+                                </select>
+                            </div>*@
+                        <div class="col-md-3 hideme" @*ng-if="displayed"*@>
+                            <div class="form-group default-select">
+                                <label><b>Select as Parent</b></label>
+                                <select class="multiselect-dropdown form-control" id="parent" asp-for="ParentId" asp-items="@( new SelectList(Model.CaseCategoryList,"CaseCategoryId","Name" ))" data-placeholder="Select as Parent">
+                                    
+                                        <option value="0">Select as Parent</option>
+                                   
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <label><b>Vector Icon</b> <span class="text-danger">*</span></label>
+                            <div class="form-group">
+                                <input style="display:none" type="file" asp-for="Image" required id="fileInput" oninput="showImage()">
+                                <div id="ImageTab" class="center">
+                                </div>
+                                <img style="width:40px;margin-left: 20px; margin-right:20px" id="selectImageBtn" class="icon-colored pointer" onclick="$('#fileInput').click()" src="~/assets/images/image-upload.png" title="add_image.svg">
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="row">
+                        <div class="col-3">
+                            <button style="margin-left:-3px;" type="submit" class="mb-2 mr-2 btn btn-shadow btn-info">Add Category</button>
+                        </div>
+                    </div>
+                </form>
+                <br />
+                <h5 class="card-title">Case Categories</h5><hr />
+                <br />
+                @{if (Model.CaseCategories != null)
+                    { PrintCategories(Model.CaseCategories); }
+                }
+
+            </div>
+        </div>
+    </div>
+
+</div>
+
+@section scripts{
+
+    @*<script src="~/assets/js/app.min.js"></script>*@
+    @*<script src="~/assets/js/admin.js"></script>*@
+
+    <script>
+        $(document).ready(function () {
+            $(".hideme").hide();
+            
+        });
+        //$('.Tog').on('change',function (e) {
+        //        const isOn = e.currentTarget.checked;
+
+        //        if (isOn) {
+        //            $(".hideme").show();
+        //        } else {
+        //            $(".hideme").hide();
+        //        }
+        //    });
+        function checking() {
+           var isOn= document.getElementById('Tog').checked
+           if (isOn) {
+                    $(".hideme").show();
+           } else {
+               //  $("#parent option:selected").attr("0");
+              // document.getElementById("parent").value = "0";
+               $("#parent").val("0").change();
+
+               $(".hideme").hide();
+               
+               //var status = 0;
+             //  $("#parent option[value="+ status +"]").attr('selected', 'selected');
+             
+              // $(".parent").val("0");
+                }
+        }
+        /////////image
+
+        function showImage() {
+            var file_data = $("#fileInput").prop("files")[0];
+            $('#ImageTab').append('<img style="cursor:pointer;width:50px;height:50px;float:left;" src="' + window.URL.createObjectURL(file_data) + '" alt="' + file_data.name + '" /> <i onclick="ClearFile()" style="float:left;" class="fas fa-window-close centerBtn"></i>');
+            $('#selectImageBtn').hide();
+        }
+
+        function ClearFile() {
+            $('#fileInput').val('');
+            $('#ImageTab').empty();
+            $('#selectImageBtn').show();
+        }
+
+        function showImageEdit() {
+            var file_data = $("#fileInputEdit").prop("files")[0];
+            $('#ImageTabEdit').append('<img style="cursor:pointer" src="' + window.URL.createObjectURL(file_data) + '" alt="' + file_data.name + '" /> <i onclick="ClearFileEdit()" class="fas fa-window-close centerBtn"></i>');
+            $('#selectImageBtnEdit').hide();
+        }
+
+        function ClearFileEdit() {
+            $('#fileInputEdit').val('');
+            $('#ImageTabEdit').empty();
+            $('#selectImageBtnEdit').show();
+        }
+
+        //var toggler = document.getElementsByClassName("caret");
+        //var i;
+
+        //for (i = 0; i < toggler.length; i++) {
+        //    toggler[i].addEventListener("click", function () {
+        //        this.parentElement.querySelector(".nested").classList.toggle("active");
+        //        this.classList.toggle("caret-down");
+        //    });
+        //}
+    </script>
+}
+

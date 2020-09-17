@@ -1,0 +1,1381 @@
+﻿
+@{
+    ViewData["Title"] = "CreateLawyer";
+    Layout = "~/Views/Shared/_Layout1.cshtml";
+}
+
+<div class="app-page-title">
+    <div class="page-title-wrapper">
+        <div class="page-title-heading">
+            <div class="page-title-icon">
+                <i class="fa fa-gavel icon-gradient bg-happy-fisher"> </i>
+            </div>
+            <div>
+                Lawyer
+                @*<div class="page-title-subheading">
+                    Lets Get Started With Basics.</div>*@
+
+            </div>
+        </div>
+
+    </div>
+</div>
+<script src="~/Angular/Controllers/LawyerCtrl.js">
+</script>
+<div class="tab-content" id="LawyerCtrl" ng-controller="LawyerCtrl">
+    <div class="tab-pane tabs-animation fade show active" id="tab-content-0" role="tabpanel">
+        <div class="row">
+            <div class="col-lg-12 col-md-12">
+                <div class="main-card mb-3 card">
+                    <div class="card-body">
+                        <div id="smartwizard">
+                            <ul class="forms-wizard">
+                                <li>
+                                    <a href="#step-1">
+                                        <em>1</em><span>INTRO</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#step-2">
+                                        <em>2</em><span>EDUCATION</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#step-3">
+                                        <em>3</em><span>LAW FIELDS</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#step-4">
+                                        <em>4</em><span>ABOUT</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#step-5">
+                                        <em>5</em><span>Offices</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#step-6">
+                                        <em>6</em><span>PAKAGES</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#step-7">
+                                        <em>7</em><span>FINISH</span>
+                                    </a>
+                                </li>
+                            </ul>
+                            <div class="form-wizard-content">
+                                <!-- Education -->
+                                <div id="step-2">
+
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <div class="col-lg-12">
+                                                <div class="main-card mb-3">
+                                                    <div class="">
+                                                        <br>
+                                                        <h5 class="card-title">Add Your Education Detail</h5>
+                                                        <table class="mb-0 table">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th>Degree Type</th>
+                                                                    <th>Degree Name</th>
+                                                                    <th>Specialization</th>
+                                                                    <th>Degree Year</th>
+                                                                    <th style="text-align:right;">
+                                                                        <button ng-click="addQualification()" class="mb-2 mr-2 btn-icon btn-icon-only btn-shadow btn-dashed btn btn-outline-success"><i class="fa fa-fw" aria-hidden="true" title="Copy to use plus"></i></button>
+                                                                        @*<button class="mb-2 mr-2 btn-icon btn-icon-only btn-shadow btn-outline-2x btn btn-outline-light"><i class="fa fa-fw" aria-hidden="true" title="Copy to use plus"></i></button>*@
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                <tr ng-repeat="quali in lawyerQualifications">
+
+                                                                    <td ng-init="getDegreeType()">
+                                                                        <select class="mb-2 form-control" ng-change="casCading($index,quali.degreeTypeId)" ng-model="quali.degreeTypeId" ng-options="degType.degreeTypeId as degType.typeName for degType in degreeTypeList">
+                                                                            <option value="">Select Degree Type</option>
+                                                                        </select>
+                                                                    </td>
+                                                                    <td ng-init="getDegree()">
+                                                                        <select class="mb-2 form-control" ng-model="quali.degreeId" ng-change="validateDegree($index,quali.degreeId)" name="degreeId" ng-options="deg.degreeId as deg.name for deg in degrees[$index] ">
+                                                                            <option value="">Select Degree Name</option>
+                                                                        </select>
+                                                                    </td>
+                                                                    <td ng-init="getSpecialization()">
+                                                                        <select class="mb-2 form-control" ng-disabled="quali.check" name="fieldName" ng-model="quali.specializationId" ng-options="special.specializationId as special.specializationName for special in specializationList ">
+                                                                            <option value="" disabled>Select Field Name</option>
+                                                                        </select>
+                                                                    </td>
+                                                                    <td>
+                                                                        <input class="mb-2 form-control" ng-change="validateEducation()" ng-model="quali.completionYear" type="number" placeholder="eg:2020" />
+                                                                    </td>
+                                                                    <td style="text-align:right;"><button ng-click="removeQualification($index)" class="mb-2 mr-2 btn-icon btn-icon-only btn-shadow btn-dashed btn btn-outline-danger"><i class="pe-7s-trash btn-icon-wrapper"> </i></button></td>
+                                                                </tr>
+
+
+
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--  -->
+                                <div id="step-1">
+
+                                    <div class="card">
+
+
+                                        <div class="card-body">
+                                            <h5 class="card-title">Let's Get Started With Basics</h5><hr />
+                                            <form name="lawyerProfileForm">
+                                                <div class="form-row">
+                                                    <div class="col-md-4">
+                                                        <div class="position-relative form-group">
+                                                            <label for="exampleEmail55"><b>First Name</b></label>
+                                                            <input ng-change="validateIntro()" id="fName" placeholder="Enter First Name" ng-model="addLawyerProfile.firstName" name="firstName" required type="text" class="mb-2 form-control">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <div class="position-relative form-group">
+                                                            <label for="exampleEmail55"><b>Last Name</b></label>
+                                                            <input ng-change="validateIntro()" id="lName" ng-model="addLawyerProfile.lastName" required placeholder="Enter Last Name" type="text" class="mb-2 form-control">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <div class="position-relative form-group">
+                                                            <label for=""><b>Date of Birth</b></label>
+                                                            <input ng-change="validateIntro()" ng-model="addLawyerProfile.dateOfBirth" id="dob" @*placeholder="mm/dd/yyyy"*@ type="date" class="form-control" @*data-toggle="datepicker"*@>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                                <div class="form-row">
+                                                    <div class="col-md-4">
+                                                        <label for="email"><b>Gender</b></label>
+                                                        <select ng-change="validateIntro()" id="gender" class="mb-2 form-control" ng-model="addLawyerProfile.gender">
+                                                            <option value="" disabled selected>Gender</option>
+                                                            <option value="male">Male</option>
+                                                            <option value="female">Female</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <div class="position-relative form-group">
+                                                            <label for="exampleEmail55"><b>Cnic</b></label>
+                                                            <input ng-change="validateIntro()" id="cnic" name="cnic" ng-model="addLawyerProfile.cnic" ng-pattern="/^[0-9]{1,5}-[0-9]{1,7}-[0-9]{1}$/" placeholder="Cnic Ex: 35101-1234567-8" type="text" class="mb-2 form-control">
+                                                            <span style="color:Red" ng-show="lawyerProfileForm.cnic.$error.pattern">cnic formate eg 34102-1234567-8 </span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <div class="position-relative form-group">
+                                                            <label for="mobileno"><b>Mobile No</b></label>
+                                                            <input ng-change="validateIntro()" name="contact" id="mobileno" ng-model="addLawyerProfile.contact" ng-pattern="/^[0-9]{11,11}$/" placeholder="Contact Ex: 03001234567" type="text" class="mb-2 form-control">
+                                                            <span style="color:Red" ng-show="lawyerProfileForm.contact.$error.pattern">enter 11 digits Ex: 03001234567</span>
+                                                        </div>
+
+                                                    </div>
+                                                </div>@{ var emailicon = "@";}
+                                                <div class="form-row">
+                                                    <div class="col-md-4">
+                                                        <label for="email"><b>Email</b></label>
+                                                        <div class="input-group">
+                                                            <div class="input-group-prepend">
+                                                                <div class="input-group-text">
+                                                                    @emailicon
+                                                                </div>
+                                                            </div>
+                                                            <input ng-change="validateIntro()" class="form-control input-mask-trigger" placeholder="example@gmail.com" ng-model="addLawyerAccount.email" required id="email" @*data-inputmask="'alias': 'email'" im-insert="true"*@>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <div class="position-relative form-group">
+                                                            <label for="exampleEmail55"><b>Username</b></label>
+                                                            <input ng-change="validateIntro()" id="userName" ng-model="addLawyerAccount.userName" @*ng-change="checkUserAvailable()"*@ required placeholder="Enter Username" type="text" class="mb-2 form-control">
+                                                            <p class="text-danger" style="display:none" id="checkUser">this username is already exit</p>
+                                                        </div>
+
+                                                    </div>
+
+                                                    <div class="col-md-4">
+                                                        <div class="position-relative form-group">
+                                                            <label for="examplePassword22"><b>Password</b></label>
+                                                            <input ng-change="validateIntro()" name="password" id="password" ng-pattern="/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,20}$/" ng-model="addLawyerAccount.passwordHash" placeholder="Enter Password" type="password" class="form-control">
+                                                            <span style="color:Red" ng-show="lawyerProfileForm.password.$error.pattern">[Min 8 char]atleast one special,Uppercase & digit</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="position-relative form-group">
+                                                    <label for="exampleAddress"><b>Address</b></label>
+                                                    <input ng-change="validateIntro()" name="address" id="autocomplete" ng-model="addLawyerProfile.address" @*onFocus="geolocate()"*@ placeholder="Search Address Ex: garden town" type="text" class="form-control">
+                                                </div>
+                                                <!-- <div class="position-relative form-group">
+                                                    <label for="exampleAddress2">Address 2</label>
+                                                    <input name="address2" id="exampleAddress2" placeholder="Apartment, studio, or floor" type="text" class="form-control">
+                                                </div> -->
+                                                <div class="form-row">
+                                                    <div class="col-md-6">
+                                                        <div class="position-relative form-group">
+                                                            <label for="exampleCity"><b>City</b></label>
+                                                            <input name="city" id="locality" ng-model="addLawyerProfile.city" type="text" readonly class="form-control" placeholder="Enter City">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="position-relative form-group">
+                                                            <label for="exampleState"><b>Country</b></label>
+                                                            <input id="country" type="text" ng-model="addLawyerProfile.country" class="form-control" readonly placeholder="Enter Country">
+                                                        </div>
+                                                    </div>
+                                                    <!-- <div class="col-md-2">
+                                                        <div class="position-relative form-group">
+                                                            <label for="exampleZip">Zip</label>
+                                                            <input name="zip" id="exampleZip" type="text" class="form-control">
+                                                        </div>
+                                                    </div> -->
+                                                </div>
+
+                                                <!--  <input class="field" id="street_number" disabled="true"/>
+                                                <input class="field" id="route" disabled="true"/>
+
+                                                <input class="field" id="administrative_area_level_1" disabled="true"/>
+
+                                                <input class="field" id="postal_code" disabled="true"/> -->
+
+
+
+
+                                                <div class="form-row">
+                                                    <div class="col-md-4">
+                                                        <label><b>Profile Picture</b> <span class="text-danger">*</span></label>
+                                                        <div class="form-group">
+                                                            <input style="display:none" type="file" accept="image/*" id="fileInput" oninput="showImage()">
+                                                            <div id="ImageTab" class="center">
+                                                            </div>
+                                                            <img style="width:40px;margin-left: 20px; margin-right:20px" id="selectImageBtn" class="icon-colored pointer" onclick="$('#fileInput').click()" src="~/assets/images/image-upload.png" title="add_image.svg">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-4" ng-init="getCaseCategory()">
+
+                                                        <label><b>Services</b></label>
+                                                        <select multiple="multiple" id="GetCaseCatIds" onchange="ValidateIntro()" class="multiselect-dropdown form-control" @*ng-change="validateIntro()"*@>
+                                                            @*<option value="" selected disabled>select services</option>*@
+                                                            <option ng-repeat="case in caseCategoryList" value="{{case.caseCategoryId}}">{{case.name}}</option>
+
+                                                        </select>
+
+                                                    </div>
+                                                    <div class="col-md-4">
+
+                                                        <label><b>Add Your Languages</b></label>
+                                                        <select multiple="multiple" id="GetLanguages" onchange="ValidateIntro()" class="multiselect-dropdown form-control" @*ng-change="validateIntro()"*@>
+                                                            @*<option value="" selected disabled hidden>Select Language</option>*@
+                                                            <option value="English">English</option>
+                                                            <option value="Urdu">Urdu</option>
+                                                            <option value="Punjabi">Punjabi</option>
+                                                            <option value="Pashto">Pashto</option>
+                                                            <option value="Saraiki">Saraiki</option>
+
+                                                        </select>
+
+                                                    </div>
+
+                                                </div>
+                                            </form>
+                                        </div>
+
+                                    </div>
+
+                                </div>
+                                <!-- Law Fields -->
+                                <div id="step-3">
+
+                                    <div class="position-relative form-check">
+                                        <div class="mb-3 card">
+                                            <div class="card-header">
+                                                <ul class="nav">
+                                                    <li class="nav-item">
+                                                        <a data-toggle="tab" href="#tab-eg1-0" class="nav-link active">Experience</a>
+                                                    </li>
+                                                    <li class="nav-item">
+                                                        <a data-toggle="tab" href="#tab-eg1-1" class="nav-link">Total Experience</a>
+                                                    </li>
+                                                    <li class="nav-item">
+                                                        <a data-toggle="tab" href="#tab-eg1-2" class="nav-link">License</a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                            <div class="card-body">
+                                                <div class="tab-content">
+                                                    <div class="tab-pane active" id="tab-eg1-0" role="tabpanel">
+                                                        <div class="col-lg-12">
+                                                            <div class="main-card mb-3">
+                                                                <div class="">
+                                                                    <br>
+                                                                    <h5 class="card-title">Add Your Experience</h5>
+                                                                    <table class="mb-0 table">
+                                                                        <thead>
+                                                                            <tr>
+
+                                                                                <th width="50%">Field Name</th>
+                                                                                <th width="50%">Experience Year</th>
+
+                                                                                <th style="text-align:right;">
+                                                                                    <button ng-click="addExperience()" class="mb-2 mr-2 btn-icon btn-icon-only btn-shadow btn-dashed btn btn-outline-success"><i class="fa fa-fw" aria-hidden="true" title="Copy to use plus"></i></button>
+                                                                                    @*<button class="mb-2 mr-2 btn-icon btn-icon-only btn-shadow btn-outline-2x btn btn-outline-light"><i class="fa fa-fw" aria-hidden="true" title="Copy to use plus"></i></button>*@
+                                                                            </tr>
+                                                                        </thead>
+                                                                        <tbody>
+                                                                            <tr ng-repeat="expe in lawyerExperiences">
+                                                                                <td ng-init="getCaseCategory()">
+                                                                                    <select class="mb-2 form-control" ng-change="validateLaw()" ng-options="case.caseCategoryId as case.name for case in caseCategoryList " ng-model="expe.caseCategoryId">
+                                                                                        <option value="" disabled>Field Name</option>
+                                                                                    </select>
+                                                                                </td>
+                                                                                <td>
+                                                                                    <select class="mb-2 form-control" ng-change="validateLaw()" name="timeTo" ng-model="expe.experienceYears" ng-options="year.id as year.name for year in yearList ">
+                                                                                        <option value="" disabled>Select Year</option>
+                                                                                    </select>
+                                                                                    @* <input placeholder="0" ng-model="expe.experienceYears" name="year" type="number" min="0" max="30" required class="mb-2 form-control">*@
+                                                                                </td>
+                                                                                <td style="text-align:right;"><button ng-click="removeExperience($index)" class="mb-2 mr-2 btn-icon btn-icon-only btn-shadow btn-dashed btn btn-outline-danger"><i class="pe-7s-trash btn-icon-wrapper"> </i></button></td>
+                                                                            </tr>
+                                                                        </tbody>
+                                                                    </table>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        @*<div><a style="float:right" class="mb-2 mr-2 btn-square btn btn-outline-danger">Back</a><a style="float:right" class="mb-2 mr-2 btn-square btn btn-outline-success">Next</a></div>*@
+                                                    </div>
+                                                    <div class="tab-pane" id="tab-eg1-1" role="tabpanel" style="height:187px">
+                                                        <br /> <h6 class="card-title">Add Your Total Experience</h6><hr />
+                                                        <div class="col-md-12">
+                                                            <div class="position-relative form-group">
+                                                                <form name="yearForm">
+                                                                    <label for="exampleCustomSelect" class=""><b>Total Year Of Experience</b></label>
+                                                                    @*<input placeholder="0" name="year" type="number" min="0" max="30" required class="mb-2 form-control" ng-model="addLawyerProfile.totalExperience">*@
+                                                                    <select class="mb-2 form-control" ng-change="validateLaw()" name="timeTo" ng-model="addLawyerProfile.totalExperience" ng-options="year.id as year.name for year in yearList ">
+                                                                        <option value="" disabled>Select Year</option>
+                                                                    </select>
+                                                                </form>
+                                                            </div>
+
+                                                        </div>
+                                                        @*<div><a style="float:right" data-toggle="tab" href="#tab-eg1-0" class="mb-2 mr-2 btn-square btn btn-outline-danger">Back</a><a data-toggle="tab" href="#tab-eg1-2" style="float:right" class="mb-2 mr-2 btn-square btn btn-outline-success">Next</a></div>*@
+                                                    </div>
+                                                    <div class="tab-pane" id="tab-eg1-2" role="tabpanel">
+                                                        <div class="col-lg-12">
+                                                            <div class="main-card mb-3">
+                                                                <div class="">
+                                                                    <br>
+                                                                    <h5 class="card-title">Add your License</h5>
+                                                                    <table class="mb-0 table">
+                                                                        <thead>
+                                                                            <tr>
+
+                                                                                <th width="30%">Select Your Practice City</th>
+                                                                                <th width="33%">District Bar</th>
+                                                                                <th width="33%">City Bar</th>
+                                                                                <th style="text-align:right;">
+                                                                                    <button ng-click="addLawyerLicense()" class="mb-2 mr-2 btn-icon btn-icon-only btn-shadow btn-dashed btn btn-outline-success"><i class="fa fa-fw" aria-hidden="true" title="Copy to use plus"></i></button>
+                                                                                    @*<button class="mb-2 mr-2 btn-icon btn-icon-only btn-shadow btn-outline-2x btn btn-outline-light"><i class="fa fa-fw" aria-hidden="true" title="Copy to use plus"></i></button>*@
+                                                                            </tr>
+                                                                        </thead>
+                                                                        <tbody>
+                                                                            <tr ng-repeat="license in lawyerLicenses">
+                                                                                <td ng-init="getCityList()">
+                                                                                    <select class="mb-2 form-control" ng-change="validateCity($index,license.licenseCityId)" ng-options="city.licenseCityId as city.cityName for city in cityList " ng-model="license.licenseCityId">
+                                                                                        <option value="" disabled>City Name</option>
+                                                                                    </select>
+                                                                                </td>
+
+                                                                                <td><input ng-model="license.districtBar" ng-change="validateLaw()" ng-disabled="license.check" placeholder="Enter License Number Ex: 090078601" type="number" class="mb-2 form-control"></td>
+                                                                                <td><input ng-model="license.cityBar" ng-change="validateLaw()" ng-disabled="license.check" placeholder="Enter License Number Ex: 090078601" type="number" class="mb-2 form-control"></td>
+                                                                                <td style="text-align:right;"><button ng-click="removeLawyerLicense($index)" class="mb-2 mr-2 btn-icon btn-icon-only btn-shadow btn-dashed btn btn-outline-danger"><i class="pe-7s-trash btn-icon-wrapper"> </i></button></td>
+                                                                            </tr>
+                                                                        </tbody>
+                                                                    </table>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!--  <div class="d-block text-right card-footer">
+                                                <button class="btn-wide btn-shadow btn btn-danger">Delete</button>
+                                            </div> -->
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <div id="step-4">
+
+                                    <div class="mb-3 card">
+                                        <div class="card-header">
+                                            <ul class="nav nav-justified">
+                                                <li class="nav-item">
+                                                    <a data-toggle="tab" href="#tab-eg-0" class="nav-link active">Add Brief Biography</a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a data-toggle="tab" href="#tab-eg-1" class="nav-link">Renowned Clients</a>
+                                                </li>
+
+                                            </ul>
+                                        </div>
+                                        <div class="card-body">
+                                            <div class="tab-content">
+                                                <div class="tab-pane show active" id="tab-eg-0" role="tabpanel">
+                                                    <h5 class="card-title">Add Brief Biography</h5>
+                                                    <textarea rows="1" class="form-control autosize-input" ng-change="validateAbout()" placeholder="type here...." ng-model="addLawyerProfile.biography" style="height: 150px;">Just a single line...</textarea>
+                                                </div>
+                                                <div class="tab-pane" id="tab-eg-1" role="tabpanel">
+                                                    <!-- <h5 class="card-title">Add Brief Biography</h5> -->
+                                                    <div class="main-card mb-3">
+                                                        <div class="">
+                                                            <br>
+                                                            <h5 class="card-title">Renowned Clients</h5>
+                                                            <table class="mb-0 table">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th width="95%">Client Name</th>
+                                                                        <th style="text-align:right;">
+                                                                            <button ng-click="addClients()" class="mb-2 mr-2 btn-icon btn-icon-only btn-shadow btn-dashed btn btn-outline-success"><i class="fa fa-fw" aria-hidden="true" title="Copy to use plus"></i></button>
+                                                                            @*<button class="mb-2 mr-2 btn-icon btn-icon-only btn-shadow btn-outline-2x btn btn-outline-light"><i class="fa fa-fw" aria-hidden="true" title="Copy to use plus"></i></button>*@
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                    <tr ng-repeat="client in lawyerClients">
+                                                                        <td><input placeholder="Enter Name" ng-change="validateAbout()" ng-model="client.clientName" type="text" class="mb-2 form-control"></td>
+                                                                        <td style="text-align:right;"><button ng-click="removeClient($index)" class="mb-2 mr-2 btn-icon btn-icon-only btn-shadow btn-dashed btn btn-outline-danger"><i class="pe-7s-trash btn-icon-wrapper"> </i></button></td>
+                                                                    </tr>
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                                    @*<div class="col-lg-12">
+                                                            <div class="main-card mb-3 card">
+                                                                <div class="card-body">
+
+                                                                </div>
+                                                            </div>
+                                                        </div>*@
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="step-5">
+                                    <div class="card-hover-shadow-2x mb-3 card">
+                                        <div class="card-header">Add Your Office Locations</div>
+                                        <div class="card-body">
+                                            <div class="form-row">
+                                                <div class="col-md-12">
+                                                    <input @*onFocus="geolocate()"*@ id="txtPlaces" onfocus="this.value=''" placeholder="Enter address here eg: karim block" type="text" class="mb-2 form-control">
+                                                </div>
+                                            </div>
+
+
+                                        </div>
+                                        <div class="d-block text-left card-footer">
+                                            @*<button class="mr-2 btn btn-link btn-sm">Cancel</button>*@
+                                            @*<button class="btn-shadow-primary btn btn-primary btn-lg" onclick="document.getElementById('txtPlaces').value = ''">Clear</button>*@
+                                            <button class="btn-shadow-primary btn btn-success btn-lg" ng-click="addAddress()">Add</button>
+                                        </div>
+                                    </div>
+                                    <div class="">
+                                        <h5 class="card-title">Office Locations</h5>
+                                        <table class="mb-0 table">
+                                            <thead>
+                                                <tr>
+                                                    <th width="95%">Address</th>
+                                                    <th style="text-align:right;">
+                                                        @* <button ng-click="addAddress()" class="mb-2 mr-2 btn-icon btn-icon-only btn-shadow btn-dashed btn btn-outline-success"><i class="fa fa-fw" aria-hidden="true" title="Copy to use plus"></i></button>*@
+                                                    </th>
+                                                    @*<button class="mb-2 mr-2 btn-icon btn-icon-only btn-shadow btn-outline-2x btn btn-outline-light"><i class="fa fa-fw" aria-hidden="true" title="Copy to use plus"></i></button>*@
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr ng-repeat="addr in addresses">
+                                                    <td><input placeholder="address" readonly ng-model="addr.address" type="text" class="mb-2 form-control"></td>
+                                                    <td style="text-align:right;"><button ng-click="removeAddress($index)" class="mb-2 mr-2 btn-icon btn-icon-only btn-shadow btn-dashed btn btn-outline-danger"><i class="pe-7s-trash btn-icon-wrapper"> </i></button></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+
+                                </div>
+                                <div id="step-6">
+
+                                    <div class="position-relative form-check">
+                                        <div class="form-row">
+
+                                            <div class="col-md-12">
+                                                <div class="position-relative form-group">
+                                                    <div class="">
+                                                        <br>
+                                                        <h5 class="card-title">Select Days & Timing</h5>
+                                                        <table class="mb-0 table">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th width="12%">Day</th>
+                                                                    <th width="12%">Slot Type</th>
+                                                                    <th width="24%">Location</th>
+                                                                    <th width="13%">Appoinment Fee</th>
+                                                                    <th width="10%">charges</th>
+                                                                    <th width="14%">Time From</th>
+                                                                    <th width="14%">Time To</th>
+                                                                    <th style="text-align:right;">
+                                                                        <button ng-click="addTiming()" class="mb-2 mr-2 btn-icon btn-icon-only btn-shadow btn-dashed btn btn-outline-success"><i class="fa fa-fw" aria-hidden="true" title="Copy to use plus"></i></button>
+                                                                        @*<button class="mb-2 mr-2 btn-icon btn-icon-only btn-shadow btn-outline-2x btn btn-outline-light"><i class="fa fa-fw" aria-hidden="true" title="Copy to use plus"></i></button>*@
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                <tr ng-repeat="time in lawyerTimings">
+                                                                    <td>
+                                                                        <select ng-model="time.day" ng-change="validatePakage()" name="day" ng-options="d.id as d.name for d in days " class="mb-2 form-control">
+                                                                            <option value="">Day</option>
+                                                                        </select>
+                                                                    </td>
+                                                                    <td>
+                                                                        <select class="mb-2 form-control" ng-model="time.slotType" ng-change="validateSlotType($index,time.slotType)">
+                                                                            <option value="">Type</option>
+                                                                            <option value="InPerson">In Person</option>
+                                                                            <option value="Virtual">Virtual</option>
+                                                                        </select>
+                                                                    </td>
+                                                                    <td>
+                                                                        <select ng-model="time.location" ng-change="validatePakage()" ng-disabled="time.check2" name="location" ng-options="d.address as d.address for d in addresses " class="mb-2 form-control">
+                                                                            <option value="">Select Location</option>
+                                                                        </select>
+                                                                    </td>
+                                                                    <td>
+                                                                        <select class="mb-2 form-control" ng-model="time.appoinmentFee" ng-change="validateFee($index,time.appoinmentFee)">
+                                                                            <option value="">Select Fee</option>
+                                                                            <option value="Free">Free</option>
+                                                                            <option value="Fee">Fee</option>
+                                                                        </select>
+                                                                    </td>
+                                                                    <td>
+                                                                        <input type="number" ng-change="validatePakage()" ng-disabled="time.check" ng-model="time.charges" class="mb-2 form-control" />
+                                                                    </td>
+                                                                    <td>
+                                                                        <select class="mb-2 form-control" ng-change="validatePakage()" name="timeFrom" ng-model="time.timeFrom" ng-options="time.id as time.time for time in timeList ">
+                                                                            <option value="">Time From</option>
+                                                                        </select>
+                                                                    </td>
+                                                                    <td>
+                                                                        <select class="mb-2 form-control" ng-change="validatePakage()" name="timeTo" ng-model="time.timeTo" ng-options="time.id as time.time for time in timeList ">
+                                                                            <option value="">Time To</option>
+                                                                        </select>
+                                                                    </td>
+                                                                    <td style="text-align:right;"><button ng-click="removeTiming($index)" class="mb-2 mr-2 btn-icon btn-icon-only btn-shadow btn-dashed btn btn-outline-danger"><i class="pe-7s-trash btn-icon-wrapper"> </i></button></td>
+                                                                </tr>
+
+
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="step-7">
+                                    <div class="no-results">
+                                        <div class="swal2-icon swal2-success swal2-animate-success-icon">
+                                            <div class="swal2-success-circular-line-left" style="background-color: rgb(255, 255, 255);"></div>
+                                            <span class="swal2-success-line-tip"></span>
+                                            <span class="swal2-success-line-long"></span>
+                                            <div class="swal2-success-ring"></div>
+                                            <div class="swal2-success-fix" style="background-color: rgb(255, 255, 255);"></div>
+                                            <div class="swal2-success-circular-line-right" style="background-color: rgb(255, 255, 255);"></div>
+                                        </div>
+                                        <div class="results-subtitle mt-4">Finished!</div>
+                                        <div class="results-title">You arrived at the last ofrm wizard Test!</div>
+                                        <div class="mt-3 mb-3"></div>
+                                        <div class="text-center">
+                                            <button ng-click="addLawyer()" class="btn-shadow btn-wide btn btn-success btn-lg">Finish</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="divider"></div>
+                        <div class="clearfix">
+                            <button type="button" id="reset-btn" class="btn-shadow float-left btn btn-link">Reset</button>
+                            <button ng-disabled="btnNext" ng-click="btnNextFunc()" type="button" id="next-btn" class="btn-shadow btn-wide float-right btn-pill btn-hover-shine btn btn-primary">Next</button>
+                            <button type="button" id="prev-btn" ng-click="btnPrevFunc()" class="btn-shadow float-right btn-wide btn-pill mr-3 btn btn-outline-secondary">Previous</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--  <div class="col-md-12 col-lg-4">
+                <div class="main-card mb-3 card">
+                    <div class="card-header">ToDo List</div>
+                    <ul class="todo-list-wrapper list-group list-group-flush">
+                        <li class="list-group-item">
+                            <div class="todo-indicator bg-warning"></div>
+                            <div class="widget-content p-0">
+                                <div class="widget-content-wrapper">
+                                    <div class="widget-content-left mr-2">
+                                        <div class="custom-checkbox custom-control">
+                                            <input type="checkbox" id="exampleCustomCheckbox12" class="custom-control-input">
+                                            <label class="custom-control-label" for="exampleCustomCheckbox12">&nbsp;</label></div>
+                                    </div>
+                                    <div class="widget-content-left">
+                                        <div class="widget-heading">Wash the car
+                                            <div class="badge badge-danger ml-2">Rejected</div>
+                                        </div>
+                                        <div class="widget-subheading"><i>Written by Bob</i></div>
+                                    </div>
+                                    <div class="widget-content-right widget-content-actions">
+                                        <button class="border-0 btn-transition btn btn-outline-success">
+                                            <i class="fa fa-check"></i>
+                                        </button>
+                                        <button class="border-0 btn-transition btn btn-outline-danger">
+                                            <i class="fa fa-trash-alt"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="list-group-item">
+                            <div class="todo-indicator bg-focus"></div>
+                            <div class="widget-content p-0">
+                                <div class="widget-content-wrapper">
+                                    <div class="widget-content-left mr-2">
+                                        <div class="custom-checkbox custom-control">
+                                            <input type="checkbox" id="exampleCustomCheckbox1" class="custom-control-input">
+                                            <label class="custom-control-label" for="exampleCustomCheckbox1">&nbsp;</label>
+                                        </div>
+                                    </div>
+                                    <div class="widget-content-left">
+                                        <div class="widget-heading">Task with hover dropdown menu</div>
+                                        <div class="widget-subheading">
+                                            <div>By Johnny
+                                                <div class="badge badge-pill badge-info ml-2">NEW</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="widget-content-right widget-content-actions">
+                                        <div class="d-inline-block dropdown">
+                                            <button type="button" aria-haspopup="true" aria-expanded="false" class="border-0 btn-transition btn btn-link">
+                                                <i class="fa fa-ellipsis-h"></i>
+                                            </button>
+                                            <div tabindex="-1" role="menu" aria-hidden="true" class="dropdown-menu dropdown-menu-right">
+                                                <h6 tabindex="-1" class="dropdown-header">Header</h6>
+                                                <button type="button" disabled="" tabindex="-1" class="disabled dropdown-item">Action</button>
+                                                <button type="button" tabindex="0" class="dropdown-item">Another Action</button>
+                                                <div tabindex="-1" class="dropdown-divider"></div>
+                                                <button type="button" tabindex="0" class="dropdown-item">Another Action</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="list-group-item">
+                            <div class="todo-indicator bg-primary"></div>
+                            <div class="widget-content p-0">
+                                <div class="widget-content-wrapper">
+                                    <div class="widget-content-left mr-2">
+                                        <div class="custom-checkbox custom-control">
+                                            <input type="checkbox" id="exampleCustomCheckbox4" class="custom-control-input">
+                                            <label class="custom-control-label" for="exampleCustomCheckbox4">&nbsp;</label>
+                                        </div>
+                                    </div>
+                                    <div class="widget-content-left flex2">
+                                        <div class="widget-heading">Badge on the right task</div>
+                                        <div class="widget-subheading">This task has show on hover actions!
+                                        </div>
+                                    </div>
+                                    <div class="widget-content-right widget-content-actions">
+                                        <button class="border-0 btn-transition btn btn-outline-success">
+                                            <i class="fa fa-check"></i>
+                                        </button>
+                                    </div>
+                                    <div class="widget-content-right ml-3">
+                                        <div class="badge badge-pill badge-success">Latest Task</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="list-group-item">
+                            <div class="todo-indicator bg-info"></div>
+                            <div class="widget-content p-0">
+                                <div class="widget-content-wrapper">
+                                    <div class="widget-content-left mr-2">
+                                        <div class="custom-checkbox custom-control">
+                                            <input type="checkbox" id="exampleCustomCheckbox2" class="custom-control-input">
+                                            <label class="custom-control-label" for="exampleCustomCheckbox2">&nbsp;</label>
+                                        </div>
+                                    </div>
+                                    <div class="widget-content-left mr-3">
+                                        <div class="widget-content-left">
+                                            <img width="42" class="rounded" src="assets\images\avatars\1.jpg" alt="">
+                                        </div>
+                                    </div>
+                                    <div class="widget-content-left">
+                                        <div class="widget-heading">Go grocery shopping</div>
+                                        <div class="widget-subheading">A short description for this todo item </div>
+                                    </div>
+                                    <div class="widget-content-right widget-content-actions">
+                                        <button class="border-0 btn-transition btn btn-outline-success">
+                                            <i class="fa fa-check"></i>
+                                        </button>
+                                        <button class="border-0 btn-transition btn btn-outline-danger">
+                                            <i class="fa fa-trash-alt"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="list-group-item">
+                            <div class="todo-indicator bg-success"></div>
+                            <div class="widget-content p-0">
+                                <div class="widget-content-wrapper">
+                                    <div class="widget-content-left mr-2">
+                                        <div class="custom-checkbox custom-control">
+                                            <input type="checkbox" id="exampleCustomCheckbox3" class="custom-control-input">
+                                            <label class="custom-control-label" for="exampleCustomCheckbox3">&nbsp;</label>
+                                        </div>
+                                    </div>
+                                    <div class="widget-content-left flex2">
+                                        <div class="widget-heading">Development Task</div>
+                                        <div class="widget-subheading">Finish React ToDo List App</div>
+                                    </div>
+                                    <div class="widget-content-right">
+                                        <div class="badge badge-warning mr-2">69</div>
+                                    </div>
+                                    <div class="widget-content-right">
+                                        <button class="border-0 btn-transition btn btn-outline-success">
+                                            <i class="fa fa-check"></i>
+                                        </button>
+                                        <button class="border-0 btn-transition btn btn-outline-danger">
+                                            <i class="fa fa-trash-alt"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                    <div class="d-block text-right card-footer">
+                        <button class="mr-2 btn btn-link btn-sm">Cancel</button>
+                        <button class="btn btn-success btn-lg">Save</button>
+                    </div>
+                </div>
+            </div> -->
+        </div>
+    </div>
+    <!-- <div class="tab-pane tabs-animation fade" id="tab-content-1" role="tabpanel">
+        <div class="row">
+            <div class="col-md-12 col-lg-5">
+                <div class="main-card mb-3 card">
+                    <div class="card-header">Chat Box</div>
+                    <div class="scroll-area-sm">
+                        <div class="scrollbar-container ps ps--active-y">
+                            <div class="chat-wrapper p-1">
+                                <div class="chat-box-wrapper">
+                                    <div>
+                                        <div class="avatar-icon-wrapper mr-1">
+                                            <div class="badge badge-bottom btn-shine badge-success badge-dot badge-dot-lg">
+                                            </div>
+                                            <div class="avatar-icon avatar-icon-lg rounded">
+                                                <img src="assets\images\avatars\1.jpg" alt="">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <div class="chat-box">But I must explain to you how all this mistaken
+                                            idea of denouncing pleasure and praising pain was born and I will
+                                            give you a complete account of the system.</div>
+                                        <small class="opacity-6">
+                                            <i class="fa-calendar-alt mr-1"></i>11:01 AM | Yesterday
+                                        </small>
+                                    </div>
+                                </div>
+                                <div class="float-right">
+                                    <div class="chat-box-wrapper chat-box-wrapper-right">
+                                        <div>
+                                            <div class="chat-box">Expound the actual teachings of the great
+                                                explorer of the truth, the master-builder of human happiness.
+                                            </div>
+                                            <small class="opacity-6">
+                                                <i class="fa-calendar-alt mr-1"></i>
+                                                11:01 AM | Yesterday
+                                            </small>
+                                        </div>
+                                        <div>
+                                            <div class="avatar-icon-wrapper ml-1">
+                                                <div class="badge badge-bottom btn-shine badge-success badge-dot badge-dot-lg">
+                                                </div>
+                                                <div class="avatar-icon avatar-icon-lg rounded">
+                                                    <img src="assets\images\avatars\2.jpg" alt="">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="chat-box-wrapper">
+                                    <div>
+                                        <div class="avatar-icon-wrapper mr-1">
+                                            <div class="badge badge-bottom btn-shine badge-success badge-dot badge-dot-lg">
+                                            </div>
+                                            <div class="avatar-icon avatar-icon-lg rounded">
+                                                <img src="assets\images\avatars\2.jpg" alt="">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <div class="chat-box">But I must explain to you how all this mistaken
+                                            idea of denouncing pleasure and praising pain was born and I will
+                                            give you a complete account of the system.</div>
+                                        <small class="opacity-6">
+                                            <i class="fa-calendar-alt mr-1"></i>
+                                            11:01 AM | Yesterday
+                                        </small>
+                                    </div>
+                                </div>
+                                <div class="float-right">
+                                    <div class="chat-box-wrapper chat-box-wrapper-right">
+                                        <div>
+                                            <div class="chat-box">Denouncing pleasure and praising pain was born
+                                                and I will give you a complete account.
+                                            </div>
+                                            <small class="opacity-6">
+                                                <i class="fa-calendar-alt mr-1"></i>
+                                                11:01 AM | Yesterday
+                                            </small>
+                                        </div>
+                                        <div>
+                                            <div class="avatar-icon-wrapper ml-1">
+                                                <div class="badge badge-bottom btn-shine badge-success badge-dot badge-dot-lg">
+                                                </div>
+                                                <div class="avatar-icon avatar-icon-lg rounded">
+                                                    <img src="assets\images\avatars\2.jpg" alt="">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="float-right">
+                                    <div class="chat-box-wrapper chat-box-wrapper-right">
+                                        <div>
+                                            <div class="chat-box">The master-builder of human happiness.</div>
+                                            <small class="opacity-6">
+                                                <i class="fa-calendar-alt mr-1"></i>
+                                                11:01 AM | Yesterday
+                                            </small>
+                                        </div>
+                                        <div>
+                                            <div class="avatar-icon-wrapper ml-1">
+                                                <div class="badge badge-bottom btn-shine badge-success badge-dot badge-dot-lg">
+                                                </div>
+                                                <div class="avatar-icon avatar-icon-lg rounded">
+                                                    <img src="assets\images\avatars\3.jpg" alt="">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <input placeholder="Write here and hit enter to send..." type="text" class="form-control-lg form-control">
+                    </div>
+                </div>
+                <div class="card-shadow-primary card-border mb-3 card">
+                    <div class="dropdown-menu-header">
+                        <div class="dropdown-menu-header-inner bg-info">
+                            <div class="menu-header-image opacity-2" style="background-image: url('assets/images/dropdown-header/abstract1.jpg');">
+                            </div>
+                            <div class="menu-header-content btn-pane-right">
+                                <div class="avatar-icon-wrapper mr-2 avatar-icon-xl">
+                                    <div class="avatar-icon rounded">
+                                        <img src="assets\images\avatars\2.jpg" alt="Avatar 5">
+                                    </div>
+                                </div>
+                                <div>
+                                    <h5 class="menu-header-title">Jessica Walberg</h5>
+                                </div>
+                                <div class="menu-header-btn-pane">
+                                    <button class="ladda-button btn btn-pill btn-dark" data-style="slide-right">
+                                        <span class="ladda-label">Load Click</span>
+                                        <span class="ladda-spinner"></span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">
+                            <div class="widget-content">
+                                <div class="text-center">
+                                    <h5 class="widget-heading opacity-4">March Totals</h5>
+                                    <h5>
+                                        <span class="pr-2"><b class="text-danger">12</b> new leads,</span>
+                                        <span><b class="text-success">$56.24</b> in sales</span>
+                                    </h5>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="p-0 list-group-item">
+                            <div class="grid-menu grid-menu-2col">
+                                <div class="no-gutters row">
+                                    <div class="col-sm-6">
+                                        <button class="btn-icon-vertical btn-square btn-transition btn btn-outline-link">
+                                            <i class="lnr-license btn-icon-wrapper btn-icon-lg mb-3"> </i>View Profile
+                                        </button>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <button class="btn-icon-vertical btn-square btn-transition btn btn-outline-link">
+                                            <i class="lnr-music-note btn-icon-wrapper btn-icon-lg mb-3">
+                                            </i>Leads Generated
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-md-12 col-lg-7">
+                <div class="main-card mb-3 card">
+                    <div class="card-body">
+                        <div id="smartwizard2" class="forms-wizard-alt">
+                            <ul class="forms-wizard">
+                                <li>
+                                    <a href="#step-12">
+                                        <em>1</em><span>Account Information</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#step-22">
+                                        <em>2</em><span>Payment Information</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#step-32">
+                                        <em>3</em><span>Finish Wizard</span>
+                                    </a>
+                                </li>
+                            </ul>
+                            <div class="form-wizard-content">
+                                <div id="step-12">
+                                    <div class="form-row">
+                                        <div class="col-md-6">
+                                            <div class="position-relative form-group">
+                                                <label for="exampleEmail55">Email</label>
+                                                <input name="email" id="exampleEmail55" placeholder="with a placeholder" type="email" class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="position-relative form-group">
+                                                <label for="examplePassword22">Password</label>
+                                                <input name="password" id="examplePassword22" placeholder="password placeholder" type="password" class="form-control">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="position-relative form-group">
+                                        <label for="exampleAddress">Address</label>
+                                        <input name="address" id="exampleAddress" placeholder="1234 Main St" type="text" class="form-control">
+                                    </div>
+                                    <div class="position-relative form-group">
+                                        <label for="exampleAddress2">Address 2</label>
+                                        <input name="address2" id="exampleAddress2" placeholder="Apartment, studio, or floor" type="text" class="form-control">
+                                    </div>
+                                    <div class="form-row">
+                                        <div class="col-md-6">
+                                            <div class="position-relative form-group">
+                                                <label for="exampleCity">City</label>
+                                                <input name="city" id="exampleCity" type="text" class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="position-relative form-group">
+                                                <label for="exampleState">State</label>
+                                                <input name="state" id="exampleState" type="text" class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <div class="position-relative form-group">
+                                                <label for="exampleZip">Zip</label>
+                                                <input name="zip" id="exampleZip" type="text" class="form-control">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="position-relative form-check">
+                                        <input name="check" id="exampleCheck" type="checkbox" class="form-check-input">
+                                        <label for="exampleCheck" class="form-check-label">Check me out</label>
+                                    </div>
+                                </div>
+                                <div id="step-22">
+                                    <div id="accordion" class="accordion-wrapper mb-3">
+                                        <div class="card">
+                                            <div id="headingTwo" class="b-radius-0 card-header">
+                                                <button type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo" class="text-left m-0 p-0 btn btn-link btn-block">
+                                                    <span class="form-heading">Credit Card Informations<p>Enter your user informations below</p></span>
+                                                </button>
+                                            </div>
+                                            <div data-parent="#accordion" id="collapseTwo" class="collapse show">
+                                                <div class="card-body">
+                                                    <div class="position-relative form-group">
+                                                        <label for="exampleEmail3">Plain Text (Static)</label>
+                                                        <p class="form-control-plaintext">Some plain text/ static value</p>
+                                                    </div>
+                                                    <div class="position-relative form-group">
+                                                        <label for="exampleEmail4">Email</label>
+                                                        <input name="email" id="exampleEmail4" placeholder="with a placeholder" type="email" class="form-control">
+                                                    </div>
+                                                    <div class="position-relative form-group">
+                                                        <label for="examplePassword">Password</label>
+                                                        <input name="password" id="examplePassword" placeholder="password placeholder" type="password" class="form-control">
+                                                    </div>
+                                                    <div class="position-relative form-group">
+                                                        <label for="exampleUrl">Url</label>
+                                                        <input name="url" id="exampleUrl" placeholder="url placeholder" type="url" class="form-control">
+                                                    </div>
+                                                    <div class="position-relative form-group">
+                                                        <label for="exampleNumber">Number</label>
+                                                        <input name="number" id="exampleNumber" placeholder="number placeholder" type="number" class="form-control">
+                                                    </div>
+                                                    <div class="position-relative form-group">
+                                                        <label for="exampleDatetime">Datetime</label>
+                                                        <input name="datetime" id="exampleDatetime" placeholder="datetime placeholder" type="datetime" class="form-control">
+                                                    </div>
+                                                    <div class="position-relative form-group">
+                                                        <label for="exampleDate">Date</label>
+                                                        <input name="date" id="exampleDate" placeholder="date placeholder" type="date" class="form-control">
+                                                    </div>
+                                                    <div class="position-relative form-group">
+                                                        <label for="exampleTime">Time</label>
+                                                        <input name="time" id="exampleTime" placeholder="time placeholder" type="time" class="form-control">
+                                                    </div>
+                                                    <div class="position-relative form-group">
+                                                        <label for="exampleColor">Color</label>
+                                                        <input name="color" id="exampleColor" placeholder="color placeholder" type="color" class="form-control">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="step-32">
+                                    <div class="no-results">
+                                        <div class="swal2-icon swal2-success swal2-animate-success-icon">
+                                            <div class="swal2-success-circular-line-left" style="background-color: rgb(255, 255, 255);"></div>
+                                            <span class="swal2-success-line-tip"></span>
+                                            <span class="swal2-success-line-long"></span>
+                                            <div class="swal2-success-ring"></div>
+                                            <div class="swal2-success-fix" style="background-color: rgb(255, 255, 255);"></div>
+                                            <div class="swal2-success-circular-line-right" style="background-color: rgb(255, 255, 255);"></div>
+                                        </div>
+                                        <div class="results-subtitle mt-4">Finished!</div>
+                                        <div class="results-title">You arrived at the last form wizard step!</div>
+                                        <div class="mt-3 mb-3"></div>
+                                        <div class="text-center">
+                                            <button class="btn-shadow btn-wide btn btn-success btn-lg">Finish</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="divider"></div>
+                        <div class="clearfix">
+                            <button type="button" id="reset-btn2" class="btn-shadow float-left btn btn-link">Reset</button>
+                            <button type="button" id="next-btn2" class="btn-shadow btn-wide float-right btn-pill btn-hover-shine btn btn-primary">Next</button>
+                            <button type="button" id="prev-btn2" class="btn-shadow float-right btn-wide btn-pill mr-3 btn btn-outline-secondary">Previous</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="tab-pane tabs-animation fade" id="tab-content-2" role="tabpanel">
+        <div class="main-card mb-3 card">
+            <div class="card-body">
+                <div id="smartwizard3" class="forms-wizard-vertical">
+                    <ul class="forms-wizard">
+                        <li>
+                            <a href="#step-122">
+                                <em>1</em><span>Account Information</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#step-222">
+                                <em>2</em><span>Payment Information</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#step-322">
+                                <em>3</em><span>Finish Wizard</span>
+                            </a>
+                        </li>
+                    </ul>
+                    <div class="form-wizard-content">
+                        <div id="step-122">
+                            <div class="card-body">
+                                <div class="position-relative form-group">
+                                    <label for="exampleEmail5">Input without validation</label>
+                                    <input type="text" class="form-control">
+                                    <div class="invalid-feedback">You will not be able to see this</div>
+                                    <small class="form-text text-muted">Example help text that remains unchanged.</small>
+                                </div>
+                                <div class="position-relative form-group">
+                                    <label for="exampleEmail6">Valid  input</label>
+                                    <input type="text" class="is-valid form-control">
+                                    <div class="valid-feedback">Sweet! that name is available</div>
+                                    <small class="form-text text-muted">Example help text that remains unchanged.</small>
+                                </div>
+                                <div class="position-relative form-group">
+                                    <label for="examplePassword">Invalid input</label>
+                                    <input type="text" class="is-invalid form-control">
+                                    <div class="invalid-feedback">Oh noes! that name is already taken</div>
+                                    <small class="form-text text-muted">Example help text that remains unchanged.</small>
+                                </div>
+                                <div class="position-relative form-group">
+                                    <label for="exampleEmail7">Input without validation</label>
+                                    <input type="text" class="form-control">
+                                    <div class="invalid-tooltip">You will not be able to see this</div>
+                                    <small class="form-text text-muted">Example help text that remains unchanged.</small>
+                                </div>
+                                <div class="position-relative form-group">
+                                    <label for="exampleEmail">Valid input</label>
+                                    <input type="text" class="is-valid form-control">
+                                    <div class="valid-tooltip">Sweet! that name is available</div>
+                                    <small class="form-text text-muted">Example help text that remains unchanged.</small>
+                                </div>
+                                <div class="position-relative form-group">
+                                    <label for="examplePassword">Invalid input</label>
+                                    <input type="text" class="is-invalid form-control">
+                                    <div class="invalid-tooltip">Oh noes! that name is already taken</div>
+                                    <small class="form-text text-muted">Example help text that remains unchanged.</small>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="step-222">
+                            <div id="accordion" class="accordion-wrapper mb-3">
+                                <div class="card">
+                                    <div id="headingTwo" class="b-radius-0 card-header">
+                                        <button type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo" class="text-left m-0 p-0 btn btn-link btn-block">
+                                            <span class="form-heading">Credit Card Informations<p>Enter your user informations below</p></span>
+                                        </button>
+                                    </div>
+                                    <div data-parent="#accordion" id="collapseTwo" class="collapse show">
+                                        <div class="card-body">
+                                            <div class="position-relative form-group">
+                                                <label for="exampleEmail3">Plain Text (Static)</label>
+                                                <p class="form-control-plaintext">Some plain text/ static value</p>
+                                            </div>
+                                            <div class="position-relative form-group">
+                                                <label for="exampleEmail4">Email</label>
+                                                <input name="email" id="exampleEmail4" placeholder="with a placeholder" type="email" class="form-control">
+                                            </div>
+                                            <div class="position-relative form-group">
+                                                <label for="examplePassword">Password</label>
+                                                <input name="password" id="examplePassword" placeholder="password placeholder" type="password" class="form-control">
+                                            </div>
+                                            <div class="position-relative form-group">
+                                                <label for="exampleUrl">Url</label>
+                                                <input name="url" id="exampleUrl" placeholder="url placeholder" type="url" class="form-control">
+                                            </div>
+                                            <div class="position-relative form-group">
+                                                <label for="exampleNumber">Number</label>
+                                                <input name="number" id="exampleNumber" placeholder="number placeholder" type="number" class="form-control">
+                                            </div>
+                                            <div class="position-relative form-group">
+                                                <label for="exampleDatetime">Datetime</label>
+                                                <input name="datetime" id="exampleDatetime" placeholder="datetime placeholder" type="datetime" class="form-control">
+                                            </div>
+                                            <div class="position-relative form-group">
+                                                <label for="exampleDate">Date</label>
+                                                <input name="date" id="exampleDate" placeholder="date placeholder" type="date" class="form-control">
+                                            </div>
+                                            <div class="position-relative form-group">
+                                                <label for="exampleTime">Time</label>
+                                                <input name="time" id="exampleTime" placeholder="time placeholder" type="time" class="form-control"></div>
+                                            <div class="position-relative form-group">
+                                                <label for="exampleColor">Color</label>
+                                                <input name="color" id="exampleColor" placeholder="color placeholder" type="color" class="form-control">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="step-322">
+                            <div class="no-results">
+                                <div class="swal2-icon swal2-success swal2-animate-success-icon">
+                                    <div class="swal2-success-circular-line-left" style="background-color: rgb(255, 255, 255);"></div>
+                                    <span class="swal2-success-line-tip"></span>
+                                    <span class="swal2-success-line-long"></span>
+                                    <div class="swal2-success-ring"></div>
+                                    <div class="swal2-success-fix" style="background-color: rgb(255, 255, 255);"></div>
+                                    <div class="swal2-success-circular-line-right" style="background-color: rgb(255, 255, 255);"></div>
+                                </div>
+                                <div class="results-subtitle mt-4">Finished!</div>
+                                <div class="results-title">You arrived at the last form wizard step!</div>
+                                <div class="mt-3 mb-3"></div>
+                                <div class="text-center">
+                                    <button class="btn-shadow btn-wide btn btn-success btn-lg">Finish</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="divider"></div>
+                <div class="clearfix">
+                    <button type="button" id="reset-btn22" class="btn-shadow float-left btn btn-link">Reset</button>
+                    <button type="button" id="next-btn22" class="btn-shadow btn-wide float-right btn-pill btn-hover-shine btn btn-primary">Next</button>
+                    <button type="button" id="prev-btn22" class="btn-shadow float-right btn-wide btn-pill mr-3 btn btn-outline-secondary">Previous</button>
+                </div>
+            </div>
+        </div>
+    </div> -->
+</div>
+@section scripts{
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAlVi_v9OYbBjm9zsRtCuoIdC5u6qBENw8&libraries=places&callback=initAutocomplete" async defer></script>
+    <script>
+        /*$( document ).ready(function() {
+        var places = new google.maps.places.Autocomplete(document.getElementById('txtPlaces'));
+});*/
+        var placeSearch, autocomplete;
+
+        var componentForm = {
+            /* street_number: 'short_name',*/
+            /* route: 'long_name',*/
+            locality: 'long_name',
+            /* administrative_area_level_1: 'short_name',*/
+            country: 'long_name'
+            /* postal_code: 'short_name'*/
+        };
+
+        function initAutocomplete() {
+            // Create the autocomplete object, restricting the search predictions to
+            // geographical location types.
+            autocomplete = new google.maps.places.Autocomplete(
+                document.getElementById('autocomplete'), document.getElementById('txtPlaces'), { types: ['geocode'] });
+            autocomplete2 = new google.maps.places.Autocomplete(
+                document.getElementById('txtPlaces'), { types: ['geocode'] });
+
+            // Avoid paying for data that you don't need by restricting the set of
+            // place fields that are returned to just the address components.
+            autocomplete.setFields(['address_component']);
+
+            // When the user selects an address from the drop-down, populate the
+            // address fields in the form.
+            autocomplete.addListener('place_changed', fillInAddress);
+        }
+
+        function fillInAddress() {
+            // Get the place details from the autocomplete object.
+            var place = autocomplete.getPlace();
+
+            for (var component in componentForm) {
+                document.getElementById(component).value = '';
+                // document.getElementById(component).disabled = false;
+            }
+
+            // Get each component of the address from the place details,
+            // and then fill-in the corresponding field on the form.
+            for (var i = 0; i < place.address_components.length; i++) {
+                var addressType = place.address_components[i].types[0];
+                if (componentForm[addressType]) {
+                    var val = place.address_components[i][componentForm[addressType]];
+                    document.getElementById(addressType).value = val;
+                }
+            }
+        }
+
+        // Bias the autocomplete object to the user's geographical location,
+        // as supplied by the browser's 'navigator.geolocation' object.
+        function geolocate() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(function (position) {
+                    var geolocation = {
+                        lat: position.coords.latitude,
+                        lng: position.coords.longitude
+                    };
+                    var circle = new google.maps.Circle(
+                        { center: geolocation, radius: position.coords.accuracy });
+                    autocomplete.setBounds(circle.getBounds());
+                });
+            }
+        }
+
+        function ValidateIntro() {
+            var fileInput = document.getElementById('fileInput');
+            var language = $('#GetLanguages').val();
+            var languageCount = language.length;
+            var GetCaseCatIds = $("#GetCaseCatIds").val();
+            var CaseCatCount = GetCaseCatIds.length;
+            if ( $("#fName").val() === ""
+                || $("#lName").val() === ""
+                || $("#dob").val() === ""
+                || $("#email").val() === ""
+                || $("#userName").val() === ""
+                || $("#password").val() === ""
+                || $("#gender").val() === ""
+                || $("#cnic").val() === ""
+                || $("#mobileno").val() === ""
+                || $("#autoComplete").val() === ""
+                || $("#locality").val() === ""
+                || $("#country").val() === ""
+                || fileInput.files.length === 0
+                || languageCount === 0
+                || CaseCatCount === 0
+
+            ) { $("#next-btn").attr("disabled", true); }
+            else { $("#next-btn").attr("disabled", false); }
+        }
+
+        /////////image
+
+        function showImage() {
+            var file_data = $("#fileInput").prop("files")[0];
+            $('#ImageTab').append('<img style="cursor:pointer;width:150px;height:150px;" src="' + window.URL.createObjectURL(file_data) + '" alt="' + file_data.name + '" /> <i onclick="ClearFile()" class="fas fa-window-close centerBtn"></i>');
+            $('#selectImageBtn').hide();
+           // angular.element(document.getElementById('LawyerCtrl')).scope().validateIntro();
+            ValidateIntro();
+        }
+
+        function ClearFile() {
+            $('#fileInput').val('');
+            $('#ImageTab').empty();
+            $('#selectImageBtn').show();
+           // angular.element(document.getElementById('LawyerCtrl')).scope().validateIntro();
+            ValidateIntro();
+        }
+
+        function showImageEdit() {
+            var file_data = $("#fileInputEdit").prop("files")[0];
+            $('#ImageTabEdit').append('<img style="cursor:pointer" src="' + window.URL.createObjectURL(file_data) + '" alt="' + file_data.name + '" /> <i onclick="ClearFileEdit()" class="fas fa-window-close centerBtn"></i>');
+            $('#selectImageBtnEdit').hide();
+           // angular.element(document.getElementById('LawyerCtrl')).scope().validateIntro();
+            ValidateIntro();
+        }
+
+        function ClearFileEdit() {
+            $('#fileInputEdit').val('');
+            $('#ImageTabEdit').empty();
+            $('#selectImageBtnEdit').show();
+          //  angular.element(document.getElementById('LawyerCtrl')).scope().validateIntro();
+            ValidateIntro();
+        }
+
+        function languages() {
+            // alert("hello");
+            //angular.element('#LawyerCtrl').scope().$apply();
+            // angular.element('#LawyerCtrl').scope().validateIntro();
+            angular.element(document.getElementById('LawyerCtrl')).scope().validateIntro();
+        }
+    </script>
+
+}

@@ -1,0 +1,60 @@
+﻿@model OlaWakeel.Models.Specialization
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_Layout1.cshtml";
+}
+
+<div class="app-page-title">
+    <div class="page-title-wrapper">
+        <div class="page-title-heading">
+            <div class="page-title-icon">
+                <i class="pe-7s-medal"> </i>
+            </div>
+            <div>
+                Add Specilization
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container-fluid">
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">Add Specialization</h5><hr />
+            <form asp-action="Create">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <div class="position-relative form-line">
+                                <label for="exampleEmail" class=""><b>Specialization Name</b></label>
+                                <input asp-for="SpecializationName" required placeholder="Enter Specialization Name" class="form-control">
+                                <span asp-validation-for="SpecializationName" class="text-danger"></span>
+                            </div>
+                            <span style="color:red; font-size:15px;">@ViewBag.error</span>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <div class="form-line">
+                                <label><b>Description</b></label>
+                                <input asp-for="Description" placeholder="Enter Description" class="form-control">
+                                <span asp-validation-for="Description" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row clearfix">
+                    <div class="col-md-6">
+                        <a asp-action="Index" class="btn btn-success">Back to List</a>
+                    </div>
+                    <div class="col-sm-6">
+                        <button class="mb-2 mr-2 btn btn-shadow btn-info" type="submit" style="margin-left: -1px;float: right">Submit</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+

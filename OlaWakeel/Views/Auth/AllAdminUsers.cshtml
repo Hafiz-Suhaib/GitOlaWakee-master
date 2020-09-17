@@ -1,0 +1,143 @@
+﻿@model IEnumerable<OlaWakeel.Data.ApplicationUser.AppUser>
+@{
+    ViewData["Title"] = "AllAdminUsers";
+    Layout = "~/Views/Shared/_Layout1.cshtml";
+}
+
+<style>
+     .modal {
+         /*position: absolute;*/
+         top: 50px;
+         /*right: 100px;
+    bottom: 0;
+    left: 0;
+    z-index: 10040;
+    overflow: auto;
+    overflow-y: auto;*/
+     }
+</style>
+
+<div class="app-page-title">
+    <div class="page-title-wrapper">
+        <div class="page-title-heading">
+            <div class="page-title-icon">
+                <i class="pe-7s-id icon-gradient bg-mean-fruit"></i>
+            </div>
+            <div>
+                Application Users
+                @*<div class="page-title-subheading">This is an example dashboard created using build-in elements and components.</div>*@
+            </div>
+        </div>
+    </div>
+</div>
+<div class="card mb-3">
+    <div class="card-header-tab card-header">
+        <div class="card-header-title font-size-lg text-capitalize font-weight-normal">
+            <i class="header-icon mr-3 text-muted opacity-6"> </i>Application User List
+        </div>
+        <div class="btn-actions-pane-right actions-icon-btn">
+            <div class="btn-group dropdown">
+                <div tabindex="-1" role="menu" aria-hidden="true" class="dropdown-menu-right rm-pointers dropdown-menu-shadow dropdown-menu-hover-link dropdown-menu">
+                    <h6 tabindex="-1" class="dropdown-header">Header</h6>
+                    <button type="button" tabindex="0" class="dropdown-item">
+                        <i class="dropdown-icon lnr-inbox"> </i><span>Menus</span>
+                    </button>
+                    <button type="button" tabindex="0" class="dropdown-item">
+                        <i class="dropdown-icon lnr-file-empty"> </i><span>Settings</span>
+                    </button>
+                    <button type="button" tabindex="0" class="dropdown-item">
+                        <i class="dropdown-icon lnr-book"> </i><span>Actions</span>
+                    </button>
+                    <div tabindex="-1" class="dropdown-divider"></div>
+                    <div class="p-3 text-right">
+                        <button class="mr-2 btn-shadow btn-sm btn btn-link">View Details</button>
+                        <button class="mr-2 btn-shadow btn-sm btn btn-primary">Action</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Basic Examples -->
+    <div class="card-body">
+        <div id="example_wrapper" class="dataTables_wrapper dt-bootstrap4">
+            <div class="row">
+                <div class="col-sm-12">
+                    <table style="width: 100%;" id="example" class="table table-hover table-striped table-bordered dataTable dtr-inline" role="grid" aria-describedby="example_info">
+                        <thead>
+                            <tr>
+                                <th>First Name</th>
+                                <th>Last Name</th>
+                                <th>UserName</th>
+                                <th>Email</th>
+                                <th>Contact</th>
+                                <th>City</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @{ var count = 0;
+
+                            }
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>@item.FirstName</td>
+                                    @*@foreach (var user in item.AppUser) {
+                                        <td>@item.AppUser.UserName</td>
+                                        <td>@item.AppUser.Email</td>
+                                        }*@
+                                    <td>@item.LastName</td>
+                                    <td>@item.UserName</td>
+                                    <td>@item.Email</td>
+                                    <td>@item.PhoneNumber</td>
+                                    <td>
+                                        @item.City
+                                    </td>
+                                    <td>
+                                        <a href="~/Auth/Delete/@item.Id" class="mb-2 mr-2 btn-icon btn-icon-only btn-shadow btn-dashed btn btn-outline-danger"><i class="lnr-trash"> </i></a>
+                                       @* <a class="btn tblActnBtn" href="~/Auth/Delete/@item.Id"><i class="fas fa-trash-alt"></i></a>*@
+                                        <a class="mb-2 mr-2 btn-icon btn-icon-only btn-shadow btn-dashed btn btn-outline-success" data-toggle="modal" data-backdrop="false" data-target=".details_@count"><i class="fas fa-info-circle"></i></a>
+                                        <div class="modal fade details_@count" role="dialog"
+                                             aria-labelledby="formModal" aria-hidden="true">
+                                            <div class="modal-dialog" role="document">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <table>
+                                                            <tr>
+                                                                <th>Address</th>
+                                                            </tr>
+                                                            <tr><td>@item.Address</td></tr>
+                                                        </table>
+
+
+                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                count++;
+                            }
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <th>First Name</th>
+                                <th>Last Name</th>
+                                <th>UserName</th>
+                                <th>Email</th>
+                                <th>Contact</th>
+                                <th>City</th>
+                                <th>Actions</th>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

@@ -1,0 +1,59 @@
+﻿@model OlaWakeel.Models.LicenseCity
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_Layout1.cshtml";
+}
+
+<div class="app-page-title">
+    <div class="page-title-wrapper">
+        <div class="page-title-heading">
+            <div class="page-title-icon">
+                <i class="lnr-map"> </i>
+            </div>
+            <div>
+                Create City
+                @*<div class="page-title-subheading">Lets Get Started With Basics.</div>*@
+            </div>
+        </div>
+
+    </div>
+</div>
+<div class="main-card mb-3 card">
+    <form asp-controller="LicenseCity" asp-action="Create" method="post">
+        <div class="card-body">
+            <h5 class="card-title">Add City</h5>
+            <div class="form-row">
+                <div class="col-md-6">
+                    <div class="position-relative form-group">
+                        <label for="exampleEmail55">City Name</label>
+                        <input placeholder="Enter City Name" required type="text" asp-for="CityName" class="mb-2 form-control">
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="position-relative form-group">
+                        <label for="exampleEmail55">District Name</label>
+                        <select class="mb-2 form-control" asp-for="LicenseDistrictId" required asp-items="@(new SelectList(ViewBag.getAllDistrict,"LicenseDistrictId","DistrictName"))">
+                            <option value="" selected hidden disabled>Select District</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="col-md-2">
+                    <div class="position-relative form-check">
+                        <label class="form-check-label">
+                            <input asp-for="LicenseExist" type="checkbox" class="form-check-input" > IsExist
+                        </label>
+                    </div>
+                </div>
+            </div><br />
+                <div class="form-row">
+                    <div class="col-md-2">
+                        <button class="mb-2 mr-2 btn btn-shadow btn-success">Create</button>
+                    </div>
+                </div>
+            </div>
+</form>
+</div>
+
+

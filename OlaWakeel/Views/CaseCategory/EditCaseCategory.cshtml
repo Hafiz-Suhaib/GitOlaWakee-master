@@ -1,0 +1,167 @@
+﻿@model OlaWakeel.Dto.CatDto
+@{
+    ViewData["Title"] = "EditCaseCategory";
+    Layout = "~/Views/Shared/_Layout1.cshtml";
+}
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<div class="app-page-title">
+    <div class="page-title-wrapper">
+        <div class="page-title-heading">
+            <div class="page-title-icon">
+                <i class="pe-7s-network icon-gradient bg-mean-fruit"></i>
+            </div>
+            <div>
+                Edit Case Categories
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container-fluid" @*ng-controller="CategoryCtrl"*@>
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Edit Case Categories</h5><hr />
+                <form asp-controller="CaseCategory" asp-action="EditCaseCategory" enctype="multipart/form-data">
+                    <br /> <div class="form-group" style="width:100%;">
+                        <label style="width:10%; float:left">Parent</label>
+                        <div class="switch" style="width:25%;">
+                            <input id="Tog" type="checkbox" onchange="checking()" data-on="children" data-off="parent" data-toggle="toggle" data-size="small" @*style="height: 30px; width: 30px"*@ @*ng-click="toggleClick()"*@>
+                            @*<label class="switch">
+                                    <input type="checkbox" id="toggle" style="height: 30px; width: 30px" >
+                                    <span class="lever switch-col-light-blue"></span>
+                                </label>*@
+                            <label style="float:right;">Children</label>
+                        </div>
+                    </div>
+                    <input type="hidden" asp-for="CaseCategoryId" />
+
+                    <div class="row">
+                        <div class="col-md-3">
+                            <label class=""><b>Name</b></label>
+                            <input class="form-control" required asp-for="Name" placeholder="Name" type="text" />
+                        </div>
+                        <div class="col-md-3">
+                            <label class=""><b>Description</b></label>
+                            <input class="form-control" required asp-for="Description" placeholder="Description" type="text" />
+                        </div>
+                        @*<div class="col-3" ng-if="displayed">
+                                <select class="form-control" asp-for="ParentId" asp-items="@( new SelectList(Model.CaseCategoryList,"Id","Name" ))">
+                                    <option value="0">selected as a parent</option>
+                                </select>
+                            </div>*@
+                        @* <input type="hidden" class="isCheck" asp-for="ParentId" />*@
+                        <div class="col-md-3 hideme" @*ng-if="displayed"*@>
+
+                            @*<div class="form-group default-select">
+                                    <select class="form-control select2" asp-for="ParentId" asp-items="@ViewBag.CatList as SelectList" data-placeholder="Select">
+                                        <option value="0">selected as a parent</option>
+                                    </select>
+                                </div>*@
+                            <div class="form-group default-select">
+                                <label><b>Select as a Parent</b></label>
+                                <select class="form-control multiselect-dropdown isCheck" asp-for="ParentId" asp-items="@( new SelectList(Model.CaseCategoryList,"CaseCategoryId","Name" ))" data-placeholder="Select">
+                                    <option value="0">selected as a parent</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <label><b>Vector Icon</b> <span class="text-danger">*</span></label>
+                            <div class="form-group">
+                                <input style="display:none" type="file" asp-for="Image" id="fileInput" oninput="showImage()">
+                                <div id="ImageTab" class="center">
+                                    <img style="cursor:pointer;width:50px;height:50px;float:left;" src="~/VectorIconImages/@Model.VectorIcon" alt="' + file_data.name + '" /> <i onclick="ClearFile()" style="float:left" class="fas fa-window-close centerBtn"></i>
+                                </div>
+                                <img style="width:40px;margin-left: 20px; margin-right:20px;" id="selectImageBtn" class="icon-colored pointer" onclick="$('#fileInput').click()" src="~/assets/images/image-upload.png" title="add_image.svg">
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="row">
+                        <div class="col-3">
+                            <button style="margin-left:-3px;" type="submit" class="mb-2 mr-2 btn btn-shadow btn-info">Edit Category</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+</div>
+@section scripts{
+   
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            var parentId = $(".isCheck").val();
+            //var toggle = $().val(".toggle");
+            $('#selectImageBtn').hide();
+            if (parentId != 0) {
+                $(".hideme").show();
+                $(".switch .btn-light.off").addClass('btn-primary');
+                $(".switch .btn-primary").removeClass('off');
+                $(".switch .btn-primary").removeClass('btn-light');
+
+                // $('#Tog').switchButton('on');
+                //  $("#Tog").attr("checked", "checked");
+                //  $('#Tog').html('Toggle: ' + $(this).prop('checked'));
+                // $("#Tog").prop("checked", true);
+               // $("#Tog").bootstrapToggle("on")
+                // document.getElementById('Tog').val(true);
+            }
+            else { $(".hideme").hide(); }
+
+            //$(".switch input").on("change", function (e) {
+            //    const isOn = e.currentTarget.checked;
+
+            //    if (isOn) {
+            //        $(".hideme").show();
+            //    } else {
+            //        $(".hideme").hide();
+            //    }
+            //});
+        });
+        function checking() {
+            var isOn = document.getElementById('Tog').checked
+            if (isOn) {
+                $(".hideme").show();
+            } else {
+                //  $("#parent option:selected").attr("0");
+                // document.getElementById("parent").value = "0";
+                $(".hideme").hide();
+
+                //var status = 0;
+                //  $("#parent option[value="+ status +"]").attr('selected', 'selected');
+
+                // $(".parent").val("0");
+            }
+        }
+        /////////image
+
+        function showImage() {
+            var file_data = $("#fileInput").prop("files")[0];
+            $('#ImageTab').append('<img style="cursor:pointer;width:50px;height:50px;" src="' + window.URL.createObjectURL(file_data) + '" alt="' + file_data.name + '" /> <i onclick="ClearFile()" class="fas fa-window-close centerBtn"></i>');
+            $('#selectImageBtn').hide();
+        }
+
+        function ClearFile() {
+            $('#fileInput').val('');
+            $('#ImageTab').empty();
+            $('#selectImageBtn').show();
+        }
+
+        function showImageEdit() {
+            var file_data = $("#fileInputEdit").prop("files")[0];
+            $('#ImageTabEdit').append('<img style="cursor:pointer" src="' + window.URL.createObjectURL(file_data) + '" alt="' + file_data.name + '" /> <i onclick="ClearFileEdit()" class="fas fa-window-close centerBtn"></i>');
+            $('#selectImageBtnEdit').hide();
+        }
+
+        function ClearFileEdit() {
+            $('#fileInputEdit').val('');
+            $('#ImageTabEdit').empty();
+            $('#selectImageBtnEdit').show();
+        }
+    </script>
+}
+

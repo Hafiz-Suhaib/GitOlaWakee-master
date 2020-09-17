@@ -1,0 +1,118 @@
+﻿@model List<OlaWakeel.Models.Lawyer>
+@{
+    ViewData["Title"] =  ViewBag.Filter;
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<style>
+    .heading {
+        color: #212529;
+    }
+
+    .align-center {
+        text-align: center;
+    }
+</style>
+<div class="container-fluid">
+    <div class="block-header">
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <ul class="breadcrumb breadcrumb-style ">
+                    <li class="breadcrumb-item">
+                        <h4 class="page-title">Lawyers</h4>
+                    </li>
+                    <li class="breadcrumb-item bcrumb-1">
+                        <a href="~/Lawyer/GetAllLawyers">
+                            <i class="fas fa-home"></i> @ViewBag.Filter
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- Basic Examples -->
+    <div class="row clearfix">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div class="card">
+                <div class="header">
+                    <h2>
+                        <strong>Lawyers List</strong>
+                    </h2>
+                </div>
+                <div class="body">
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-striped table-hover js-basic-example dataTable">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>UserName</th>
+                                    <th>Email</th>
+                                    <th>Contact</th>
+                                    <th>Gender</th>
+                                    <th>cnic</th>
+                                    <th>Status</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
+                                    <tr>
+
+                                        <td>@item.FirstName @item.LastName</td>
+                                        @*@foreach (var user in item.AppUser) {
+                                            <td>@item.AppUser.UserName</td>
+                                            <td>@item.AppUser.Email</td>
+                                            }*@
+                                        <td>@item.AppUser.UserName</td>
+                                        <td>@item.AppUser.Email</td>
+                                        <td>@item.Contact</td>
+                                        <td>@item.Gender</td>
+                                        <td>
+                                            @item.Cnic
+                                        </td>
+                                        <td>
+                                            @if (item.OnlineStatus == "Online")
+                                            {<div class="badge col-green">Online</div> }
+                                            else
+                                            { <div class="badge col-red">Offline</div>}
+
+                                        </td>
+                                        <td>
+                                            <a class="btn tblActnBtn" href="~/Lawyer/EditLawyer/@item.LawyerId"><i class="fas fa-pencil-alt"></i></a>
+                                            <a class="btn tblActnBtn" href="~/Lawyer/Delete/@item.AppUser.Id"><i class="fas fa-trash-alt"></i></a>
+                                            @if (item.OnlineStatus == "Online")
+                                            {<a class="btn tblActnBtn" onclick="ChangeLawyerStatus(@item.LawyerId)" @*href="~/Lawyer/ChangeLawyerStatus/@item.LawyerId"*@><i class="fas fa-toggle-on pt-2"></i></a> }
+                                            else
+                                            { <a class="btn tblActnBtn" onclick="ChangeLawyerStatus(@item.LawyerId)" @*href="~/Lawyer/ChangeLawyerStatus/@item.LawyerId"*@><i class="fas fa-toggle-off pt-2"></i></a>}
+                                            <a class="btn tblActnBtn" href="~/Lawyer/LawyerProfile/@item.AppUser.Id"><i class="fas fa-info-circle"></i></a>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>UserName</th>
+                                    <th>Email</th>
+                                    <th>Contact</th>
+                                    <th>Gender</th>
+                                    <th>cnic</th>
+                                    <th>Status</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts{
+    <script src="~/assets/js/table.min.js"></script>
+    <script src="~/assets/js/pages/tables/jquery-datatable.js"></script>
+    <script src="~/js/CommonJs.js"></script>
+}
+

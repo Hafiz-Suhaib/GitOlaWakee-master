@@ -1,0 +1,100 @@
+﻿@model OlaWakeel.Models.Degree
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_Layout1.cshtml";
+}
+
+<div class="app-page-title">
+    <div class="page-title-wrapper">
+        <div class="page-title-heading">
+            <div class="page-title-icon">
+                <i class="lnr-graduation-hat icon-gradient bg-mean-fruit"></i>
+            </div>
+            <div>
+                Add Degree
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container-fluid">
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">Add Degree</h5><hr />
+            <form asp-action="Create">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <div class="form-line">
+                                <label class=""><b>Name</b></label>
+                                <input asp-for="Name" type="text" required placeholder="Enter Name" class="form-control" />
+                                <span asp-validation-for="Name" class="text-danger"></span>
+                            </div>
+                            <span style="color:red; font-size:15px;">@ViewBag.error</span>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <div class="form-line">
+                                <label class=""><b>Description</b></label>
+                                <input asp-for="Description" type="text" placeholder="Enter Description" class="form-control" />
+                                <span asp-validation-for="Description" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row clearfix">
+                    <div class="col-md-4">
+                        <div class="input-field col s12" style="padding-left: 0px">
+                            <label class=""><b>PreRequisite</b></label>
+                            <select asp-for="PreRequisite" class="mb-2 form-control" required asp-items="@(new SelectList(ViewBag.degreeList ,"DegreeId","Name"))">
+                               
+                                    <option value="0">None</option>
+                                
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="input-field col s12" style="padding-left: 0px">
+                            <label class=""><b>Eligible After</b></label>
+                            <select asp-for="EligibleAfter" required class="mb-2 form-control">
+                                
+                                    <option value="None">None</option>
+                                    <option value="1year">1 YEAR</option>
+                                    <option value="2year">2 YEAR</option>
+                                    <option value="3year">3 YEAR</option>
+                                    <option value="4year">4 YEAR</option>
+                                    <option value="5year">5 YEAR</option>
+                                    <option value="6year">6 YEAR</option>
+                                
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="input-field col s12" style="padding-left: 0px">
+                            <label class=""><b>Curriculum Degree Level</b></label>
+                            <select asp-for="DegreeTypeId" asp-items="@ViewBag.DegreeType" required="required" class="mb-2 form-control">
+                                
+                                    <option value="" disabled selected hidden>Select Degree Type</option>
+                               
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="row clearfix">
+                    <div class="col-md-6">
+                        <a asp-action="Index" style="float:left;margin-top:20px" class="mb-2 mr-2 btn btn-shadow btn-success">Back to List</a>
+                    </div>
+                    <div class="col-sm-6">
+                        <button class="mb-2 mr-2 btn btn-shadow btn-info" type="submit" style="margin-left: -1px;float: right;margin-top: 20px">
+                            Submit
+                        </button>
+                    </div>
+                </div>
+            </form>
+
+        </div>
+    </div>
+
+</div>

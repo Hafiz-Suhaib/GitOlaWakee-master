@@ -1,0 +1,56 @@
+﻿@model OlaWakeel.Models.DegreeType
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_Layout1.cshtml";
+}
+
+<div class="app-page-title">
+    <div class="page-title-wrapper">
+        <div class="page-title-heading">
+            <div class="page-title-icon">
+                <i class="lnr-graduation-hat icon-gradient bg-mean-fruit"></i>
+            </div>
+            <div>
+                Degree Type
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container-fluid">
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">Add Degree Type</h5><hr />
+            <form asp-action="CreateDegreeType">
+                <div class="row">
+                    <div class="col-sm-6">
+                        @*<div class="input-field col s12" style="padding-left: 0px">
+            <select asp-for="TypeName" required class="mb-2 form-control">
+                    <option value="" disabled selected hidden>Select Type</option>
+                    <option value="Phd">Phd</option>
+                    <option value="Masters">Masters</option>
+                    <option value="Bachelors">Bachelors</option>
+            </select>
+        </div>*@
+                        <div class="position-relative form-group">
+                            <label for="exampleEmail55"><b>Type Name</b></label>
+                            <input placeholder="Enter Type Name" required type="text" asp-for="TypeName" class="mb-2 form-control">
+                        </div>
+                    </div>
+                </div>
+                <div class="row clearfix">
+                    <div class="col-md-6">
+                        <a asp-controller="DegreeType" asp-action="Index" style="float:left;margin-top:20px" class="mb-2 mr-2 btn btn-shadow btn-success">Back to List</a>
+                    </div>
+                    <div class="col-sm-6">
+                        <button class="mb-2 mr-2 btn btn-shadow btn-info" type="submit" style="margin-left: -1px;float: right;margin-top: 20px">
+                            Submit
+                        </button>
+                    </div>
+                </div>
+            </form>
+
+        </div>
+    </div>
+
+</div>
