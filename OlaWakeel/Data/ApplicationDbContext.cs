@@ -43,6 +43,8 @@ namespace OlaWakeel.Data
         public DbSet<FavouriteLawyer> FavouriteLawyers { get; set; }
         public DbSet<Notification> Notifications { get; set; }
         public DbSet<RescheduleAppoint> RescheduleAppoints { get; set; }
+        public DbSet<PaymentMethods> PaymentMethods { get; set; }
+        public DbSet<Withdraw> Withdraws { get; set; }
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);

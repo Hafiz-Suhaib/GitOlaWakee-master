@@ -1371,5 +1371,118 @@ namespace OlaWakeel.Controllers
             return Ok();
 
         }
+
+
+        [HttpGet]
+        [Route("Payment")]
+        public ActionResult Payment(int userId, string userType, string Payment_Method,string Holder_Name,string Card_Number,string CV_Number, int Entered_Amount, string Expiry_Date)
+        {
+            var payment = new PaymentMethods();
+            payment.UserId = userId;
+            payment.UserType = userType;
+            payment.Payment_Method_Name = Payment_Method;
+            payment.Account_Holder_Name = Holder_Name;
+            payment.Card_Number = Card_Number;
+            payment.CV_Number = CV_Number;
+            payment.Expiry_Date = Convert.ToDateTime(Expiry_Date);
+            payment.Entered_Amount = Entered_Amount;
+            payment.Status = true;
+            payment.Date = DateTime.Now;
+            _context.PaymentMethods.Add(payment);
+            _context.SaveChanges();
+            var wallet = _context.Wallets.Where(a=>a.UserId == userId && a.WalletType == userType).SingleOrDefault();
+            wallet.WalletAmount += payment.Entered_Amount;
+            wallet.UserId = userId;
+            wallet.WalletType = userType;
+            _context.Wallets.Update(wallet);
+            _context.SaveChanges();
+
+            var History = new WalletHistory();
+            History.WalletHistoryAmount = payment.Entered_Amount;
+            History.WalletHistoryDisc = userType + " PaymentMethod is " + Payment_Method + " Pay Amout is " + payment.Entered_Amount + " at "+DateTime.Now ;
+            History.Status = true;
+            History.Date = DateTime.Now;
+            History.WalletId = wallet.WalletId;
+            _context.WalletHistories.Add(History);
+            _context.SaveChanges();
+
+            var not = new Notification();
+            not.Date = DateTime.Now;
+            not.NotificationSeen = false;
+            not.Usertype = userType;
+            not.Status = true;
+            not.NotificationTypeId = payment.PaymentMethod_Id;
+            not.NotificationType = "Payment";
+            not.NotificationMessage = History.WalletHistoryDisc;
+            //not.NotificationSubject = "";
+            not.UserId = userId;
+            _context.Notifications.Add(not);
+            _context.SaveChanges();
+
+            return Ok("Success!!!");
+
+        }
+
+        [HttpGet]
+        [Route("Withdarw")]
+        public ActionResult Withdarw(int userId, string userType, int Amount, string IBAN_Number)
+        {
+            var widthdraw = new Withdraw();
+            widthdraw.UserId = userId;
+            widthdraw.UserType = userType;
+            widthdraw.IBAN_Number = IBAN_Number;
+            widthdraw.Status = true;
+            widthdraw.Amount = Amount;
+            widthdraw.Date = DateTime.Now;
+            _context.Withdraws.Add(widthdraw);
+            _context.SaveChanges();
+
+            var wallet = _context.Wallets.Where(a => a.UserId == userId && a.WalletType == userType).SingleOrDefault();
+            wallet.WalletAmount -= widthdraw.Amount;
+            wallet.UserId = userId;
+            wallet.WalletType = userType;
+            _context.Wallets.Update(wallet);
+            _context.SaveChanges();
+
+            var History = new WalletHistory();
+            History.WalletHistoryAmount = widthdraw.Amount;
+            History.WalletHistoryDisc = userType + " Withdraw  Amount is " + widthdraw.Amount + " at " + DateTime.Now;
+            History.Status = true;
+            History.Date = DateTime.Now;
+            History.WalletId = wallet.WalletId;
+            _context.WalletHistories.Add(History);
+            _context.SaveChanges();
+
+            var not = new Notification();
+            not.Date = DateTime.Now;
+            not.NotificationSeen = false;
+            not.Usertype = userType;
+            not.Status = true;
+            not.NotificationTypeId = widthdraw.Withdraw_Id;
+            not.NotificationType = "Withdraw";
+            not.NotificationMessage = History.WalletHistoryDisc;
+            //not.NotificationSubject = "";
+            not.UserId = userId;
+            _context.Notifications.Add(not);
+            _context.SaveChanges();
+
+            Random rndm = new Random();
+            var s = (DateTime.Now.Second + DateTime.Now.Minute + DateTime.Now.Hour + DateTime.Now.Month + DateTime.Now.Year) + rndm.Next(0000, 9999);
+            
+            return Ok(s);
+
+        }
+
+        [HttpGet]
+        [Route("GetWithdarw")]
+        public ActionResult GetWithdarw(int userId, string userType)
+        {
+            var widthdraw = _context.Withdraws.Where(a => a.UserType == userType && a.UserId == userId).ToList() ;
+            
+
+            return Ok(widthdraw);
+
+        }
+
     }
 }
