@@ -37,6 +37,7 @@ namespace OlaWakeel.Controllers
     }
     public class LawyerPostApi : Controller
     {
+        private const string Lawyer = "Lawyer";
         private readonly ApplicationDbContext _context;
         private readonly UserManager<AppUser> _userManager;
         private readonly RoleManager<AppRole> _roleManager;
@@ -54,7 +55,11 @@ namespace OlaWakeel.Controllers
             _customerService = customerService;
             _env = env;
         }
-
+        /// <summary>
+        /// thtiffddf dfgere
+        /// </summary>
+        /// <param name="dateOfBirth">date</param>
+        /// <returns></returns>
         private static int CalculateAge(DateTime dateOfBirth)
         {
             int age = 0;
@@ -64,7 +69,22 @@ namespace OlaWakeel.Controllers
 
             return age;
         }
+        [HttpGet]
+        public async Task<JsonResult> UpdateLawyer(int userId, string number)
+        {
+            var lawyer = _context.Lawyers.Find(userId);
+            var user = _context.Users.SingleOrDefault(s => s.Id == lawyer.AppUserId);
+            lawyer.Contact = number;
+            user.PhoneNumber = number;
+            IdentityResult result = await _userManager.UpdateAsync(user);
+            _context.Lawyers.Update(lawyer);
+            _context.SaveChanges();
 
+
+            return Json("Success");
+
+        }
+      
         //For Create Lawyer'
         [HttpGet]
         //[Route("CreateLawyer")]
@@ -84,7 +104,7 @@ namespace OlaWakeel.Controllers
                 if (result.Succeeded)
                 {
                     lawyer.AppUserId = user.Id;
-                    await _userManager.AddToRoleAsync(user, "Lawyer");
+                    await _userManager.AddToRoleAsync(user, Lawyer);
                     lawyer.FirstName = FirstName;
                     lawyer.LastName = LastName;
                     lawyer.Contact = PhoneNo;
@@ -599,9 +619,8 @@ namespace OlaWakeel.Controllers
                 var lawyer = await _context.Lawyers.FindAsync(lawyerPackage[0].LawyerId);
                 foreach (var packages in lawyerPackage)
                 {
-                    if(packages.SlotType== "In-Person")
+                    if(packages.SlotType.ToLower() == "inperson")
                     {
-                        packages.SlotType = "InPerson";
                         packages.Check2 = false;
                     }
                     else
@@ -618,7 +637,8 @@ namespace OlaWakeel.Controllers
                     {
                         packages.Check = true;
                     }
-
+                    packages.Status = true;
+                    packages.Date = DateTime.Now;
                     await _context.LawyerTimings.AddAsync(packages);
                 }
                 await _context.SaveChangesAsync();
@@ -1564,72 +1584,85 @@ namespace OlaWakeel.Controllers
 
             try
             {
-                List<LawyerTiming> EditLawyerPackage = JsonConvert.DeserializeObject<LawyerTiming[]>(form["EditPackages"].ToString()).ToList();
-                List<LawyerTiming> NewLawyerPackage = JsonConvert.DeserializeObject<LawyerTiming[]>(form["NewPackages"].ToString()).ToList();
-                List<LawyerTiming> DeletedLawyerPackage = JsonConvert.DeserializeObject<LawyerTiming[]>(form["DeletedPackages"].ToString()).ToList();
+                List<LawyerTiming> LawyerPackage = JsonConvert.DeserializeObject<LawyerTiming[]>(form["Packages"].ToString()).ToList();
+                //List<LawyerTiming> NewLawyerPackage = JsonConvert.DeserializeObject<LawyerTiming[]>(form["NewPackages"].ToString()).ToList();
+                //List<LawyerTiming> DeletedLawyerPackage = JsonConvert.DeserializeObject<LawyerTiming[]>(form["DeletedPackages"].ToString()).ToList();
 
-                var EditLawyerPackage1 = EditLawyerPackage.Where(a => !DeletedLawyerPackage.Any(x => x.LawyerTimingId == a.LawyerTimingId)).ToList();
+                //var EditLawyerPackage1 = EditLawyerPackage.Where(a => !DeletedLawyerPackage.Any(x => x.LawyerTimingId == a.LawyerTimingId)).ToList();
+                var Packages = _context.LawyerTimings.Where(a => a.LawyerId == LawyerPackage[0].LawyerId && a.SlotDate == LawyerPackage[0].SlotDate).ToList();
 
-                //if (NewLawyerPackage.Count() > 0)
-                //{
-                //    foreach (var packages in NewLawyerPackage)
-                //    {
-                //        if (packages.SlotType == "InPerson")
-                //        {
-                //            packages.Check2 = false;
-                //        }
-                //        else
-                //        {
-                //            packages.Check2 = true;
-                //            packages.Location = "Online Video Consultation (Online)";
-                //        }
+                var editPackages = LawyerPackage.Where(a => Packages.Any(x => x.LawyerTimingId == a.LawyerTimingId)).ToList();
+               // var editPackages2 = Packages.Where(a => LawyerPackage.Any(x => x.LawyerTimingId == a.LawyerTimingId)).ToList();
 
-                //        if (packages.AppoinmentFee == "Fee")
-                //        {
-                //            packages.Check = false;
-                //        }
-                //        else
-                //        {
-                //            packages.Check = true;
-                //        }
+                var delPackages = Packages.Where(a => !LawyerPackage.Any(x => x.LawyerTimingId == a.LawyerTimingId)).ToList();
 
-                //        await _context.LawyerTimings.AddAsync(packages);
-                //    }
-                //    await _context.SaveChangesAsync();
-                //}
-                //if (EditLawyerPackage1.Count() > 0)
-                //{
-                //    foreach (var packages in EditLawyerPackage1)
-                //    {
-                //        if (packages.SlotType == "InPerson")
-                //        {
-                //            packages.Check2 = false;
-                //            packages.Location = "";
-                //        }
-                //        else
-                //        {
-                //            packages.Check2 = true;
-                //            packages.Location = "Online Video Consultation (Online)";
-                //        }
+                var NewPackages = LawyerPackage.Where(a => a.LawyerTimingId==0).ToList();
 
-                //        if (packages.AppoinmentFee == "Fee")
-                //        {
-                //            packages.Check = false;
-                //        }
-                //        else
-                //        {
-                //            packages.Check = true;
-                //        }
 
-                //    }
-                //    _context.LawyerTimings.UpdateRange(EditLawyerPackage1);
-                //    await _context.SaveChangesAsync();
-                //}
-                //if (DeletedLawyerPackage.Count() > 0)
-                //{
-                //    _context.LawyerTimings.RemoveRange(DeletedLawyerPackage);
-                //    await _context.SaveChangesAsync();
-                //}
+
+                if (NewPackages.Count() > 0)
+                {
+                    foreach (var packages in NewPackages)
+                    {
+                        if (packages.SlotType.ToLower() == "inperson")
+                        {
+                            packages.Check2 = false;
+                        }
+                        else
+                        {
+                            packages.Check2 = true;
+                            packages.Location = "Online Video Consultation (Online)";
+                        }
+
+                        packages.Status = true;
+                        await _context.LawyerTimings.AddAsync(packages);
+                    }
+                    await _context.SaveChangesAsync();
+                }
+                if (editPackages.Count() > 0)
+                {
+                    foreach (var packages in editPackages)
+                    {
+                        var pak = Packages.Where(a => a.LawyerTimingId == packages.LawyerTimingId).SingleOrDefault();
+                        pak.Charges = packages.Charges;
+                        pak.Day = packages.Day;
+                        pak.EndTime24 = packages.EndTime24;
+                        pak.InternationalCharges = packages.InternationalCharges;
+                        pak.InternationalIndex = packages.InternationalIndex;
+                        pak.LocalIndex = packages.LocalIndex;
+                        pak.Location = packages.Location;
+                        pak.SlotDate = packages.SlotDate;
+                        pak.SlotType = packages.SlotType;
+                        pak.StartTime24 = packages.StartTime24;
+                        pak.TimeFrom = packages.TimeFrom;
+                        pak.TimeTo = packages.TimeTo;
+                        if (packages.SlotType.ToLower() == "inperson")
+                        {
+                            pak.Check2 = false;
+                            pak.Location = "";
+                        }
+                        else
+                        {
+                            pak.Check2 = true;
+                            pak.Location = "Online Video Consultation (Online)";
+                        }
+
+                        _context.LawyerTimings.Update(pak);
+                    }
+                   
+                    await _context.SaveChangesAsync();
+                }
+                if (delPackages.Count() > 0)
+                {
+                    foreach (var packages in delPackages)
+                    {
+                        packages.Status = false;
+                        _context.LawyerTimings.Update(packages);
+                    }
+                    
+                    //_context.LawyerTimings.RemoveRange(delPackages);
+                    await _context.SaveChangesAsync();
+                }
 
                 var LawyerData = new
                 {

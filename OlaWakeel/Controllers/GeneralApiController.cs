@@ -6,8 +6,6 @@ using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -174,18 +172,26 @@ namespace OlaWakeel.Controllers
                         LawyerServiceId = c.LawyerCaseCategoryId,
                         CaseCategoryId = c.CaseCategoryId,
                     }).ToList(),
-                    LawyerPackages = _context.LawyerTimings.OrderByDescending(or => or.LawyerAddressId).Where(t => t.LawyerId == x.LawyerId).Select(p => new
+                    LawyerPackages = _context.LawyerTimings.OrderByDescending(or => or.LawyerAddressId).Where(t => t.LawyerId == x.LawyerId && t.Status && t.SlotDate.Date >= DateTime.Now.Date).Select(p => new
                     {
                         Day = p.Day,
                         StartTime = p.TimeFrom,
                         EndTime = p.TimeTo,
                         Location = p.Location,
                         PackageType = p.SlotType,
-                        Fee = p.Charges,
+                        LocalCharges = p.Charges,
                         OfficeAddressId = p.LawyerAddressId,
                         OfficeAddress = p.LawyerAddress.Address,
                         Check1 = p.Check,
-                        Check2 = p.Check2
+                        Check2 = p.Check2,
+                        InternationalCharges=p.InternationalCharges,
+                        SlotDate=p.SlotDate,
+                        InternationalIndex = p.InternationalIndex,
+                        LocalIndex = p.LocalIndex,
+                        StartTime24 = p.StartTime24,
+                        EndTime24 = p.EndTime24
+
+
                     }).ToList(),
                     LawyerDegree = _context.LawyerQualifications.Where(de => de.LawyerId == x.LawyerId).Select(d => new
                     {
@@ -330,18 +336,24 @@ namespace OlaWakeel.Controllers
                         CaseCategoryId = c.CaseCategoryId,
                     }).ToList(),
                     LawyerDegree = _context.LawyerQualifications.Where(de => de.LawyerId == x.LawyerId).Select(d => new { DegreeType = d.Degree.DegreeTypes.TypeName, DegreeYear = d.Degree.EligibleAfter, CompletionYear = d.CompletionYear, DegreeName = d.Degree.Name }).ToList(),
-                    LawyerPackages = _context.LawyerTimings.OrderByDescending(a => a.LawyerAddressId).Where(t => t.LawyerId == x.LawyerId).Select(p => new
+                    LawyerPackages = _context.LawyerTimings.OrderByDescending(a => a.LawyerAddressId).Where(t => t.LawyerId == x.LawyerId && t.Status && t.SlotDate.Date >= DateTime.Now.Date).Select(p => new
                     {
                         Day = p.Day,
                         StartTime = p.TimeFrom,
                         EndTime = p.TimeTo,
                         Location = p.Location,
                         PackageType = p.SlotType,
-                        Fee = p.Charges,
+                        LocalCharges = p.Charges,
                         OfficeAddressId = p.LawyerAddressId,
                         OfficeAddress = p.LawyerAddress.Address,
                         Check1 = p.Check,
-                        Check2 = p.Check2
+                        Check2 = p.Check2,
+                        InternationalCharges = p.InternationalCharges,
+                        SlotDate = p.SlotDate,
+                        InternationalIndex = p.InternationalIndex,
+                        LocalIndex = p.LocalIndex,
+                        StartTime24 = p.StartTime24,
+                        EndTime24 = p.EndTime24
                     }).ToList(),
                     OfficeLocation = _context.LawyerAddresses.Where(a => a.LawyerId == lawyerid).Select(loc => new
                     {
@@ -755,7 +767,7 @@ namespace OlaWakeel.Controllers
                         SpecializationName = d.Specialization.SpecializationName,
                         DegreeName = d.Degree.Name
                     }).ToList(),
-                    LawyerPackages = _context.LawyerTimings.Where(t => t.LawyerId == lawyerid).Select(p => new
+                    LawyerPackages = _context.LawyerTimings.Where(t => t.LawyerId == lawyerid && t.Status && t.SlotDate.Date >= DateTime.Now.Date).Select(p => new
                     {
                         LawyerPackageId = p.LawyerTimingId,
                         Day = p.Day,
@@ -763,10 +775,16 @@ namespace OlaWakeel.Controllers
                         EndTime = p.TimeTo,
                         Location = p.Location,
                         PackageType = p.SlotType,
-                        Fee = p.Charges,
+                        LocalCharges = p.Charges,
                         OfficeAddressId = p.LawyerAddressId,
                         Check1 = p.Check,
-                        Check2 = p.Check2
+                        Check2 = p.Check2,
+                        InternationalCharges = p.InternationalCharges,
+                        SlotDate = p.SlotDate,
+                        InternationalIndex=p.InternationalIndex,
+                        LocalIndex=p.LocalIndex,
+                        StartTime24=p.StartTime24,
+                        EndTime24=p.EndTime24
                     }).ToList(),
 
                     LawyerOffices = _context.LawyerAddresses.Where(a => a.LawyerId == lawyerid).Select(s => new
@@ -1203,18 +1221,25 @@ namespace OlaWakeel.Controllers
             try
             {
 
-                var LawyerPackages = _context.LawyerTimings.Where(t => t.LawyerId == id).Select(p => new
+                var LawyerPackages = _context.LawyerTimings.Where(t => t.LawyerId == id && t.Status && t.SlotDate.Date >= DateTime.Now.Date).Select(p => new
                 {
+                    LawyerPackageId = p.LawyerTimingId,
                     Day = p.Day,
                     StartTime = p.TimeFrom,
                     EndTime = p.TimeTo,
                     Location = p.Location,
                     PackageType = p.SlotType,
-                    Fee = p.Charges,
+                    LocalCharges = p.Charges,
                     OfficeAddressId = p.LawyerAddressId,
                     OfficeAddress = p.LawyerAddress.Address,
                     Check1 = p.Check,
-                    Check2 = p.Check2
+                    Check2 = p.Check2,
+                    InternationalCharges = p.InternationalCharges,
+                    SlotDate = p.SlotDate,
+                    InternationalIndex = p.InternationalIndex,
+                    LocalIndex = p.LocalIndex,
+                    StartTime24 = p.StartTime24,
+                    EndTime24 = p.EndTime24
                 }).ToList();
 
 
@@ -1467,7 +1492,7 @@ namespace OlaWakeel.Controllers
             _context.SaveChanges();
 
             Random rndm = new Random();
-            var s = (DateTime.Now.Second + DateTime.Now.Minute + DateTime.Now.Hour + DateTime.Now.Month + DateTime.Now.Year) + rndm.Next(0000, 9999);
+            var s =  rndm.Next(100000, 999999);
             
             return Ok(s);
 
@@ -1483,6 +1508,21 @@ namespace OlaWakeel.Controllers
             return Ok(widthdraw);
 
         }
+        [HttpGet]
+        [Route("delPack")]
+        public ActionResult delPack(int lawyerid)
+        {
+            var t = new LawyerTiming();
+            var lt = _context.LawyerTimings.Where(a=>a.LawyerId==lawyerid).ToList();
+
+            _context.LawyerTimings.RemoveRange(lt);
+            _context.SaveChanges();
+
+            return Ok(true);
+
+        }
+
+
 
     }
 }

@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using OlaWakeel.Data;
 
 namespace OlaWakeel.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200929070857_newPackages")]
+    partial class newPackages
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -795,8 +797,8 @@ namespace OlaWakeel.Migrations
                     b.Property<string>("AppoinmentFee")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("Charges")
-                        .HasColumnType("int");
+                    b.Property<float>("Charges")
+                        .HasColumnType("real");
 
                     b.Property<bool>("Check")
                         .HasColumnType("bit");
@@ -810,14 +812,8 @@ namespace OlaWakeel.Migrations
                     b.Property<string>("Day")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("EndTime24")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("InternationalCharges")
-                        .HasColumnType("int");
-
-                    b.Property<int>("InternationalIndex")
-                        .HasColumnType("int");
+                    b.Property<float>("InternationalCharges")
+                        .HasColumnType("real");
 
                     b.Property<int?>("LawyerAddressId")
                         .HasColumnType("int");
@@ -825,29 +821,20 @@ namespace OlaWakeel.Migrations
                     b.Property<int>("LawyerId")
                         .HasColumnType("int");
 
-                    b.Property<int>("LocalIndex")
-                        .HasColumnType("int");
-
                     b.Property<string>("Location")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("SlotDate")
-                        .HasColumnType("datetime2");
-
                     b.Property<string>("SlotType")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("StartTime24")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("Status")
-                        .HasColumnType("bit");
 
                     b.Property<string>("TimeFrom")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("TimeTo")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("slotDate")
+                        .HasColumnType("datetime2");
 
                     b.HasKey("LawyerTimingId");
 
