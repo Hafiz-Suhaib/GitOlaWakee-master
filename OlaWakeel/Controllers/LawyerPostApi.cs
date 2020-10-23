@@ -1589,7 +1589,7 @@ namespace OlaWakeel.Controllers
                 //List<LawyerTiming> DeletedLawyerPackage = JsonConvert.DeserializeObject<LawyerTiming[]>(form["DeletedPackages"].ToString()).ToList();
 
                 //var EditLawyerPackage1 = EditLawyerPackage.Where(a => !DeletedLawyerPackage.Any(x => x.LawyerTimingId == a.LawyerTimingId)).ToList();
-                var Packages = _context.LawyerTimings.Where(a => a.LawyerId == LawyerPackage[0].LawyerId && a.SlotDate == LawyerPackage[0].SlotDate).ToList();
+                var Packages = _context.LawyerTimings.Where(a => a.LawyerId == LawyerPackage[0].LawyerId && a.SlotDate == LawyerPackage[0].SlotDate && a.Status).ToList();
 
                 var editPackages = LawyerPackage.Where(a => Packages.Any(x => x.LawyerTimingId == a.LawyerTimingId)).ToList();
                // var editPackages2 = Packages.Where(a => LawyerPackage.Any(x => x.LawyerTimingId == a.LawyerTimingId)).ToList();
