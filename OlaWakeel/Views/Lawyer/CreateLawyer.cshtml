@@ -103,12 +103,15 @@
                                                                         </select>
                                                                     </td>
                                                                     <td ng-init="getSpecialization()">
-                                                                        <select class="mb-2 form-control" ng-disabled="quali.check" name="fieldName" ng-model="quali.specializationId" ng-options="special.specializationId as special.specializationName for special in specializationList ">
+                                                                        <select class="mb-2 form-control" @*ng-disabled="quali.check"*@ name="fieldName" ng-model="quali.specializationId" ng-options="special.specializationId as special.specializationName for special in specializationList ">
                                                                             <option value="" disabled>Select Field Name</option>
                                                                         </select>
                                                                     </td>
                                                                     <td>
-                                                                        <input class="mb-2 form-control" ng-change="validateEducation()" ng-model="quali.completionYear" type="number" placeholder="eg:2020" />
+
+                                                                        @*<input class="mb-2 form-control" ng-change="validateEducation()" ng-model="quali.completionYear" type="number" placeholder="eg:2020" />*@
+                                                                        <input class="mb-2 form-control" ng-change="DegreeYearValidateEducation($index)" ng-model="quali.completionYear" type="number" placeholder="eg:2020" />
+
                                                                     </td>
                                                                     <td style="text-align:right;"><button ng-click="removeQualification($index)" class="mb-2 mr-2 btn-icon btn-icon-only btn-shadow btn-dashed btn btn-outline-danger"><i class="pe-7s-trash btn-icon-wrapper"> </i></button></td>
                                                                 </tr>
@@ -393,8 +396,11 @@
                                                                                     </select>
                                                                                 </td>
 
-                                                                                <td><input ng-model="license.districtBar" ng-change="validateLaw()" ng-disabled="license.check" placeholder="Enter License Number Ex: 090078601" type="number" class="mb-2 form-control"></td>
-                                                                                <td><input ng-model="license.cityBar" ng-change="validateLaw()" ng-disabled="license.check" placeholder="Enter License Number Ex: 090078601" type="number" class="mb-2 form-control"></td>
+                                                                                <td><input ng-model="license.districtBar" ng-change="DistrictBarVaidateLaw($index)" @*ng-disabled="license.check"*@ placeholder="Enter License Number Ex: 090078601" type="number" class="mb-2 form-control"></td>
+                                                                                <td><input ng-model="license.cityBar" ng-change="CityBarValidateLaw($index)" @*ng-disabled="license.check"*@ placeholder="Enter License Number Ex: 090078601" type="number" class="mb-2 form-control"></td>
+
+                                                                                <!--<td><input ng-model="license.cityBar" ng-change="validateLaw()"--> @*ng-disabled="license.check"*@ <!--placeholder="Enter License Number Ex: 090078601" type="number" class="mb-2 form-control"></td>-->
+                                                                              
                                                                                 <td style="text-align:right;"><button ng-click="removeLawyerLicense($index)" class="mb-2 mr-2 btn-icon btn-icon-only btn-shadow btn-dashed btn btn-outline-danger"><i class="pe-7s-trash btn-icon-wrapper"> </i></button></td>
                                                                             </tr>
                                                                         </tbody>
@@ -518,15 +524,15 @@
                                                 <div class="position-relative form-group">
                                                     <div class="">
                                                         <br>
-                                                        <h5 class="card-title">Select Days & Timing</h5>
+                                                        <h5 class="card-title">Select Date & Timing</h5>
                                                         <table class="mb-0 table">
                                                             <thead>
                                                                 <tr>
-                                                                    <th width="12%">Day</th>
+                                                                    <th width="12%">Date</th>
                                                                     <th width="12%">Slot Type</th>
                                                                     <th width="24%">Location</th>
-                                                                    <th width="13%">Appoinment Fee</th>
-                                                                    <th width="10%">charges</th>
+                                                                    <th width="13%">Local Charges</th>
+                                                                    <th width="10%">International Charges</th>
                                                                     <th width="14%">Time From</th>
                                                                     <th width="14%">Time To</th>
                                                                     <th style="text-align:right;">
@@ -537,9 +543,15 @@
                                                             <tbody>
                                                                 <tr ng-repeat="time in lawyerTimings">
                                                                     <td>
-                                                                        <select ng-model="time.day" ng-change="validatePakage()" name="day" ng-options="d.id as d.name for d in days " class="mb-2 form-control">
-                                                                            <option value="">Day</option>
-                                                                        </select>
+                                                                        <div class="position-relative form-group">
+                                                                           
+                                                                            <input ng-change="validateIntro()" ng-model="addLawyerProfile.Date" @*id="dob"*@ @*placeholder="mm/dd/yyyy"*@ type="date" class="form-control" @*data-toggle="datepicker"*@>
+                                                                        </div>
+
+
+                                                                        @*<select ng-model="time.day" ng-change="validatePakage()" name="day" ng-options="d.id as d.name for d in days " class="mb-2 form-control">
+                                                                              <option value="">Day</option>
+                                                                                      </select>*@
                                                                     </td>
                                                                     <td>
                                                                         <select class="mb-2 form-control" ng-model="time.slotType" ng-change="validateSlotType($index,time.slotType)">
@@ -554,14 +566,30 @@
                                                                         </select>
                                                                     </td>
                                                                     <td>
-                                                                        <select class="mb-2 form-control" ng-model="time.appoinmentFee" ng-change="validateFee($index,time.appoinmentFee)">
-                                                                            <option value="">Select Fee</option>
-                                                                            <option value="Free">Free</option>
-                                                                            <option value="Fee">Fee</option>
-                                                                        </select>
-                                                                    </td>
+                                                                        <select class="mb-2 form-control" ng-model="time.Charges" ng-change="validateFee($index,time.Charges)">
+                                                                        <option value="">Select Charges</option>
+                                                                        <option value="100">100</option>
+                                                                        <option value="200">200</option>
+                                                                         </select>
+                                                                        @*<select class="mb-2 form-control" ng-model="time.appoinmentFee" ng-change="validateFee($index,time.appoinmentFee)">
+                                                                          <option value="">Select Fee</option>
+                                                                         <option value="Free">Free</option>
+                                                                          <option value="Fee">Fee</option>
+                                                                           </select>*@
+                                                                       </td>
                                                                     <td>
-                                                                        <input type="number" ng-change="validatePakage()" ng-disabled="time.check" ng-model="time.charges" class="mb-2 form-control" />
+
+
+                                                                        @*<input type="number" ng-change="validatePakage()" ng-model="time.charges" class="mb-2 form-control" />*@
+
+                                                                        <select class="mb-2 form-control" ng-model="time.InternationalCharges" ng-change="validateFee($index,time.InternationalCharges)">
+                                                                            <option value="">Select Charges</option>
+                                                                            <option value="99">99</option>
+                                                                            <option value="299">290</option>
+                                                                        </select>
+
+                                                                        @*<input type="number" ng-change="validatePakage()" ng-disabled="time.check" ng-model="time.charges" class="mb-2 form-control" />*@
+
                                                                     </td>
                                                                     <td>
                                                                         <select class="mb-2 form-control" ng-change="validatePakage()" name="timeFrom" ng-model="time.timeFrom" ng-options="time.id as time.time for time in timeList ">
@@ -596,19 +624,24 @@
                                             <div class="swal2-success-circular-line-right" style="background-color: rgb(255, 255, 255);"></div>
                                         </div>
                                         <div class="results-subtitle mt-4">Finished!</div>
-                                        <div class="results-title">You arrived at the last ofrm wizard Test!</div>
+                                        <div class="results-title">You arrived at the last form wizard Test!</div>
                                         <div class="mt-3 mb-3"></div>
+                                        @*<div class="text-center">
+                                            <button class="btn-shadow btn-wide btn btn-success btn-lg">Finish</button>
+                                        </div>*@
                                         <div class="text-center">
-                                            <button ng-click="addLawyer()" class="btn-shadow btn-wide btn btn-success btn-lg">Finish</button>
+                                            <button type="button" ng-click="addLawyer()" class="btn-shadow btn-wide btn btn-success btn-lg">Finish</button>
                                         </div>
                                     </div>
-                                </div>
+                                </div>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  
                             </div>
                         </div>
                         <div class="divider"></div>
                         <div class="clearfix">
                             <button type="button" id="reset-btn" class="btn-shadow float-left btn btn-link">Reset</button>
-                            <button ng-disabled="btnNext" ng-click="btnNextFunc()" type="button" id="next-btn" class="btn-shadow btn-wide float-right btn-pill btn-hover-shine btn btn-primary">Next</button>
+                            <button ng-click="btnNextFunc()" type="button" id="next-btn" class="btn-shadow btn-wide float-right btn-pill btn-hover-shine btn btn-primary">Next</button>
+                            @*<button ng-disabled="btnNext" ng-click="btnNextFunc()" type="button" id="next-btn" class="btn-shadow btn-wide float-right btn-pill btn-hover-shine btn btn-primary">Next</button>*@
+
                             <button type="button" id="prev-btn" ng-click="btnPrevFunc()" class="btn-shadow float-right btn-wide btn-pill mr-3 btn btn-outline-secondary">Previous</button>
                         </div>
                     </div>

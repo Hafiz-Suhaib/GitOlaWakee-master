@@ -1,0 +1,451 @@
+﻿@model IEnumerable<OlaWakeel.Models.Appointment>
+
+@{
+    Layout = "_Layout1";
+    ViewData["Title"] = "Index";
+}
+<div>
+    <div>
+        <div>
+            <div class="app-page-title">
+                <div class="page-title-wrapper">
+                    <div class="page-title-heading">
+                        <div class="page-title-icon">
+                            <i class="pe-7s-cash icon-gradient bg-mean-fruit"></i>
+                        </div>
+                        <div>
+                            Appointment
+                        </div>
+                    </div>
+                </div>
+            </div>
+            @*<button type="button" class="btn mr-2 mb-2 btn-primary" data-toggle="modal" data-target=".bd-example-modal-lg">Large modal</button>
+                <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-lg">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <p>
+                                    Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas
+                                    eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.
+                                </p>
+                                <p>
+                                    Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel augue
+                                    laoreet rutrum faucibus dolor auctor.
+                                </p>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-primary">Save changes</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>*@
+            <div class="card mb-3">
+                <div class="card-header-tab card-header">
+                    <div class="card-header-title font-size-lg text-capitalize font-weight-normal">
+                        All Appointments
+                    </div>
+
+                    <div class="btn-actions-pane-right actions-icon-btn">
+                        <a href="/Appointments/Create" class="mb-2 mr-2 btn btn-shadow btn-success">Add</a>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div id="example_wrapper" class="dataTables_wrapper dt-bootstrap4">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div id="example_wrapper" class="dataTables_wrapper dt-bootstrap4">
+                                    <div class="row">
+
+                                        <div class="col-sm-12">
+                                            <table style="width: 100%;" id="example" class="table table-hover table-striped table-bordered dataTable dtr-inline listing-datatable" role="grid" aria-describedby="example_info">
+
+                                                <thead>
+                                                    <tr role="row">
+                                                        <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" style="width: 208.2px;" aria-sort="ascending" aria-label="#Serial: activate to sort column descending">AppointmentCode</th>
+                                                        @*<th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" style="width: 294.2px;" aria-label="Type Name: activate to sort column ascending">LawyerAddress</th>*@
+                                                        <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" style="width: 245.2px;" aria-label="Actions: activate to sort column ascending">CaseCategory</th>
+                                                        @*<th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" style="width: 245.2px;" aria-label="Actions: activate to sort column ascending">TimeFrom</th>
+                                                            <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" style="width: 245.2px;" aria-label="Actions: activate to sort column ascending">TimeTo</th>*@
+                                                        <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" style="width: 245.2px;" aria-label="Actions: activate to sort column ascending">CaseCharges</th>
+                                                        <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" style="width: 245.2px;" aria-label="Actions: activate to sort column ascending">ScheduleDate</th>
+                                                        @*<th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" style="width: 245.2px;" aria-label="Actions: activate to sort column ascending">Rating</th>*@
+                                                        @*<th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" style="width: 245.2px;" aria-label="Actions: activate to sort column ascending">AppoinmentType</th>*@
+                                                        <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" style="width: 245.2px;" aria-label="Actions: activate to sort column ascending">AppoinmentStatus</th>
+                                                        <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" style="width: 245.2px;" aria-label="Actions: activate to sort column ascending">Date</th>
+                                                        @*<th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" style="width: 245.2px;" aria-label="Actions: activate to sort column ascending">Customer</th>
+                                                            <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" style="width: 245.2px;" aria-label="Actions: activate to sort column ascending">Lawyer</th>*@
+                                                        <th> Actions </th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+
+
+                                                    @foreach (var item in Model)
+                                                    {
+
+                                                        <tr role="row" class="odd">
+                                                            <td>
+
+                                                                @*@Html.ActionLink("@item.AppointmentCode", "Active","Appointments")*@
+
+
+
+                                                                <button type="button" class="text-left m-0 p-0 btn  btn-block" data-toggle="modal" data-target=".bd-example-modal-lg">@item.AppointmentCode</button>
+
+                                                                @*<button type="button" class="btn mr-2 mb-2 btn-primary" data-toggle="modal" data-target=".bd-example-modal-lg">@item.AppointmentCode</button>*@
+
+                                                                <!-- Large modal -->
+                                                                @*<div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+                                                                        <div class="modal-dialog modal-lg">
+                                                                            <div class="modal-content">
+                                                                                <div class="modal-header">
+                                                                                    <h5 class="modal-title" id="exampleModalLongTitle">Appointments Details</h5>
+                                                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                                        <span aria-hidden="true">&times;</span>
+                                                                                    </button>
+                                                                                </div>
+                                                                                <div class="modal-body">
+                                                                                    <p>
+                                                                                        Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas
+                                                                                        eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.
+                                                                                    </p>
+                                                                                    <p>
+                                                                                        Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel augue
+                                                                                        laoreet rutrum faucibus dolor auctor.
+                                                                                    </p>
+                                                                                </div>
+                                                                                <div class="modal-footer">
+                                                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                                                    <button type="button" class="btn btn-primary">Save changes</button>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>*@
+
+
+
+
+                                                                <!-- Fix Large modal Practice-->
+                                                                @*<div class="modal fade bd-example-modal-lg show" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" style="display: block;" aria-modal="true">
+                                                                        <div class="modal-dialog modal-lg">
+                                                                            <div class="modal-content">
+                                                                                <div class="modal-header">
+                                                                                    <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+                                                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                                        <span aria-hidden="true">×</span>
+                                                                                    </button>
+                                                                                </div>
+                                                                                <div class="modal-body">
+                                                                                    <p>
+                                                                                        Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas
+                                                                                        eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.
+                                                                                    </p>
+                                                                                    <p>
+                                                                                        Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel augue
+                                                                                        laoreet rutrum faucibus dolor auctor.
+                                                                                    </p>
+                                                                                </div>
+                                                                                <div class="modal-footer">
+                                                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                                                    <button type="button" class="btn btn-primary">Save changes</button>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>*@
+                                                                <!--Fix Large modal -->
+                                                                @*<div class="modal fade bd-example-modal-lg show" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" style="display: block;" aria-modal="true">
+                                                                        <div class="modal-dialog modal-lg">
+                                                                            <div class="modal-content">
+                                                                                <div class="modal-header">
+                                                                                    <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+                                                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                                        <span aria-hidden="true">×</span>
+                                                                                    </button>
+                                                                                </div>
+                                                                                <div class="modal-body">
+                                                                                    <p>
+                                                                                        Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas
+                                                                                        eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.
+                                                                                    </p>
+                                                                                    <p>
+                                                                                        Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel augue
+                                                                                        laoreet rutrum faucibus dolor auctor.
+                                                                                    </p>
+                                                                                </div>
+                                                                                <div class="modal-footer">
+                                                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                                                    <button type="button" class="btn btn-primary">Save changes</button>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>*@
+
+
+                                                                <!-- Small dropdown on AppointmentCode -->
+                                                                @*<button type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="btn-shadow dropdown-toggle btn btn-info">
+                                                                    <span class="btn-icon-wrapper pr-2 opacity-7">
+                                                                                <i class="fa fa-business-time fa-w-20"></i>
+                                                                            </span>
+                                                                               @item.AppointmentCode
+                                                                                   </button>*@
+                                                                @*<div tabindex="-1" role="menu" aria-hidden="true" class="dropdown-menu dropdown-menu-left">
+                                                                    <ul class="nav flex-column">
+                                                                         <li class="nav-item">
+                                                                            <a class="btn btn-info" asp-action="Active" asp-route-id="@item.AppointmentCode">
+                                                                      <i>Active </i>
+                                                                                </a>
+                                                                             </li>
+                                                                             <br />
+                                                                             <li class="nav-item">
+                                                                           <a class="btn btn-info" asp-action="Pending" asp-route-id="@item.AppointmentCode">
+                                                                          <i>Pending </i>
+                                                                         </a>
+                                                                            </li>
+                                                                             <br />
+                                                                                 <li class="nav-item">
+                                                                                 <a class="btn btn-info" asp-action="Rescheduled" asp-route-id="@item.AppointmentCode">
+                                                                                        <i>Rescheduled </i>
+                                                                             </a>
+                                                                           </li>
+                                                                                  </ul>
+                                                                        </div>*@
+
+                                                            </td>
+
+                                                            @*<td type="button" aria-haspopup="true" aria-expanded="false" data-toggle="dropdown" class="dtr-control sorting_1 mb-2 mr-2 dropdown-toggle">  @item.AppointmentCode</td>*@
+
+                                                            @*<button type="button" aria-haspopup="true" aria-expanded="false" data-toggle="dropdown" class="mb-2 mr-2 dropdown-toggle btn btn-primary">
+                                                                    @item.AppointmentCode
+                                                                </button>*@
+
+                                                            @*<td class="dtr-control sorting_1" >  @item.AppointmentCode</td>*@
+
+
+                                                            @*<button type="button" aria-haspopup="true" aria-expanded="false" data-toggle="dropdown" class="mb-2 mr-2 dropdown-toggle btn btn-primary">
+                                                                 @item.AppointmentCode
+                                                                </button>*@
+
+
+                                                            @*<td class="dtr-control sorting_1" tabindex="0"> @item.LawyerAddressId</td>*@
+
+                                                            <td> @item.CaseCategoryId </td>
+                                                            @*<td> @item.TimeFrom </td>
+                                                                <td> @item.TimeTo </td>*@
+                                                            <td> @item.CaseCharges </td>
+                                                            <td> @item.ScheduleDate</td>
+                                                            @*<td> @item.Rating </td>*@
+                                                            @*<td> @item.AppoinmentType </td>*@
+                                                            <td> @item.AppoinmentStatus</td>
+                                                            <td> @item.Date</td>
+                                                            @*<td> @item.CustomerId </td>
+                                                                <td> @item.LawyerId </td>*@
+                                                            <td>
+                                                                @*<a class="btn btn-success" asp-action="Edit" asp-route-id="@item.AppoinmentId">
+                                                                           <i class="fas fa-pencil-alt"></i>
+                                                                    </a> |*@
+                                                                <a class="btn btn-info" asp-action="Details" asp-route-id="@item.AppoinmentId">
+                                                                    <i class="fas fa-pencil-alt"></i>
+                                                                </a> @*|
+                                                                    <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.AppoinmentId">
+                                                                      <i class="fas fa-trash-alt"></i>
+                                                                         </a>*@
+                                                            </td>
+                                                        </tr>
+                                                    }
+                                                </tbody>
+                                                <tfoot>
+                                                    <tr>
+                                                        <th rowspan="1" colspan="1"> AppointmentCode</th>
+                                                        @*<th rowspan="1" colspan="1">LawyerAddress</th>*@
+                                                        <th rowspan="1" colspan="1">CaseCategory</th>
+                                                        @*<th rowspan="1" colspan="1">TimeFrom</th>
+                                                            <th rowspan="1" colspan="1">TimeTo</th>*@
+                                                        <th rowspan="1" colspan="1">CaseCharges</th>
+                                                        <th rowspan="1" colspan="1">ScheduleDate</th>
+                                                        @*<th rowspan="1" colspan="1">Rating</th>
+                                                            <th rowspan="1" colspan="1">AppoinmentType</th>*@
+                                                        <th rowspan="1" colspan="1">AppoinmentStatus</th>
+                                                        <th rowspan="1" colspan="1">Date</th>
+                                                        @*<th rowspan="1" colspan="1">Customer</th>
+                                                            <th rowspan="1" colspan="1">Lawyer</th>*@
+                                                        <th rowspan="1" colspan="1">Actions</th>
+                                                    </tr>
+                                                </tfoot>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Large modal Peactice-->
+            <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLongTitle">Appointments Details</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">x</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+
+                            <!--Complete Active view-->
+                            <div class="app-page-title">
+                                <div class="page-title-wrapper">
+                                    <div class="page-title-heading">
+                                        <div class="page-title-icon">
+                                            <i class="lnr-graduation-hat icon-gradient bg-mean-fruit"></i>
+                                        </div>
+                                        <div>
+                                            Appointment
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div id="example_wrapper" class="dataTables_wrapper dt-bootstrap4">
+                                        <div class="row">
+
+                                            <div class="col-sm-12">
+
+
+
+
+                                                <table class="table">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>
+                                                                @Html.DisplayNameFor(model => model.AppointmentCode)
+                                                            </th>
+                                                            @*<th>
+                                                                    @Html.DisplayNameFor(model => model.LawyerAddress)
+                                                                </th>
+                                                                <th>
+                                                                    @Html.DisplayNameFor(model => model.CaseCategory)
+                                                                </th>*@
+                                                            <th>
+                                                                @Html.DisplayNameFor(model => model.TimeFrom)
+                                                            </th>
+                                                            <th>
+                                                                @Html.DisplayNameFor(model => model.TimeTo)
+                                                            </th>
+                                                            <th>
+                                                                @Html.DisplayNameFor(model => model.CaseCharges)
+                                                            </th>
+                                                            <th>
+                                                                @Html.DisplayNameFor(model => model.ScheduleDate)
+                                                            </th>
+                                                            @*<th>
+                                                                    @Html.DisplayNameFor(model => model.Rating)
+                                                                </th>*@
+                                                            @*<th>
+                                                                    @Html.DisplayNameFor(model => model.AppoinmentType)
+                                                                </th>*@
+                                                            <th>
+                                                                @Html.DisplayNameFor(model => model.AppoinmentStatus)
+                                                            </th>
+                                                            <th>
+                                                                @Html.DisplayNameFor(model => model.Date)
+                                                            </th>
+                                                            <th>
+                                                                @Html.DisplayNameFor(model => model.Customer)
+                                                            </th>
+                                                            <th>
+                                                                @Html.DisplayNameFor(model => model.Lawyer)
+                                                            </th>
+                                                            <th></th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        @foreach (var a in Model)
+                                                        {
+                                                            <tr>
+                                                                <td>
+                                                                    @Html.DisplayFor(modelItem => a.AppointmentCode)
+                                                                </td>
+                                                                @*<td>
+                                                                        @Html.DisplayFor(modelItem => item.LawyerAddress.LawyerAddressId)
+                                                                    </td>
+                                                                    <td>
+                                                                        @Html.DisplayFor(modelItem => item.CaseCategory.CaseCategoryId)
+                                                                    </td>*@
+                                                                <td>
+                                                                    @Html.DisplayFor(modelItem => a.TimeFrom)
+                                                                </td>
+                                                                <td>
+                                                                    @Html.DisplayFor(modelItem => a.TimeTo)
+                                                                </td>
+                                                                <td>
+                                                                    @Html.DisplayFor(modelItem => a.CaseCharges)
+                                                                </td>
+                                                                <td>
+                                                                    @Html.DisplayFor(modelItem => a.ScheduleDate)
+                                                                </td>
+                                                                @*<td>
+                                                                        @Html.DisplayFor(modelItem => item.Rating)
+                                                                    </td>
+                                                                    <td>
+                                                                        @Html.DisplayFor(modelItem => item.AppoinmentType)
+                                                                    </td>*@
+                                                                <td>
+                                                                    @Html.DisplayFor(modelItem => a.AppoinmentStatus)
+                                                                </td>
+                                                                <td>
+                                                                    @Html.DisplayFor(modelItem => a.Date)
+                                                                </td>
+                                                                <td>
+                                                                    @Html.DisplayFor(modelItem => a.Customer.CustomerId)
+                                                                </td>
+                                                                <td>
+                                                                    @Html.DisplayFor(modelItem => a.Lawyer.LawyerId)
+                                                                </td>
+                                                                @*<td>
+                                                                        <a asp-action="Edit" asp-route-id="@item.AppoinmentId">Edit</a> |
+                                                                        <a asp-action="Details" asp-route-id="@item.AppoinmentId">Details</a> |
+                                                                        <a asp-action="Delete" asp-route-id="@item.AppoinmentId">Delete</a>
+                                                                    </td>*@
+                                                            </tr>
+                                                        }
+                                                    </tbody>
+                                                </table>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!--Partial View-->
+                            @*<partial name="_partial.cshtml" />*@
+                            @*<p>
+                                    Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas
+                                    eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.
+                                </p>
+                                <p>
+                                    Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel augue
+                                    laoreet rutrum faucibus dolor auctor.
+                                </p>*@
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            @*<button type="button" class="btn btn-primary">Save changes</button>*@
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@*</div>*@

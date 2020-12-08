@@ -947,7 +947,7 @@ namespace OlaWakeel.Controllers
             try
             {
                 Appointment appointmentData = JsonConvert.DeserializeObject<Appointment>(Request.Form["Appointment"]);
-                appointmentData.AppoinmentStatus = "Panding";
+                appointmentData.AppoinmentStatus = "Pending";
                 appointmentData.Date = DateTime.Now;
                 appointmentData.AppointmentCode = CreateAppointmentCode();
                 await _context.Appointments.AddAsync(appointmentData);
@@ -959,7 +959,7 @@ namespace OlaWakeel.Controllers
                 log.Status = true;
                 log.User_id = appointmentData.CustomerId;
                 log.User_Type = "Client";
-                log.Log_Status = "Panding";
+                log.Log_Status = "Pending";
                 log.Log_Decs = "Client Create Appointment at " + DateTime.Now.ToShortDateString();
                 await _context.Logs.AddAsync(log);
                 await _context.SaveChangesAsync();
@@ -1589,7 +1589,7 @@ namespace OlaWakeel.Controllers
                 //List<LawyerTiming> DeletedLawyerPackage = JsonConvert.DeserializeObject<LawyerTiming[]>(form["DeletedPackages"].ToString()).ToList();
 
                 //var EditLawyerPackage1 = EditLawyerPackage.Where(a => !DeletedLawyerPackage.Any(x => x.LawyerTimingId == a.LawyerTimingId)).ToList();
-                var Packages = _context.LawyerTimings.Where(a => a.LawyerId == LawyerPackage[0].LawyerId && a.SlotDate == LawyerPackage[0].SlotDate).ToList();
+                var Packages = _context.LawyerTimings.Where(a => a.LawyerId == LawyerPackage[0].LawyerId && a.SlotDate == LawyerPackage[0].SlotDate && a.Status).ToList();
 
                 var editPackages = LawyerPackage.Where(a => Packages.Any(x => x.LawyerTimingId == a.LawyerTimingId)).ToList();
                // var editPackages2 = Packages.Where(a => LawyerPackage.Any(x => x.LawyerTimingId == a.LawyerTimingId)).ToList();
@@ -1839,6 +1839,38 @@ namespace OlaWakeel.Controllers
                 };
 
                 return Json(LawyerData);
+            }
+            catch (Exception ex)
+            {
+                return Json("Invalid Data");
+            }
+        }
+        [HttpGet]
+        public async Task<JsonResult> GetLawyerPackges(int lawyerid)
+        {
+            try
+            {
+
+               var LawyerPackages = _context.LawyerTimings.OrderByDescending(a => a.LawyerAddressId).Where(t => t.LawyerId == lawyerid && t.Status).Select(p => new
+                {
+                    Day = p.Day,
+                    StartTime = p.TimeFrom,
+                    EndTime = p.TimeTo,
+                    Location = p.Location,
+                    PackageType = p.SlotType,
+                    LocalCharges = p.Charges,
+                    OfficeAddressId = p.LawyerAddressId,
+                    OfficeAddress = p.LawyerAddress.Address,
+                    Check1 = p.Check,
+                    Check2 = p.Check2,
+                    InternationalCharges = p.InternationalCharges,
+                    SlotDate = p.SlotDate,
+                    InternationalIndex = p.InternationalIndex,
+                    LocalIndex = p.LocalIndex,
+                    StartTime24 = p.StartTime24,
+                    EndTime24 = p.EndTime24
+                }).ToList();
+                return Json(LawyerPackages);
             }
             catch (Exception ex)
             {

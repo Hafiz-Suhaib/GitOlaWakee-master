@@ -290,10 +290,12 @@ App.controller("LawyerCtrl", function ($scope, $http) {
 
         var formdata = new FormData();
         var fileInput = document.getElementById('fileInput');
+      //  formdata.append(fileInput.files[0].id, fileInput.files[0]);
         formdata.append(fileInput.files[0].name, fileInput.files[0]);
         formdata.append("appUser", JSON.stringify($scope.addLawyerAccount));
         formdata.append("lawyer", JSON.stringify($scope.addLawyerProfile));
         formdata.append("lawyerTimings", JSON.stringify($scope.lawyerTimings));
+        console.log($scope.lawyerTimings);
         formdata.append("lawyerExperiences", JSON.stringify($scope.lawyerExperiences));
         formdata.append("lawyerQualifications", JSON.stringify($scope.lawyerQualifications));
         formdata.append("lawyerClient", JSON.stringify($scope.lawyerClients));
@@ -304,7 +306,7 @@ App.controller("LawyerCtrl", function ($scope, $http) {
         formdata.append("lawyerAddress", JSON.stringify($scope.addresses));
         formdata.append("addressesTemp", JSON.stringify($scope.addressesTemp));
         // formdata.append();
-
+       
         var xhr = new XMLHttpRequest();
         xhr.open('POST', '/Lawyer/CreateLawyer2');
         xhr.send(formdata);
@@ -322,12 +324,33 @@ App.controller("LawyerCtrl", function ($scope, $http) {
                 //swal("Added", "Lawyer Added!", "success");
                 //$scope.addCategoryObj = { categoryName: '', isAvailable: true };
                 //$scope.getAllCategories();
-                window.location.reload();
+                  window.location.reload();
+                //window.location.replace("GetAllLawyers");
             }
 
         };
         return false;
     }
+    $scope.DistrictBarVaidateLaw = function (key) {
+        if ($scope.lawyerLicenses[key].districtBar < 0)
+            $scope.lawyerLicenses[key].districtBar = 0;
+
+        $scope.validateLaw();
+    }
+    $scope.CityBarValidateLaw = function (key) {
+        if ($scope.lawyerLicenses[key].cityBar < 0)
+            $scope.lawyerLicenses[key].cityBar = 0;
+
+        $scope.validateLaw();
+    }
+    $scope.DegreeYearValidateEducation = function (key) {
+        if ($scope.lawyerQualifications[key].completionYear < 0)
+            $scope.lawyerQualifications[key].completionYear = 0;
+
+        $scope.validateEducation();
+    }
+
+
     //lawyer timing push in array
     $scope.addTiming = function () {
         // alert("call me");
@@ -384,7 +407,7 @@ App.controller("LawyerCtrl", function ($scope, $http) {
         $scope.lawyerQualifications.splice(index, 1);
         $scope.validateEducation();
     }
-
+   
 
 
     //lawyer experience push in array
@@ -632,6 +655,8 @@ App.controller("LawyerCtrl", function ($scope, $http) {
                     || $scope.lawyerTimings[i].timeFrom === ""
                     || $scope.lawyerTimings[i].timeTo === "") {
                     $scope.pakage = false;
+
+                  //  $scope.lawyerTimings[i].timeTo;
                 }
                 else { $scope.pakage = true; }
             }

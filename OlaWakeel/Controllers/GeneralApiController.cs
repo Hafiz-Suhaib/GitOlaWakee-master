@@ -336,8 +336,9 @@ namespace OlaWakeel.Controllers
                         CaseCategoryId = c.CaseCategoryId,
                     }).ToList(),
                     LawyerDegree = _context.LawyerQualifications.Where(de => de.LawyerId == x.LawyerId).Select(d => new { DegreeType = d.Degree.DegreeTypes.TypeName, DegreeYear = d.Degree.EligibleAfter, CompletionYear = d.CompletionYear, DegreeName = d.Degree.Name }).ToList(),
-                    LawyerPackages = _context.LawyerTimings.OrderByDescending(a => a.LawyerAddressId).Where(t => t.LawyerId == x.LawyerId && t.Status && t.SlotDate.Date >= DateTime.Now.Date).Select(p => new
+                    LawyerPackages = _context.LawyerTimings.Where(t => t.LawyerId == lawyerid && t.Status && t.SlotDate.Date >= DateTime.Now.Date).Select(p => new
                     {
+                        LawyerPackageId = p.LawyerTimingId,
                         Day = p.Day,
                         StartTime = p.TimeFrom,
                         EndTime = p.TimeTo,
@@ -345,7 +346,6 @@ namespace OlaWakeel.Controllers
                         PackageType = p.SlotType,
                         LocalCharges = p.Charges,
                         OfficeAddressId = p.LawyerAddressId,
-                        OfficeAddress = p.LawyerAddress.Address,
                         Check1 = p.Check,
                         Check2 = p.Check2,
                         InternationalCharges = p.InternationalCharges,

@@ -73,7 +73,10 @@ namespace OlaWakeel
             services.AddTransient<ILicenseDistrictService, LicenseDistrictService>();
             services.AddTransient<ILicenseCityService, LicenseCityService>();
             services.AddTransient<IDegreeTypeService, DegreeTypeService>();
+
+        //    services.GetRequiredService<UserManager<IdentityUser>>();
         }
+        
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

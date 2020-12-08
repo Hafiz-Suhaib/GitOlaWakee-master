@@ -1,0 +1,197 @@
+﻿@model OlaWakeel.Models.Appointment
+
+@{
+    Layout = "_Layout1";
+    ViewData["Title"] = "Create";
+
+
+}
+
+@*<div class="app-main__inner">*@
+<div class="app-page-title">
+    <div class="page-title-wrapper">
+        <div class="page-title-heading">
+            <div class="page-title-icon">
+                <i class="lnr-graduation-hat icon-gradient bg-mean-fruit"></i>
+            </div>
+            <div>
+                Appointment
+            </div>
+        </div>
+    </div>
+</div>
+@*</div>*@
+<div class="card-body">
+    <h5 class="card-title">Create Appointment</h5>
+    @*<form id="signupForm" class="col-md-10 mx-auto" method="post" action="">*@
+    <form asp-action="Create">
+        <div class="form-group">
+            <label for="AppointmentCode">AppointmentCode</label>
+            <div>
+                <input asp-for="AppointmentCode" type="text" class="form-control" placeholder="AppointmentCode">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="LawyerAddressId">LawyerAddressId</label>
+            <div>
+                @*<select asp-for="LawyerAddressId" class="form-control">
+                        @foreach (var c in Model.LawyerAddresslist)
+                        {
+                            <option value="c.LawyerAddressId">@c.Address</option>
+                        }
+
+                    </select>*@
+
+
+                @*<input asp-for="LawyerAddressId" type="text" class="form-control"  name="LawyerAddressId" placeholder="LawyerAddressId">*@
+                <select asp-for="LawyerAddressId" class="form-control" asp-items="ViewBag.LawyerAddressId"></select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="CaseCategoryId">CaseCategoryId</label>
+            <div>
+                @*<input asp-for="CaseCategoryId" type="text" class="form-control" id="CaseCategoryId" placeholder="CaseCategoryId">*@
+                <select asp-for="CaseCategoryId" class="form-control" asp-items="ViewBag.CaseCategoryId"></select>
+
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="TimeFrom">TimeFrom</label>
+            <div>
+                <input asp-for="TimeFrom" type="text" class="form-control" placeholder="TimeFrom">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="TimeTo">TimeTo</label>
+            <input asp-for="TimeTo" type="text" class="form-control" placeholder="TimeTo">
+        </div>
+        <div class="form-group">
+            <label for="CaseCharges">CaseCharges</label>
+            <input asp-for="CaseCharges" type="text" class="form-control" placeholder="CaseCharges">
+        </div>
+        <div class="form-group">
+            <label asp-for="ScheduleDate" class="control-label"></label>
+            <input asp-for="ScheduleDate" class="form-control" />
+            <span asp-validation-for="ScheduleDate" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label for="Rating">Rating</label>
+            <input asp-for="Rating" type="text" class="form-control" placeholder="Rating">
+        </div>
+        <div class="form-group">
+            <label for="AppoinmentType">AppoinmentType</label>
+            <input asp-for="AppoinmentType" type="text" class="form-control" placeholder="AppoinmentType">
+        </div>
+        <div class="form-group">
+            <label for="AppoinmentStatus">AppoinmentStatus</label>
+            <input asp-for="AppoinmentStatus" type="text" class="form-control" placeholder="AppoinmentStatus">
+        </div>
+        <div class="form-group">
+            <label asp-for="Date" class="control-label"></label>
+            <div>
+                <input asp-for="Date" class="form-control" />
+                <span asp-validation-for="Date" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="CustomerId">CustomerId</label>
+            <div>
+                <select asp-for="CustomerId" class="form-control" asp-items="ViewBag.CustomerId"></select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="LawyerId">LawyerId</label>
+            <div>
+                <select asp-for="LawyerId" class="form-control" asp-items="ViewBag.LawyerId"></select>
+            </div>
+        </div>
+        @*<div class="form-group">
+                <button type="submit" class="btn btn-primary" name="signup" value="Sign up">Sign up</button>
+            </div>*@
+        <div class="form-group">
+            <input type="submit" value="Create" class="btn btn-primary" />
+        </div>
+        <div>
+            <a asp-action="Index">Back to List</a>
+        </div>
+    </form>
+</div>
+
+
+@*<div class="row">
+            <div class="col-md-4">
+                <form asp-action="Create">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="form-group">
+                        <label asp-for="AppointmentCode" class="control-label"></label>
+                        <input asp-for="AppointmentCode" class="form-control" />
+                        <span asp-validation-for="AppointmentCode" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="LawyerAddressId" class="control-label"></label>
+                        <select asp-for="LawyerAddressId" class="form-control" asp-items="ViewBag.LawyerAddressId"></select>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="CaseCategoryId" class="control-label"></label>
+                        <select asp-for="CaseCategoryId" class="form-control" asp-items="ViewBag.CaseCategoryId"></select>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="TimeFrom" class="control-label"></label>
+                        <input asp-for="TimeFrom" class="form-control" />
+                        <span asp-validation-for="TimeFrom" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="TimeTo" class="control-label"></label>
+                        <input asp-for="TimeTo" class="form-control" />
+                        <span asp-validation-for="TimeTo" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="CaseCharges" class="control-label"></label>
+                        <input asp-for="CaseCharges" class="form-control" />
+                        <span asp-validation-for="CaseCharges" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="ScheduleDate" class="control-label"></label>
+                        <input asp-for="ScheduleDate" class="form-control" />
+                        <span asp-validation-for="ScheduleDate" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Rating" class="control-label"></label>
+                        <input asp-for="Rating" class="form-control" />
+                        <span asp-validation-for="Rating" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="AppoinmentType" class="control-label"></label>
+                        <input asp-for="AppoinmentType" class="form-control" />
+                        <span asp-validation-for="AppoinmentType" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="AppoinmentStatus" class="control-label"></label>
+                        <input asp-for="AppoinmentStatus" class="form-control" />
+                        <span asp-validation-for="AppoinmentStatus" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Date" class="control-label"></label>
+                        <input asp-for="Date" class="form-control" />
+                        <span asp-validation-for="Date" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="CustomerId" class="control-label"></label>
+                        <select asp-for="CustomerId" class="form-control" asp-items="ViewBag.CustomerId"></select>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="LawyerId" class="control-label"></label>
+                        <select asp-for="LawyerId" class="form-control" asp-items="ViewBag.LawyerId"></select>
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" value="Create" class="btn btn-primary" />
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div>
+            <a asp-action="Index">Back to List</a>
+        </div>
+    </div>*@

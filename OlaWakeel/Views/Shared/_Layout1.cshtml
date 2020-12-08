@@ -1125,6 +1125,7 @@
                 </div>    <div class="scrollbar-sidebar">
                     <div class="app-sidebar__inner">
                         <ul class="vertical-nav-menu">
+                            <!--Menu Dashboard-->
                             <li class="app-sidebar__heading">Menu</li>
                             <li class="mm-active">
                                 <a href="~/Dashboard/Index">
@@ -1153,25 +1154,25 @@
                                         </a>
                                     </li>
                                     @*<li>
-                                            <a href="pages-register.html">
-                                                <i class="metismenu-icon"></i>Register
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="pages-register-boxed.html">
-                                                <i class="metismenu-icon"></i>Register Boxed
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="pages-forgot-password.html">
-                                                <i class="metismenu-icon"></i>Forgot Password
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="pages-forgot-password-boxed.html">
-                                                <i class="metismenu-icon"></i>Forgot Password Boxed
-                                            </a>
-                                        </li>*@
+                    <a href="pages-register.html">
+                        <i class="metismenu-icon"></i>Register
+                    </a>
+                </li>
+                <li>
+                    <a href="pages-register-boxed.html">
+                        <i class="metismenu-icon"></i>Register Boxed
+                    </a>
+                </li>
+                <li>
+                    <a href="pages-forgot-password.html">
+                        <i class="metismenu-icon"></i>Forgot Password
+                    </a>
+                </li>
+                <li>
+                    <a href="pages-forgot-password-boxed.html">
+                        <i class="metismenu-icon"></i>Forgot Password Boxed
+                    </a>
+                </li>*@
                                 </ul>
                             </li>
                             <li>
@@ -1191,27 +1192,28 @@
                                         </a>
                                     </li>
                                     @*<li>
-                                            <a href="pages-register.html">
-                                                <i class="metismenu-icon"></i>Register
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="pages-register-boxed.html">
-                                                <i class="metismenu-icon"></i>Register Boxed
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="pages-forgot-password.html">
-                                                <i class="metismenu-icon"></i>Forgot Password
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="pages-forgot-password-boxed.html">
-                                                <i class="metismenu-icon"></i>Forgot Password Boxed
-                                            </a>
-                                        </li>*@
+                    <a href="pages-register.html">
+                        <i class="metismenu-icon"></i>Register
+                    </a>
+                </li>
+                <li>
+                    <a href="pages-register-boxed.html">
+                        <i class="metismenu-icon"></i>Register Boxed
+                    </a>
+                </li>
+                <li>
+                    <a href="pages-forgot-password.html">
+                        <i class="metismenu-icon"></i>Forgot Password
+                    </a>
+                </li>
+                <li>
+                    <a href="pages-forgot-password-boxed.html">
+                        <i class="metismenu-icon"></i>Forgot Password Boxed
+                    </a>
+                </li>*@
                                 </ul>
                             </li>
+                            <!--UI Components Dashboard-->
                             <li class="app-sidebar__heading">UI Components</li>
                             <li>
                                 <a href="~/CaseCategory/GetAllCaseList">
@@ -1243,7 +1245,11 @@
                                 </ul>
                             </li>
                             <li>
-                                <a href="#">
+
+                                <a href="~/Lawyer/index">
+                                    <i class="metismenu-icon pe-7s-cash"></i>Lawyers
+                                </a>
+                                @*<a href="#">
                                     <i class="metismenu-icon pe-7s-hammer"></i> Lawyers
                                     <i class="metismenu-state-icon pe-7s-angle-down caret-left"></i>
                                 </a>
@@ -1258,15 +1264,19 @@
                                             <i class="metismenu-icon"></i>Lawyer List
                                         </a>
                                     </li>
-                                </ul>
+                                </ul>*@
                             </li>
+                            <!--Dashboard Widgets-->
                             <li class="app-sidebar__heading">Dashboard Widgets</li>
                             <li>
-                                <a href="#">
+                                <a href="~/Customer/indexDashboard">
+                                    <i class="metismenu-icon pe-7s-cash"></i>Customers
+                                </a>
+                                @*<a href="#">
                                     <i class="metismenu-icon pe-7s-users"></i>Customers
                                     <i class="metismenu-state-icon pe-7s-angle-down caret-left"></i>
-                                </a>
-                                <ul>
+                                </a>*@
+                                @*<ul>
                                     <li>
                                         <a href="~/Customer/AddCustomer">
                                             <i class="metismenu-icon"> </i>Add Customer
@@ -1277,9 +1287,80 @@
                                             <i class="metismenu-icon"></i>Customer List
                                         </a>
                                     </li>
+                                </ul>*@
+                              </li>
+                            <li>
+                                <a href="#">
+                                    <i class="metismenu-icon pe-7s-map-marker"> </i>District & City
+                                    <i class="metismenu-state-icon pe-7s-angle-down caret-left"></i>
+                                </a>
+                                <ul>
+                                    <li>
+                                        <a href="~/LicenseDistrict/Create">
+                                            <i class="metismenu-icon"></i> Add
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="~/LicenseDistrict/Index">
+                                            <i class="metismenu-icon"></i>Index
+                                        </a>
+                                    </li>
                                 </ul>
                             </li>
+                            <!--Appointment Dashboard-->
+                            <li class="app-sidebar__heading">Appointment</li>
+                            <li>
+                                @*<a href="~/Dashboard/Index">
+                              <i class="metismenu-icon pe-7s-cash"></i>Dashboards
+                               </a>*@
+
+                                <a href="~/Appointments/IndexDashboard">
+                                    <i class="metismenu-icon pe-7s-cash"></i>Appointment
+                                </a>
+
+
+                                @*<a href="#">
+                                    <i class="metismenu-icon pe-7s-map-marker"> </i>Appointment
+                                    <i class="metismenu-state-icon pe-7s-angle-down caret-left"></i>
+                                </a>*@
+
+
+
+                                        <!--<ul>-->
+                                       @*<li>
+                                      <a href="~/Appointments/Create">
+                                      <i class="metismenu-icon"></i> New Appointment
+                                       </a>
+                                    </li>*@
+                                            <!--<li>
+                                        <a href="~/Appointments/Index">
+                                            <i class="metismenu-icon"></i>Appointments Details
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="~/Appointments/Active">
+                                            <i class="metismenu-icon"></i> Active
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="~/Appointments/Pending">
+                                            <i class="metismenu-icon"></i> Pending
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="~/Appointments/Index">
+                                            <i class="metismenu-icon"></i> Reschedule
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="~/Appointments/Index">
+                                            <i class="metismenu-icon"></i> History
+                                        </a>
+                                    </li>
+                                </ul>-->
+                            </li>
                         </ul>
+
                     </div>
                 </div>
             </div><div class="app-main__outer">
@@ -2266,11 +2347,12 @@
     </div>
     <div class="fas fa-cog fa-pulse"></div>
 
-    <script type="text/javascript" src="~/assets/js/main.d810cf0ae7f39f28f336.js"></script>
+
 
     @*<script src="~/assets/js/app.min.js"></script>
         <script src="~/assets/js/admin.js"></script>*@
 
     @RenderSection("scripts", required: false)
+    <script type="text/javascript" src="~/assets/js/main.d810cf0ae7f39f28f336.js"></script>
 </body>
 </html>

@@ -69,6 +69,13 @@ namespace OlaWakeel.Controllers
             var lawyerQualification = JsonConvert.DeserializeObject<List<LawyerQualification>>(Request.Form["lawyerQualifications"]);
             //var lawyerSpecializations = JsonConvert.DeserializeObject<List<LawyerSpecialization>>(Request.Form["lawyerSpecializations"]);
             var lawyerExperiences = JsonConvert.DeserializeObject<List<LawyerExperience>>(Request.Form["lawyerExperiences"]);
+            //try {
+            //    var lawyerTimings2 = JsonConvert.DeserializeObject<List<LawyerTiming>>(Request.Form["lawyerTimings"]);
+            //}
+            //catch(Exception ex)
+            //{
+
+            //}
             var lawyerTimings = JsonConvert.DeserializeObject<List<LawyerTiming>>(Request.Form["lawyerTimings"]);
             var lawyerCaseCategory = JsonConvert.DeserializeObject<List<LawyerCaseCategory>>(Request.Form["lawyerCaseCategory"]);
             var lawyerClient = JsonConvert.DeserializeObject<List<LawyerClient>>(Request.Form["lawyerClient"]);

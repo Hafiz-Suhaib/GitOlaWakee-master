@@ -27,6 +27,12 @@ namespace OlaWakeel.Controllers
             _customerService = customerService;
             _hostingEnvironment = hostingEnvironment;
         }
+
+        //Dashboard for Customer
+        public IActionResult IndexDashboard()
+        {
+            return View();
+        }
         public IActionResult Index()
         {
             var custList = _customerService.GetAllCustomers();
