@@ -942,6 +942,7 @@ namespace OlaWakeel.Controllers
                         ClientId = x.CustomerId,
                         FirstName = x.Customer.FirstName,
                         LastName = x.Customer.LastName,
+                        FireBaseToken = x.Customer.FirbaseToken,
                         ProfilePic = x.Customer.ProfilePic,
                         Age = CalculateAge(x.Lawyer.DateOfBirth),
                         FirbaseToken = x.Customer.FirbaseToken,
