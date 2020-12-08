@@ -947,7 +947,7 @@ namespace OlaWakeel.Controllers
             try
             {
                 Appointment appointmentData = JsonConvert.DeserializeObject<Appointment>(Request.Form["Appointment"]);
-                appointmentData.AppoinmentStatus = "Panding";
+                appointmentData.AppoinmentStatus = "Pending";
                 appointmentData.Date = DateTime.Now;
                 appointmentData.AppointmentCode = CreateAppointmentCode();
                 await _context.Appointments.AddAsync(appointmentData);
@@ -959,7 +959,7 @@ namespace OlaWakeel.Controllers
                 log.Status = true;
                 log.User_id = appointmentData.CustomerId;
                 log.User_Type = "Client";
-                log.Log_Status = "Panding";
+                log.Log_Status = "Pending";
                 log.Log_Decs = "Client Create Appointment at " + DateTime.Now.ToShortDateString();
                 await _context.Logs.AddAsync(log);
                 await _context.SaveChangesAsync();

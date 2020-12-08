@@ -47,7 +47,11 @@ namespace OlaWakeel.Controllers
             _context = context;
             _userManager = userManager;
         }
+        public  string findDay(DateTime date)
+        {
 
+            return date.DayOfWeek.ToString();
+        }
         private static int CalculateAge(DateTime dateOfBirth)
         {
             int age = 0;
@@ -172,7 +176,7 @@ namespace OlaWakeel.Controllers
                         LawyerServiceId = c.LawyerCaseCategoryId,
                         CaseCategoryId = c.CaseCategoryId,
                     }).ToList(),
-                    LawyerPackages = _context.LawyerTimings.OrderByDescending(or => or.LawyerAddressId).Where(t => t.LawyerId == x.LawyerId && t.Status && t.SlotDate.Date >= DateTime.Now.Date).Select(p => new
+                    LawyerPackages = _context.LawyerTimings.OrderByDescending(or => or.LawyerAddressId).Where(t => t.LawyerId == x.LawyerId && t.Status && t.SlotDate.Date == DateTime.Now.Date).Select(p => new
                     {
                         Day = p.Day,
                         StartTime = p.TimeFrom,
@@ -193,6 +197,11 @@ namespace OlaWakeel.Controllers
 
 
                     }).ToList(),
+                    //OfficeLocation = _context.LawyerAddresses.Where(a => a.LawyerId == x.LawyerId).Select(loc => new
+                    //{
+                    //    LawyerAddressId = loc.LawyerAddressId,
+                    //    Address = loc.Address
+                    //}).ToList(),
                     LawyerDegree = _context.LawyerQualifications.Where(de => de.LawyerId == x.LawyerId).Select(d => new
                     {
                         DegreeName = d.Degree.Name
@@ -319,7 +328,10 @@ namespace OlaWakeel.Controllers
         {
             try
             {
-                _context.Database.SetCommandTimeout(0);
+               
+
+                DateTime startDate = DateTime.Parse(DateTime.Now.ToString());
+                DateTime expiryDate = startDate.AddDays(3);
                 var LawyerData = _context.Lawyers.Where(law => law.LawyerId == lawyerid).Select(x => new
                 {
 
@@ -336,8 +348,9 @@ namespace OlaWakeel.Controllers
                         CaseCategoryId = c.CaseCategoryId,
                     }).ToList(),
                     LawyerDegree = _context.LawyerQualifications.Where(de => de.LawyerId == x.LawyerId).Select(d => new { DegreeType = d.Degree.DegreeTypes.TypeName, DegreeYear = d.Degree.EligibleAfter, CompletionYear = d.CompletionYear, DegreeName = d.Degree.Name }).ToList(),
-                    LawyerPackages = _context.LawyerTimings.OrderByDescending(a => a.LawyerAddressId).Where(t => t.LawyerId == x.LawyerId && t.Status && t.SlotDate.Date >= DateTime.Now.Date).Select(p => new
+                    LawyerPackages = _context.LawyerTimings.Where(t => t.LawyerId == lawyerid && t.Status && t.SlotDate.Date >= DateTime.Now.Date).Select(p => new
                     {
+                        LawyerPackageId = p.LawyerTimingId,
                         Day = p.Day,
                         StartTime = p.TimeFrom,
                         EndTime = p.TimeTo,
@@ -345,7 +358,6 @@ namespace OlaWakeel.Controllers
                         PackageType = p.SlotType,
                         LocalCharges = p.Charges,
                         OfficeAddressId = p.LawyerAddressId,
-                        OfficeAddress = p.LawyerAddress.Address,
                         Check1 = p.Check,
                         Check2 = p.Check2,
                         InternationalCharges = p.InternationalCharges,
@@ -932,6 +944,7 @@ namespace OlaWakeel.Controllers
                         LastName = x.Customer.LastName,
                         ProfilePic = x.Customer.ProfilePic,
                         Age = CalculateAge(x.Lawyer.DateOfBirth),
+                        FirbaseToken = x.Customer.FirbaseToken,
                         Gender = x.Lawyer.Gender,
                         ServiceName = x.CaseCategory.Name,
                         ServiceId = x.CaseCategoryId,
