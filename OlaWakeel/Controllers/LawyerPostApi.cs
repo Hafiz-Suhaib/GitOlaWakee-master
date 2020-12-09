@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Hosting;
+﻿using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -13,6 +8,11 @@ using OlaWakeel.Data.ApplicationUser;
 using OlaWakeel.Models;
 using OlaWakeel.Services.CustomerService;
 using OlaWakeel.Services.LawyerService;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace OlaWakeel.Controllers
 {
@@ -43,7 +43,7 @@ namespace OlaWakeel.Controllers
         private readonly RoleManager<AppRole> _roleManager;
         public readonly ILawyerService _lawyerService;
         private readonly ICustomerService _customerService;
-       
+
         private readonly IWebHostEnvironment _env;
 
         public LawyerPostApi(IWebHostEnvironment env, RoleManager<AppRole> roleManager, UserManager<AppUser> userManager, ILawyerService lawyerService, ApplicationDbContext context, ICustomerService customerService)
@@ -84,12 +84,12 @@ namespace OlaWakeel.Controllers
             return Json("Success");
 
         }
-      
+
         //For Create Lawyer'
         [HttpGet]
         //[Route("CreateLawyer")]
         public async Task<JsonResult> CreateLawyer(string PhoneNo, string FirstName, string LastName, string FirbaseToken)
-        {   
+        {
             try
             {
                 var user = new AppUser { PhoneNumber = PhoneNo };
@@ -161,7 +161,7 @@ namespace OlaWakeel.Controllers
                         //Notifications = "...",
 
                     };
-                    if(LawyerData!=null)
+                    if (LawyerData != null)
 
                         return Json(LawyerData);
                 }
@@ -184,7 +184,7 @@ namespace OlaWakeel.Controllers
         }
 
 
-       
+
         // for Lawyer Intro Data
         private string CreateAppointmentCode()
         {
@@ -192,10 +192,10 @@ namespace OlaWakeel.Controllers
             var year = DateTime.Now.Year;
             var month = DateTime.Now.ToString("MM");
             var appointcode = "";
-                
+
             if (_context.Appointments.Any())
             {
-                appointcode= _context.Appointments.OrderByDescending(p => p.AppoinmentId).FirstOrDefault().AppointmentCode;
+                appointcode = _context.Appointments.OrderByDescending(p => p.AppoinmentId).FirstOrDefault().AppointmentCode;
                 var lastdigits = appointcode.Substring(7);
                 if (lastdigits.Length > 4)
                 {
@@ -219,10 +219,10 @@ namespace OlaWakeel.Controllers
 
         }
         public async Task<JsonResult> LawyerIntro(IFormCollection form)
-         {
-          
+        {
+
             try
-            { 
+            {
                 var lawyerData = JsonConvert.DeserializeObject<Lawyer>(Request.Form["Lawyer"]);
                 //  var appUser = JsonConvert.DeserializeObject<AppUser>(Request.Form["appUser"]);
                 obj o = JsonConvert.DeserializeObject<obj>(form["OtherInfo"]);
@@ -230,10 +230,10 @@ namespace OlaWakeel.Controllers
 
                 // var lawyerLanguage = JsonConvert.DeserializeObject<List<LawyerLanguage>>(Request.Form["Languages"]);
                 List<LawyerLanguage> lawyerLanguage = JsonConvert.DeserializeObject<LawyerLanguage[]>(form["Languages"].ToString()).ToList();
-               
 
 
-                var lawyer =await _context.Lawyers.FindAsync(lawyerData.LawyerId);
+
+                var lawyer = await _context.Lawyers.FindAsync(lawyerData.LawyerId);
                 //lawyer.ProfilePic = law.ProfilePic; // ye krna ha
                 var date = lawyerData.DateOfBirth.ToShortDateString();
                 var date1 = Convert.ToDateTime(date);
@@ -245,7 +245,7 @@ namespace OlaWakeel.Controllers
                 //string email = JsonConvert.DeserializeObject<string>(form["Email"]);
                 var user = _context.Users.Where(s => s.Id == lawyer.AppUserId).SingleOrDefault();
                 user.Email = o.Email;
-                IdentityResult result =  await _userManager.UpdateAsync(user);
+                IdentityResult result = await _userManager.UpdateAsync(user);
                 if (result.Succeeded)
                 {
                     if (images != "0")
@@ -309,25 +309,25 @@ namespace OlaWakeel.Controllers
             return Json(lawyerExist);
 
         }
-// For Lawyer Education Data
+        // For Lawyer Education Data
         public async Task<JsonResult> LawyerEducations(IFormCollection form)
         {
             try
-             {
+            {
                 List<LawyerQualification> lawyerQualification = JsonConvert.DeserializeObject<LawyerQualification[]>(form["Education"].ToString()).ToList();
 
                 foreach (var education in lawyerQualification)
+                {
+                    if (education.SpecializationId == 0 || education.SpecializationId == null)
                     {
-                        if (education.SpecializationId == 0 || education.SpecializationId == null)
-                        {
-                            education.Check = true;
-                            await _context.LawyerQualifications.AddAsync(education);
-                            continue;
-                        }
-                        education.Check = false;
-                            await _context.LawyerQualifications.AddAsync(education);
+                        education.Check = true;
+                        await _context.LawyerQualifications.AddAsync(education);
+                        continue;
                     }
-                    await _context.SaveChangesAsync();
+                    education.Check = false;
+                    await _context.LawyerQualifications.AddAsync(education);
+                }
+                await _context.SaveChangesAsync();
 
 
                 var lawyer = await _context.Lawyers.FindAsync(lawyerQualification[0].LawyerId);
@@ -371,15 +371,17 @@ namespace OlaWakeel.Controllers
                     DegreeName = x.Name,
                     DegreeYear = x.EligibleAfter,
                     Check = x.DegreeStatus
-                   
-                    }).ToList();
-                var DegreeTypeData = _context.DegreeTypes.ToList().Select(a=> new {
-                    DegreeTypeId=a.DegreeTypeId,
-                    TypeName=a.TypeName,
+
+                }).ToList();
+                var DegreeTypeData = _context.DegreeTypes.ToList().Select(a => new
+                {
+                    DegreeTypeId = a.DegreeTypeId,
+                    TypeName = a.TypeName,
                 });
-                var Specialization = _context.Specializations.ToList().Select(a=> new {
-                    SpecializationId=a.SpecializationId,
-                    SpecializationName=a.SpecializationName
+                var Specialization = _context.Specializations.ToList().Select(a => new
+                {
+                    SpecializationId = a.SpecializationId,
+                    SpecializationName = a.SpecializationName
                 });
                 var data = new
                 {
@@ -390,7 +392,7 @@ namespace OlaWakeel.Controllers
 
                 return Json(data);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 return Json("Invalid Data");
             }
@@ -403,7 +405,7 @@ namespace OlaWakeel.Controllers
 
             try
             {
-               
+
                 //var License_City = _context.LicenseCities.ToList().Select(a=> new {
                 //    LicenseDistrictId=a.LicenseDistrictId,
                 //    LicenseCityId=a.LicenseCityId,
@@ -419,14 +421,16 @@ namespace OlaWakeel.Controllers
 
                 var Data = new
                 {
-                    LicenseData = _context.LicenseCities.ToList().Select(a => new {
+                    LicenseData = _context.LicenseCities.ToList().Select(a => new
+                    {
                         LicenseDistrictId = a.LicenseDistrictId,
                         LicenseCityId = a.LicenseCityId,
                         CityName = a.CityName,
-                       DistrictName = _context.LicenseDistricts.Where(d=>d.LicenseDistrictId == a.LicenseDistrictId).SingleOrDefault().DistrictName,
+                        DistrictName = _context.LicenseDistricts.Where(d => d.LicenseDistrictId == a.LicenseDistrictId).SingleOrDefault().DistrictName,
                         LicenseExist = a.LicenseExist
                     }),
-                    ServiceData = _context.CaseCategories.ToList().Select(x => new {
+                    ServiceData = _context.CaseCategories.ToList().Select(x => new
+                    {
                         ServiceName = x.Name,
                         ServiceId = x.CaseCategoryId,
                         ServiceIcon = x.VectorIcon
@@ -467,12 +471,12 @@ namespace OlaWakeel.Controllers
                 var lawyerData = JsonConvert.DeserializeObject<Lawyer>(Request.Form["Lawyer"]);
 
                 var lawyer = await _context.Lawyers.FindAsync(lawyerData.LawyerId);
-               
+
                 lawyer.TotalExperience = lawyerData.TotalExperience;
 
                 _context.Lawyers.Update(lawyer);
                 await _context.SaveChangesAsync();
-               
+
                 foreach (var service in Services)
                 {
                     await _context.LawyerCaseCategories.AddAsync(service);
@@ -486,13 +490,13 @@ namespace OlaWakeel.Controllers
                 await _context.SaveChangesAsync();
 
                 foreach (var license in lawyerLicense)
-                    {
-                        await _context.LawyerLicenses.AddAsync(license);
-                    }
-                    await _context.SaveChangesAsync();
+                {
+                    await _context.LawyerLicenses.AddAsync(license);
+                }
+                await _context.SaveChangesAsync();
 
 
-                
+
                 var LawyerData = new
                 {
                     IntroStatus = _context.LawyerLanguages.Any(a => a.LawyerId == lawyer.LawyerId),
@@ -619,7 +623,7 @@ namespace OlaWakeel.Controllers
                 var lawyer = await _context.Lawyers.FindAsync(lawyerPackage[0].LawyerId);
                 foreach (var packages in lawyerPackage)
                 {
-                    if(packages.SlotType.ToLower() == "inperson")
+                    if (packages.SlotType.ToLower() == "inperson")
                     {
                         packages.Check2 = false;
                     }
@@ -651,7 +655,7 @@ namespace OlaWakeel.Controllers
                     AboutStatus = _context.LawyerClients.Any(a => a.LawyerId == lawyer.LawyerId),
                     AddOfficeStatus = _context.LawyerAddresses.Any(a => a.LawyerId == lawyer.LawyerId),
                     PackageStatus = _context.LawyerTimings.Any(a => a.LawyerId == lawyer.LawyerId),
-                    DocumentStatus = _context.LawyerCertificatePics.Any(a=>a.LawyerId == lawyer.LawyerId),
+                    DocumentStatus = _context.LawyerCertificatePics.Any(a => a.LawyerId == lawyer.LawyerId),
 
                 };
 
@@ -681,10 +685,10 @@ namespace OlaWakeel.Controllers
                 obj2 obj2 = JsonConvert.DeserializeObject<obj2>(form["MainImages"]);
 
                 List<obj3> obj3 = JsonConvert.DeserializeObject<List<obj3>>(form["CertificateImages"]);
-                
+
                 var path = Path.Combine(_env.ContentRootPath, "wwwroot/Uploads");
-                string Imagename ;
-                string imgPath ;
+                string Imagename;
+                string imgPath;
                 byte[] imageBytes;
                 if (!System.IO.Directory.Exists(path))
                 {
@@ -701,7 +705,7 @@ namespace OlaWakeel.Controllers
                         imageBytes = Convert.FromBase64String(certificate.CertificatePic);
                         System.IO.File.WriteAllBytes(imgPath, imageBytes);
                         certificate.CertificatePic = Imagename;
-                        
+
 
                     }
                     i++;
@@ -710,7 +714,7 @@ namespace OlaWakeel.Controllers
                 await _context.SaveChangesAsync();
 
                 var lawyer = _context.Lawyers.Where(a => a.LawyerId == lawyerData.LawyerId).SingleOrDefault();
-                   
+
                 if (obj2.CnicFrontImageName != "0")
                 {
                     Imagename = obj2.CnicFrontImageName + ".jpg";
@@ -736,8 +740,8 @@ namespace OlaWakeel.Controllers
                     System.IO.File.WriteAllBytes(imgPath, imageBytes);
                     lawyer.RecentDegreePic = Imagename;
                 }
-                
-               
+
+
                 _context.Lawyers.Update(lawyer);
                 await _context.SaveChangesAsync();
 
@@ -749,7 +753,7 @@ namespace OlaWakeel.Controllers
                     AboutStatus = _context.LawyerClients.Any(a => a.LawyerId == lawyer.LawyerId),
                     AddOfficeStatus = _context.LawyerAddresses.Any(a => a.LawyerId == lawyer.LawyerId),
                     PackageStatus = _context.LawyerTimings.Any(a => a.LawyerId == lawyer.LawyerId),
-                    DocumentStatus = _context.LawyerCertificatePics.Any(a=>a.LawyerId == lawyer.LawyerId),
+                    DocumentStatus = _context.LawyerCertificatePics.Any(a => a.LawyerId == lawyer.LawyerId),
 
                 };
 
@@ -767,16 +771,17 @@ namespace OlaWakeel.Controllers
 
         // for user post api 
         // For first time Create Client Profile Data
-        [HttpGet]
-        public async Task<JsonResult> CreateClient(string PhoneNo,string Country, string FirstName, string LastName, string FirbaseToken)
+        
+        public async Task<JsonResult> CreateClient(IFormCollection form)
         {
 
             try
             {
-                var user = new AppUser { PhoneNumber = PhoneNo };
+                Customer customerData = JsonConvert.DeserializeObject<Customer>(Request.Form["Customer"]);
+                var user = new AppUser { PhoneNumber = customerData.Contact };
                 //  user.Email = "abc@gmail.com";
                 Random rndm = new Random();
-                user.UserName = (FirstName.ToLower().Replace(" ", "")) + (LastName.ToLower().Replace(" ", "")) + rndm.Next(0000, 9999);
+                user.UserName = (customerData.FirstName.ToLower().Replace(" ", "")) + (customerData.LastName.ToLower().Replace(" ", "")) + rndm.Next(0000, 9999);
                 user.Email = user.UserName + "2@exemple.com";
 
                 IdentityResult result = await _userManager.CreateAsync(user);
@@ -786,14 +791,14 @@ namespace OlaWakeel.Controllers
                 {
                     customer.AppUserId = user.Id;
                     await _userManager.AddToRoleAsync(user, "Customer");
-                    customer.FirstName = FirstName;
-                    customer.LastName = LastName;
-                    customer.Contact = PhoneNo;
-                    customer.Country = Country;
+                    customer.FirstName = customerData.FirstName;
+                    customer.LastName = customerData.LastName;
+                    customer.Contact = customerData.Contact;
+                    customer.Country = customerData.Country;
                     customer.Date = DateTime.Now;
                     customer.Status = true;
                     //ye application user me add krna ha
-                    customer.FirbaseToken = FirbaseToken;
+                    customer.FirbaseToken = customerData.FirbaseToken;
                     await _customerService.AddCustomer(customer);
 
                     var wallet = new Wallet();
@@ -840,7 +845,7 @@ namespace OlaWakeel.Controllers
 
                     return Json(Customer);
                 }
-                
+
 
             }
             catch (Exception ex)
@@ -867,11 +872,11 @@ namespace OlaWakeel.Controllers
                 Customer customerData = JsonConvert.DeserializeObject<Customer>(Request.Form["Customer"]);
                 var customer = _context.Customers.Where(a => a.CustomerId == customerData.CustomerId).SingleOrDefault();
                 var user = _context.Users.Where(s => s.Id == customerData.AppUserId).SingleOrDefault();
-               // var user2 = _context.Users.SingleOrDefault(s =>s.Id== )
+                // var user2 = _context.Users.SingleOrDefault(s =>s.Id== )
                 user.PhoneNumber = customerData.Contact;
                 Random rndm = new Random();
                 user.UserName = (customerData.FirstName.ToLower().Replace(" ", "")) + (customerData.LastName.ToLower().Replace(" ", "")) + rndm.Next(0000, 9999);
-                 
+
                 IdentityResult result = await _userManager.UpdateAsync(user);
                 if (result.Succeeded)
                 {
@@ -898,9 +903,9 @@ namespace OlaWakeel.Controllers
                         catch (Exception ex)
                         {
 
-                            
+
                         }
-                        
+
 
                         byte[] imageBytes = Convert.FromBase64String(customerData.ProfilePic);
                         System.IO.File.WriteAllBytes(imgPath, imageBytes);
@@ -1054,7 +1059,7 @@ namespace OlaWakeel.Controllers
                     };
                     return Json(Appointment);
                 }
-               
+
 
             }
             catch (Exception ex)
@@ -1077,7 +1082,7 @@ namespace OlaWakeel.Controllers
                 var user = JsonConvert.DeserializeObject<obj4>(Request.Form["user"]);
                 var appoint = _context.Appointments.Find(appointmentData.AppoinmentId);
                 appoint.AppoinmentStatus = appoint.AppoinmentStatus;
-                if(appointmentData.LawyerAddressId == null)
+                if (appointmentData.LawyerAddressId == null)
                     appoint.LawyerAddress = null;
                 appoint.LawyerAddressId = appointmentData.LawyerAddressId;
                 appoint.ScheduleDate = appointmentData.ScheduleDate;
@@ -1092,14 +1097,14 @@ namespace OlaWakeel.Controllers
                 log.Appointment_Id = appointmentData.AppoinmentId;
                 log.LogDate = DateTime.Now;
                 log.Status = true;
-               
-                    log.User_id = appoint.LawyerId;
-                    log.User_Type = "Lawyer";
-                    log.Log_Decs = "Lawyer Reschedule Appointment at " + DateTime.Now.ToShortDateString();
-                
+
+                log.User_id = appoint.LawyerId;
+                log.User_Type = "Lawyer";
+                log.Log_Decs = "Lawyer Reschedule Appointment at " + DateTime.Now.ToShortDateString();
+
 
                 log.Log_Status = appoint.AppoinmentStatus;
-                
+
                 await _context.Logs.AddAsync(log);
                 await _context.SaveChangesAsync();
 
@@ -1127,7 +1132,7 @@ namespace OlaWakeel.Controllers
 
         }
 
-        
+
         //for User Contact with Us
         public async Task<JsonResult> UserContWithUs(IFormCollection form)
         {
@@ -1141,7 +1146,7 @@ namespace OlaWakeel.Controllers
                 //    contact.ContactUs_PhoneNo = _context.Customers.Where(a => a.CustomerId == contact.User_Id).SingleOrDefault().Contact;
                 await _context.ContactUs.AddAsync(contact);
                 await _context.SaveChangesAsync();
-               // var data = JsonConvert.SerializeObject(new { Data = "Success" });
+                // var data = JsonConvert.SerializeObject(new { Data = "Success" });
                 return Json("Success!!!");
 
             }
@@ -1152,7 +1157,7 @@ namespace OlaWakeel.Controllers
             }
 
         }
-        
+
         // for Lawyer Intro Data Edit
         public async Task<JsonResult> EditLawyerIntro(IFormCollection form)
         {
@@ -1162,7 +1167,7 @@ namespace OlaWakeel.Controllers
                 var lawyerData = JsonConvert.DeserializeObject<Lawyer>(Request.Form["Lawyer"]);
                 obj o = JsonConvert.DeserializeObject<obj>(form["OtherInfo"]);
                 string images = o.ImageName;
-                if(images == null)
+                if (images == null)
                 {
                     images = "0";
                 }
@@ -1170,9 +1175,9 @@ namespace OlaWakeel.Controllers
                 List<LawyerLanguage> NewLawyerLanguage = JsonConvert.DeserializeObject<LawyerLanguage[]>(form["NewLanguages"].ToString()).ToList();
                 List<LawyerLanguage> DeletedLawyerLanguage = JsonConvert.DeserializeObject<LawyerLanguage[]>(form["DeletedLanguages"].ToString()).ToList();
                 var EditLawyer = new List<LawyerLanguage>();
-                
-                if(DeletedLawyerLanguage.Count()>0)
-                    EditLawyer = EditLawyerLanguage.Where(a => !DeletedLawyerLanguage.Any(x=>x.LawyerLanguageId == a.LawyerLanguageId)).ToList();
+
+                if (DeletedLawyerLanguage.Count() > 0)
+                    EditLawyer = EditLawyerLanguage.Where(a => !DeletedLawyerLanguage.Any(x => x.LawyerLanguageId == a.LawyerLanguageId)).ToList();
 
                 var lawyer = await _context.Lawyers.FindAsync(lawyerData.LawyerId);
 
@@ -1241,14 +1246,14 @@ namespace OlaWakeel.Controllers
                             var lang = await _context.LawyerLanguages.FindAsync(language.LawyerLanguageId);
                             _context.LawyerLanguages.Remove(lang);
                         }
-                        
+
                         await _context.SaveChangesAsync();
                     }
 
                 }
-                    var LawyerData = new
+                var LawyerData = new
                 {
-                   Updated= true
+                    Updated = true
 
                 };
 
@@ -1270,9 +1275,9 @@ namespace OlaWakeel.Controllers
                 List<LawyerQualification> EditLawyerQualification = JsonConvert.DeserializeObject<LawyerQualification[]>(form["EditEducation"].ToString()).ToList();
                 List<LawyerQualification> NewLawyerQualification = JsonConvert.DeserializeObject<LawyerQualification[]>(form["NewEducation"].ToString()).ToList();
                 List<LawyerQualification> DeletedLawyerQualification = JsonConvert.DeserializeObject<LawyerQualification[]>(form["DeletedEducation"].ToString()).ToList();
-              
-                
-               // var EditLawyer = EditLawyerQualification.Where(a => !DeletedLawyerQualification.Any(x => x.LawyerQualificationId == a.LawyerQualificationId)).ToList();
+
+
+                // var EditLawyer = EditLawyerQualification.Where(a => !DeletedLawyerQualification.Any(x => x.LawyerQualificationId == a.LawyerQualificationId)).ToList();
 
                 if (NewLawyerQualification.Count() > 0)
                 {
@@ -1312,7 +1317,7 @@ namespace OlaWakeel.Controllers
                         edu.CompletionYear = education.CompletionYear;
                         _context.LawyerQualifications.Update(edu);
                     }
-                  
+
                     await _context.SaveChangesAsync();
                 }
 
@@ -1321,10 +1326,10 @@ namespace OlaWakeel.Controllers
                     foreach (var education in DeletedLawyerQualification)
                     {
                         var edu = await _context.LawyerQualifications.FindAsync(education.LawyerQualificationId);
-                       
+
                         _context.LawyerQualifications.Remove(edu);
                     }
-                    
+
                     await _context.SaveChangesAsync();
                 }
 
@@ -1360,15 +1365,15 @@ namespace OlaWakeel.Controllers
                 List<LawyerExperience> NewExperiences = JsonConvert.DeserializeObject<LawyerExperience[]>(form["NewExperience"].ToString()).ToList();
                 List<LawyerExperience> DeletedExperiences = JsonConvert.DeserializeObject<LawyerExperience[]>(form["DeletedExperience"].ToString()).ToList();
 
-               // var EditExperiences1 = EditExperiences.Where(a => !DeletedExperiences.Any(x => x.LawyerExperienceId == a.LawyerExperienceId)).ToList();
+                // var EditExperiences1 = EditExperiences.Where(a => !DeletedExperiences.Any(x => x.LawyerExperienceId == a.LawyerExperienceId)).ToList();
 
 
                 List<LawyerLicense> EditLawyerLicense = JsonConvert.DeserializeObject<LawyerLicense[]>(form["EditLicense"].ToString()).ToList();
                 List<LawyerLicense> DeletedLawyerLicense = JsonConvert.DeserializeObject<LawyerLicense[]>(form["DeletedLicense"].ToString()).ToList();
                 List<LawyerLicense> NewLawyerLicense = JsonConvert.DeserializeObject<LawyerLicense[]>(form["NewLicense"].ToString()).ToList();
-               
 
-               // var EditLawyerLicense1 = EditLawyerLicense.Where(a => !DeletedLawyerLicense.Any(x => x.LawyerLicenseId == a.LawyerLicenseId)).ToList();
+
+                // var EditLawyerLicense1 = EditLawyerLicense.Where(a => !DeletedLawyerLicense.Any(x => x.LawyerLicenseId == a.LawyerLicenseId)).ToList();
 
 
                 var lawyerData = JsonConvert.DeserializeObject<Lawyer>(Request.Form["Lawyer"]);
@@ -1480,7 +1485,7 @@ namespace OlaWakeel.Controllers
         {
 
             try
-           {
+            {
                 List<LawyerClient> EditLawyerClient = JsonConvert.DeserializeObject<LawyerClient[]>(form["EditRenownedClient"].ToString()).ToList();
                 List<LawyerClient> NewLawyerClient = JsonConvert.DeserializeObject<LawyerClient[]>(form["NewRenownedClient"].ToString()).ToList();
                 List<LawyerClient> DeletedLawyerClient = JsonConvert.DeserializeObject<LawyerClient[]>(form["DeletedRenownedClient"].ToString()).ToList();
@@ -1518,7 +1523,7 @@ namespace OlaWakeel.Controllers
 
                 var LawyerData = new
                 {
-                   update = true
+                    update = true
                 };
 
                 return Json(LawyerData);
@@ -1565,7 +1570,7 @@ namespace OlaWakeel.Controllers
 
                 var LawyerData = new
                 {
-                   updete=true
+                    updete = true
                 };
 
                 return Json(LawyerData);
@@ -1592,11 +1597,11 @@ namespace OlaWakeel.Controllers
                 var Packages = _context.LawyerTimings.Where(a => a.LawyerId == LawyerPackage[0].LawyerId && a.SlotDate == LawyerPackage[0].SlotDate && a.Status).ToList();
 
                 var editPackages = LawyerPackage.Where(a => Packages.Any(x => x.LawyerTimingId == a.LawyerTimingId)).ToList();
-               // var editPackages2 = Packages.Where(a => LawyerPackage.Any(x => x.LawyerTimingId == a.LawyerTimingId)).ToList();
+                // var editPackages2 = Packages.Where(a => LawyerPackage.Any(x => x.LawyerTimingId == a.LawyerTimingId)).ToList();
 
                 var delPackages = Packages.Where(a => !LawyerPackage.Any(x => x.LawyerTimingId == a.LawyerTimingId)).ToList();
 
-                var NewPackages = LawyerPackage.Where(a => a.LawyerTimingId==0).ToList();
+                var NewPackages = LawyerPackage.Where(a => a.LawyerTimingId == 0).ToList();
 
 
 
@@ -1649,7 +1654,7 @@ namespace OlaWakeel.Controllers
 
                         _context.LawyerTimings.Update(pak);
                     }
-                   
+
                     await _context.SaveChangesAsync();
                 }
                 if (delPackages.Count() > 0)
@@ -1659,7 +1664,7 @@ namespace OlaWakeel.Controllers
                         packages.Status = false;
                         _context.LawyerTimings.Update(packages);
                     }
-                    
+
                     //_context.LawyerTimings.RemoveRange(delPackages);
                     await _context.SaveChangesAsync();
                 }
@@ -1688,7 +1693,7 @@ namespace OlaWakeel.Controllers
                 List<LawyerCertificatePic> EditCertificates = JsonConvert.DeserializeObject<LawyerCertificatePic[]>(form["EditCertificates"].ToString()).ToList();
                 List<LawyerCertificatePic> NewCertificates = JsonConvert.DeserializeObject<LawyerCertificatePic[]>(form["NewCertificates"].ToString()).ToList();
                 List<LawyerCertificatePic> DeletedCertificates = JsonConvert.DeserializeObject<LawyerCertificatePic[]>(form["DeletedCertificates"].ToString()).ToList();
-                
+
                 //var EditCertificates1 = EditCertificates.Where(a => !DeletedCertificates.Any(x => x.LawyerCertificatePicId == a.LawyerCertificatePicId)).ToList();
 
                 var lawyerData = JsonConvert.DeserializeObject<Lawyer>(Request.Form["Lawyer"]);
@@ -1772,7 +1777,7 @@ namespace OlaWakeel.Controllers
 
                 if (obj2.CnicFrontImageName != "0")
                 {
-                    
+
                     Imagename = obj2.CnicFrontImageName + ".jpg";
                     imgPath = Path.Combine(path, Imagename);
                     imageBytes = Convert.FromBase64String(lawyerData.CnicFrontPic);
@@ -1803,7 +1808,7 @@ namespace OlaWakeel.Controllers
 
                 var LawyerData = new
                 {
-                   updete =true
+                    updete = true
 
                 };
 
@@ -1851,7 +1856,7 @@ namespace OlaWakeel.Controllers
             try
             {
 
-               var LawyerPackages = _context.LawyerTimings.OrderByDescending(a => a.LawyerAddressId).Where(t => t.LawyerId == lawyerid && t.Status).Select(p => new
+                var LawyerPackages = _context.LawyerTimings.OrderByDescending(a => a.LawyerAddressId).Where(t => t.LawyerId == lawyerid && t.Status).Select(p => new
                 {
                     Day = p.Day,
                     StartTime = p.TimeFrom,

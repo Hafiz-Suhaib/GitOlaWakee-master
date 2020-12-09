@@ -68,7 +68,9 @@ namespace OlaWakeel.Controllers
         {
             try
             {
-                var configs = new { does_exist = _context.Customers.Any(a => a.Contact == PhoneNo) };
+
+                var pho = "+" + PhoneNo.Trim();
+                var configs = new { does_exist = _context.Customers.Any(a => a.Contact == pho) };
 
                 var lawyerExist = JsonConvert.SerializeObject(configs);
                 return Ok(lawyerExist);
@@ -85,10 +87,10 @@ namespace OlaWakeel.Controllers
         {
             try
             {
-                if (_context.Lawyers.Any(a => a.Contact == PhoneNo))
+                if (_context.Lawyers.Any(a => a.Contact == phone(PhoneNo)))
                 {
 
-                    var lawyer = _context.Lawyers.Where(a => a.Contact == PhoneNo).Select(x => new
+                    var lawyer = _context.Lawyers.Where(a => a.Contact == phone(PhoneNo)).Select(x => new
                     {
                         LawyerId = x.LawyerId,
                         lawyerName = x.FirstName + " " + x.LastName,
@@ -123,6 +125,12 @@ namespace OlaWakeel.Controllers
             }
 
         }
+        public string phone(string pho)
+        {
+            if (pho.Contains("+"))
+                return pho;
+            return "+" + pho.Trim();
+        }
 
         //for clients side  
         [HttpGet]
@@ -131,7 +139,8 @@ namespace OlaWakeel.Controllers
         {
             try
             {
-                Customer customer = _context.Customers.Where(a => a.Contact == PhoneNo).SingleOrDefault();
+                var pho = "+" + PhoneNo.Trim();
+                Customer customer = _context.Customers.Where(a => a.Contact == phone(PhoneNo)).SingleOrDefault();
                 var Customer = new
                 {
                     CustomerId = customer.CustomerId,
@@ -1141,13 +1150,13 @@ namespace OlaWakeel.Controllers
                 //to = "dx-Az4OGVD8:APA91bECIn3igUHumyK3FeLBq9ee0Z9W0yTTtIGSeJpI0EKwHe32mS7-LiOVfGjEMlkx6PFdPLZykG3qlyw4rFp_oiDxqjMXiLaJ3CRngITLIy9UjmbOpZEauVNV22Hvx8hLrImXctSY",
                 //  to = "/topics/send",
                 //registration_ids = _userToken,
+                //act = act,
                 data = new
                 {
                     title = title,
                     body = body,
                     data = Id,
                     act = act,
-
                 }
             };
             SendNotification(notification, user);
@@ -1190,8 +1199,8 @@ namespace OlaWakeel.Controllers
                 }
                 else
                 {
-                    SERVER_API_KEY = "AAAAV-bexCo:APA91bH78D5YZVh4inCT8RkYFm26uBxhKLpTJ-Wmp-z7Vn7Ft3w50p8hU8Aybv4ob3yfUdxWJAp43LhgFFGeq2SliporILJQaJYavVjO6jobyxIr9EAIJpFAHnCYumtjUcC-aUFcsxef";
-                    SENDER_ID = "377535513642";
+                    SERVER_API_KEY = "AAAA48IumJw:APA91bFAOke06EGk9IeHaDKHoxgUeOKZLOipwfxsyP_8G2tcLcd_8fE_DHhquV76bS68gsRidKqdZayg6-zFxCWfbnlPUKFcXMT8yUft1rPjHfg_CUbUfBi6Ytkr5yGOf-lpp9C26T71";
+                    SENDER_ID = "978215409820";
                 }
 
                 // Create Request

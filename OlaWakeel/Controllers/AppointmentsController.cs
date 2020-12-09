@@ -33,6 +33,29 @@ namespace OlaWakeel.Controllers
                 .Include(a => a.LawyerAddress);
             return View(await applicationDbContext.ToListAsync());
         }
+
+        public async Task<IActionResult> Track(int? AppoinmentId)
+        {
+            if (AppoinmentId == null)
+            {
+                return NotFound();
+            }
+
+            var appointment = await _context.Appointments
+                .Include(a => a.CaseCategory)
+                .Include(a => a.Customer)
+                .Include(a => a.Lawyer)
+                .Include(a => a.LawyerAddress)
+                .FirstOrDefaultAsync(m => m.AppoinmentId == AppoinmentId);
+            if (appointment == null)
+            {
+                return NotFound();
+            }
+
+            return View(appointment);
+        }
+
+
         public async Task<IActionResult> Active()
         {
             //var pT = _context.Appointments.Where(w => w.Date == DateTime.Today).FirstOrDefault();
@@ -239,6 +262,7 @@ namespace OlaWakeel.Controllers
         {
             return _context.Appointments.Any(e => e.AppoinmentId == id);
         }
+
         
     }
 }

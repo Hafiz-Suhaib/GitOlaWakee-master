@@ -1,0 +1,108 @@
+﻿@model IEnumerable<OlaWakeel.Models.Appointment>
+
+@{
+    ViewData["Title"] = "Track";
+    Layout = "~/Views/Shared/_Layout1.cshtml";
+}
+
+<h1>Track</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.AppointmentCode)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LawyerAddress)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CaseCategory)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TimeFrom)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TimeTo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CaseCharges)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ScheduleDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Rating)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AppoinmentType)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AppoinmentStatus)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Date)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Customer)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Lawyer)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.AppointmentCode)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LawyerAddress.LawyerAddressId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CaseCategory.CaseCategoryId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TimeFrom)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TimeTo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CaseCharges)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ScheduleDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Rating)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AppoinmentType)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AppoinmentStatus)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Date)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Customer.CustomerId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Lawyer.LawyerId)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.AppoinmentId">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.AppoinmentId">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.AppoinmentId">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

@@ -22,6 +22,7 @@ namespace OlaWakeel.Models
         public string ProfilePic { get; set; }
         public string City { get; set; }
         public string Country { get; set; }
+
         [DataType(DataType.Date)]
         [Column(TypeName = "date")]
         public DateTime DateOfBirth { get; set; }
