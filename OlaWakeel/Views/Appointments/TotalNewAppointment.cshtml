@@ -1,0 +1,76 @@
+﻿@model IEnumerable<OlaWakeel.Models.Appointment>
+
+@{
+    ViewData["Title"] = "TotalNewAppointment";
+    Layout = "~/Views/Shared/_Layout1.cshtml";
+}
+
+
+<div class="app-page-title">
+    <div class="page-title-wrapper">
+        <div class="page-title-heading">
+            <div class="page-title-icon">
+                <i class="lnr-graduation-hat icon-gradient bg-mean-fruit"></i>
+            </div>
+            <div>
+                TotalNewAppointment
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.AppointmentCode)
+            </th>
+
+            <th>
+                @Html.DisplayNameFor(model => model.ScheduleDate)
+            </th>
+          
+            <th>
+                @Html.DisplayNameFor(model => model.AppoinmentType)
+            </th>
+
+            <th>
+                @Html.DisplayNameFor(model => model.Date)
+            </th>
+
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AppointmentCode)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.ScheduleDate)
+                </td>
+              
+                <td>
+                    @Html.DisplayFor(modelItem => item.AppoinmentType)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.Date)
+                </td>
+
+                <td>
+
+                    <a asp-action="Details" asp-route-id="@item.AppoinmentId">Details</a>
+
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+
+

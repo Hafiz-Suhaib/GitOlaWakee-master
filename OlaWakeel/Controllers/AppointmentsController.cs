@@ -34,7 +34,7 @@ namespace OlaWakeel.Controllers
             return View(await applicationDbContext.ToListAsync());
         }
 
-        public async Task<IActionResult> Track(int? AppoinmentId)
+        public async Task<IActionResult> TrackById(int? AppoinmentId)
         {
             if (AppoinmentId == null)
             {
@@ -51,11 +51,32 @@ namespace OlaWakeel.Controllers
             {
                 return NotFound();
             }
-
             return View(appointment);
         }
+        public async Task<IActionResult> Track()
+        {
+            //if (AppoinmentId == null)
+            //{
+            //    return NotFound();
+            //}
+            //var appointment = await _context.Appointments.FirstOrDefaultAsync(m => m.AppoinmentId == AppoinmentId);
+            //if (appointment == null)
+            //{
+            //    return NotFound();
+            //}
+         //   return View(appointment);
+            return View();
+        }
 
-
+        public async Task<IActionResult> TotalNewAppointment()
+        {
+            var applicationDbContext = _context.Appointments
+                .Include(a => a.CaseCategory)
+                .Include(a => a.Customer)
+                .Include(a => a.Lawyer)
+                .Include(a => a.LawyerAddress);
+            return View(await applicationDbContext.ToListAsync());
+        }
         public async Task<IActionResult> Active()
         {
             //var pT = _context.Appointments.Where(w => w.Date == DateTime.Today).FirstOrDefault();

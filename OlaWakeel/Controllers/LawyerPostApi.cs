@@ -1133,6 +1133,64 @@ namespace OlaWakeel.Controllers
         }
 
 
+        public async Task<JsonResult> RescheduleAppointment(IFormCollection form)
+        {
+
+            try
+            {
+                //Constants con = new Constants();
+                //string s =  con. ;
+                var appointmentData = JsonConvert.DeserializeObject<Appointment>(Request.Form["Appointment"]);
+                //var user = JsonConvert.DeserializeObject<obj4>(Request.Form["user"]);
+                var appoint = _context.Appointments.Find(appointmentData.AppoinmentId);
+
+                appoint.ScheduleDate = appointmentData.ScheduleDate;
+                appoint.TimeFrom = appointmentData.TimeFrom;
+                appoint.TimeTo = appointmentData.TimeTo;
+                appoint.AppoinmentStatus = "Confirmed";
+                _context.Appointments.Update(appoint);
+                await _context.SaveChangesAsync();
+                var log = new Log();
+                log.Appointment_Id = appointmentData.AppoinmentId;
+                log.LogDate = DateTime.Now;
+                log.Status = true;
+
+                log.User_id = appoint.LawyerId;
+                log.User_Type = "Lawyer";
+                log.Log_Decs = "Lawyer Reschedule Appointment at " + DateTime.Now.ToShortDateString();
+
+
+                log.Log_Status = appoint.AppoinmentStatus;
+
+                await _context.Logs.AddAsync(log);
+                await _context.SaveChangesAsync();
+
+                var not = new Notification();
+                not.Date = DateTime.Now;
+                not.NotificationSeen = false;
+                not.Usertype = "Lawyer";
+                not.Status = true;
+                
+                not.NotificationTypeId = appoint.AppoinmentId;
+                not.NotificationType = "Appointment";
+                not.NotificationMessage = log.Log_Decs;
+                //not.NotificationSubject = "";
+                not.UserId = appoint.LawyerId;
+                _context.Notifications.Add(not);
+                _context.SaveChanges();
+                // var data = JsonConvert.SerializeObject(new { Data = "Success" });
+                return Json("Success!!!");
+
+            }
+            catch (Exception ex)
+            {
+
+                return Json("Invalid Data");
+            }
+
+        }
+
+
         //for User Contact with Us
         public async Task<JsonResult> UserContWithUs(IFormCollection form)
         {
