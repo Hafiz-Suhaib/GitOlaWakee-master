@@ -1005,6 +1005,50 @@ namespace OlaWakeel.Controllers
         }
 
         [HttpGet]
+        [Route("Appointment")]
+        public ActionResult<List<Appointment>> Appointment(int id)
+        {
+            try
+            {
+                var Appointments = _context.Appointments.Where(a => a.AppoinmentId == id).Select(x => new
+                {
+                    AppoinmentId = x.AppoinmentId,
+                        AppoinmentStatus = x.AppoinmentStatus,
+                        AppoinmentType = x.AppoinmentType,
+                        CaseCharges = x.CaseCharges,
+                        ScheduleDate = x.ScheduleDate,
+                        TimeFrom = x.TimeFrom,
+                        AppointmentCode = x.AppointmentCode,
+                        TimeTo = x.TimeTo,
+                            AddressId = x.LawyerAddressId,
+                            Address = x.LawyerAddress.Address,
+                            LawyerId = x.LawyerId,
+                            FirstName = x.Lawyer.FirstName,
+                            LastName = x.Lawyer.LastName,
+                            FirbaseToken = x.Lawyer.FirbaseToken,
+                            ProfilePic = x.Customer.ProfilePic,
+                        Age = CalculateAge(x.Lawyer.DateOfBirth),
+                        Gender = x.Lawyer.Gender,
+                        ServiceName = x.CaseCategory.Name,
+                        ServiceId = x.CaseCategoryId,
+                        LawyerCaseCategoryId = x.CaseCategoryId,
+
+
+                    }).FirstOrDefault();
+                    if (Appointments != null)
+
+                        return Ok(Appointments);
+
+                var configs = new { Address = "Not Exist" };
+
+                return Ok(JsonConvert.SerializeObject(configs));
+            }
+            catch (Exception e)
+            {
+                return Ok("Invalid Data");
+            }
+        }
+        [HttpGet]
         [Route("GetWallet")]
         public ActionResult<List<Wallet>> GetWallet(int clientid, string type)
         {
