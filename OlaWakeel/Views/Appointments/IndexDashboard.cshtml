@@ -24,34 +24,53 @@
     <div class="col-sm-12 col-lg-4">
         <div class="mb-3 card">
             <div class="card-header-tab card-header">
-                <div class="card-header-title font-size-lg text-capitalize font-weight-normal">Not have an appointment yet!</div>               
-            </div>           
+                <div class="card-header-title font-size-lg text-capitalize font-weight-normal">Appointments</div>
+            </div>
             <div class="p-0 d-block card-footer">
                 <div class="grid-menu grid-menu-2col">
-                    <form asp-controller="Appointments" asp-action="Index" method="post">
-                        <div class="no-gutters row">
-                            <div class="p-2 col-sm-6">
-                                <button class="btn-icon-vertical btn-transition-text btn-transition btn-transition-alt pt-2 pb-2 btn btn-outline-success">
-                                    <i class="lnr-menu text-success opacity-7 btn-icon-wrapper mb-2"> </i>Total New Appointments
-                                </button>
-                            </div>
-                            <div class="p-2 col-sm-6">
-                                <button class="btn-icon-vertical btn-transition-text btn-transition btn-transition-alt pt-2 pb-2 btn btn-outline-warning">
-                                    <i class="lnr-hourglass text-warning opacity-7 btn-icon-wrapper mb-2"> </i>Customers
-                                </button>
-                            </div>
-                            <div class="p-2 col-sm-6">
-                                <button class="btn-icon-vertical btn-transition-text btn-transition btn-transition-alt pt-2 pb-2 btn btn-outline-info">
-                                    <i class="lnr-book text-info opacity-7 btn-icon-wrapper mb-2"> </i>Track Appointment
-                                </button>
-                            </div>
-                            <div class="p-2 col-sm-6">
-                                <button class="btn-icon-vertical btn-transition-text btn-transition btn-transition-alt pt-2 pb-2 btn btn-outline-alternate">
-                                    <i class="lnr-gift text-alternate opacity-7 btn-icon-wrapper mb-2"> </i>Not an appointment yet!
-                                </button>
-                            </div>
+                    @*<form asp-controller="Appointments" asp-action="Index" method="post">*@
+                    <div class="no-gutters row">
+                        <div class="p-2 col-sm-6">
+                            <button class="btn-icon-vertical btn-transition-text btn-transition btn-transition-alt pt-2 pb-2 btn btn-outline-success asp-controller="Appointments" asp-action="TotalNewAppointment" type="button">
+                                <a href="~/Appointments/TotalNewAppointment">  <i class="lnr-menu text-success opacity-7 btn-icon-wrapper mb-2"> </i>Total New Appointments</a>
+                            </button>
+
+                            <!--<a href="~/Appointments/TotalNewAppointment" >-->
+                            @*<i class="lnr-menu text-success opacity-10 btn-icon-wrapper mb-2></i>*@
+                            <!--<i class="lnr-menu text-success opacity-10 btn-icon-wrapper mb-2">Total New Appointment</i>
+                            </a>-->
+                            @*<input type="submit" value="button" />
+                                <a href='@Url.Action("TotalNewAppointment", "Appointments")></a>*@
+
                         </div>
-                    </form>
+                        <div class="p-2 col-sm-6">
+                            <button class="btn-icon-vertical btn-transition-text btn-transition btn-transition-alt pt-2 pb-2 btn btn-outline-warning asp-controller="Appointments" asp-action="TotalNewAppointment">
+                                <a href="/Appointments/CustomerWithAppoint">
+                                    <i class="lnr-hourglass text-warning opacity-7 btn-icon-wrapper mb-2"> </i>Customers
+                                </a>
+                            </button>
+                        </div>
+                        <div class="p-2 col-sm-6">
+                            <button class="btn-icon-vertical btn-transition-text btn-transition btn-transition-alt pt-2 pb-2 btn btn-outline-info asp-controller="Appointments" asp-action="Track">
+                                <a href="~/Appointments/TrackAppointment">
+                                    <i class="lnr-book text-info opacity-7 btn-icon-wrapper mb-2"> </i>Track Appointment
+                                </a>
+                            </button>
+
+
+                            @*<a href="~/Appointments/Track" class="btn-icon-vertical btn-transition-text btn-transition btn-transition-alt pt-2 pb-2 btn btn-outline-success>
+                                    <i class="lnr-menu text-success opacity-7 btn-icon-wrapper mb-2">Track Appointment</i>
+                                </a>*@
+                        </div>
+                        <div class="p-2 col-sm-6">
+                            <button class="btn-icon-vertical btn-transition-text btn-transition btn-transition-alt pt-2 pb-2 btn btn-outline-alternate">
+                                <a href="/Appointments/CustomerWithoutAppoint">
+                                    <i class="lnr-gift text-alternate opacity-7 btn-icon-wrapper mb-2"> </i>Not an appointment yet!
+                                </a>
+                            </button>
+                        </div>
+                    </div>
+                    @*</form>*@
                 </div>
             </div>
         </div>
@@ -61,201 +80,78 @@
         <div class="mb-3 card">
             <div class="card-header-tab card-header">
                 <div class="card-header-title font-size-lg text-capitalize font-weight-normal">Confirm Appointments!</div>
-                @*<div class="card-header-title font-size-lg text-capitalize font-weight-normal">Make an Appointment</div>*@
-
-                @*<div class="btn-actions-pane-right text-capitalize">
-                        <button class="btn-wide btn-outline-2x btn btn-outline-primary btn-sm">View All</button>
-                    </div>*@
             </div>
-            @*<div class="card-body" style="position: relative;">
-                    <div id="chart-col-3" style="min-height: 200px;"><div id="apexcharts1u64srkl" class="apexcharts-canvas apexcharts1u64srkl" style="width: 333px; height: 200px;"><svg id="SvgjsSvg6037" width="333" height="200" xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svgjs="http://svgjs.com/svgjs" class="apexcharts-svg" xmlns:data="ApexChartsNS" transform="translate(0, 0)" style="background: transparent;"><g id="SvgjsG6039" class="apexcharts-inner apexcharts-graphical" transform="translate(0, 0)"><defs id="SvgjsDefs6038"><clipPath id="gridRectMask1u64srkl"><rect id="SvgjsRect6043" width="335" height="202" x="-1" y="-1" rx="0" ry="0" fill="#ffffff" opacity="1" stroke-width="0" stroke="none" stroke-dasharray="0"></rect></clipPath><clipPath id="gridRectMarkerMask1u64srkl"><rect id="SvgjsRect6044" width="347" height="214" x="-7" y="-7" rx="0" ry="0" fill="#ffffff" opacity="1" stroke-width="0" stroke="none" stroke-dasharray="0"></rect></clipPath><linearGradient id="SvgjsLinearGradient6051" x1="0" y1="0" x2="0" y2="1"><stop id="SvgjsStop6052" stop-opacity="0.65" stop-color="rgba(0,143,251,0.65)" offset="0"></stop><stop id="SvgjsStop6053" stop-opacity="0.5" stop-color="rgba(128,199,253,0.5)" offset="1"></stop><stop id="SvgjsStop6054" stop-opacity="0.5" stop-color="rgba(128,199,253,0.5)" offset="1"></stop></linearGradient><linearGradient id="SvgjsLinearGradient6060" x1="0" y1="0" x2="0" y2="1"><stop id="SvgjsStop6061" stop-opacity="0.65" stop-color="rgba(0,227,150,0.65)" offset="0"></stop><stop id="SvgjsStop6062" stop-opacity="0.5" stop-color="rgba(128,241,203,0.5)" offset="1"></stop><stop id="SvgjsStop6063" stop-opacity="0.5" stop-color="rgba(128,241,203,0.5)" offset="1"></stop></linearGradient><linearGradient id="SvgjsLinearGradient6069" x1="0" y1="0" x2="0" y2="1"><stop id="SvgjsStop6070" stop-opacity="0.65" stop-color="rgba(254,176,25,0.65)" offset="0"></stop><stop id="SvgjsStop6071" stop-opacity="0.5" stop-color="rgba(255,216,140,0.5)" offset="1"></stop><stop id="SvgjsStop6072" stop-opacity="0.5" stop-color="rgba(255,216,140,0.5)" offset="1"></stop></linearGradient></defs><rect id="SvgjsRect6042" width="1" height="200" x="18" y="0" rx="0" ry="0" fill="#b1b9c4" opacity="1" stroke-width="0" stroke-dasharray="0" class="apexcharts-xcrosshairs" filter="none" fill-opacity="0.9"></rect><g id="SvgjsG6074" class="apexcharts-xaxis" transform="translate(0, 0)"><g id="SvgjsG6075" class="apexcharts-xaxis-texts-g" transform="translate(0, -4)"></g></g><g id="SvgjsG6080" class="apexcharts-grid"><line id="SvgjsLine6082" x1="0" y1="200" x2="333" y2="200" stroke="transparent" stroke-dasharray="0"></line><line id="SvgjsLine6081" x1="0" y1="1" x2="0" y2="200" stroke="transparent" stroke-dasharray="0"></line></g><g id="SvgjsG6046" class="apexcharts-area-series apexcharts-plot-series"><g id="SvgjsG6065" class="apexcharts-series Free-Cash-Flow" data:longestSeries="true" rel="3" data:realIndex="2"><path id="apexcharts-area-2" d="M 18.5 170C 31.45 170 42.55 158 55.5 158C 68.45 158 79.55 168 92.5 168C 105.45 168 116.55 188 129.5 188C 142.45 188 153.55 150 166.5 150C 179.45 150 190.55 144 203.5 144C 216.45 144 227.55 136 240.5 136C 253.45 136 264.55 134 277.5 134C 290.45 134 301.55 158 314.5 158" fill="none" fill-opacity="1" stroke="transparent" stroke-opacity="1" stroke-linecap="butt" stroke-width="2" stroke-dasharray="0" class="apexcharts-area" index="2" clip-path="url(#gridRectMask1u64srkl)" pathTo="M 18.5 170C 31.45 170 42.55 158 55.5 158C 68.45 158 79.55 168 92.5 168C 105.45 168 116.55 188 129.5 188C 142.45 188 153.55 150 166.5 150C 179.45 150 190.55 144 203.5 144C 216.45 144 227.55 136 240.5 136C 253.45 136 264.55 134 277.5 134C 290.45 134 301.55 158 314.5 158" pathFrom="M -1 240L -1 240L 55.5 240L 92.5 240L 129.5 240L 166.5 240L 203.5 240L 240.5 240L 277.5 240L 314.5 240"></path><path id="apexcharts-area-2" d="M 18.5 200L 18.5 170C 31.45 170 42.55 158 55.5 158C 68.45 158 79.55 168 92.5 168C 105.45 168 116.55 188 129.5 188C 142.45 188 153.55 150 166.5 150C 179.45 150 190.55 144 203.5 144C 216.45 144 227.55 136 240.5 136C 253.45 136 264.55 134 277.5 134C 290.45 134 301.55 158 314.5 158C 314.5 158 314.5 158 314.5 200M 314.5 158z" fill="url(#SvgjsLinearGradient6069)" fill-opacity="1" stroke-opacity="1" stroke-linecap="butt" stroke-width="0" stroke-dasharray="0" class="apexcharts-area" index="2" clip-path="url(#gridRectMask1u64srkl)" pathTo="M 18.5 200L 18.5 170C 31.45 170 42.55 158 55.5 158C 68.45 158 79.55 168 92.5 168C 105.45 168 116.55 188 129.5 188C 142.45 188 153.55 150 166.5 150C 179.45 150 190.55 144 203.5 144C 216.45 144 227.55 136 240.5 136C 253.45 136 264.55 134 277.5 134C 290.45 134 301.55 158 314.5 158C 314.5 158 314.5 158 314.5 200M 314.5 158z" pathFrom="M -1 240L -1 240L 55.5 240L 92.5 240L 129.5 240L 166.5 240L 203.5 240L 240.5 240L 277.5 240L 314.5 240"></path><g id="SvgjsG6066" class="apexcharts-series-markers-wrap"><g class="apexcharts-series-markers"><circle id="SvgjsCircle6088" r="0" cx="18.5" cy="170" class="apexcharts-marker w0g9ymt4kk no-pointer-events" stroke="#ffffff" fill="#feb019" fill-opacity="1" stroke-width="2" stroke-opacity="0.9" default-marker-size="0"></circle></g></g><g id="SvgjsG6067" class="apexcharts-datalabels"></g></g><g id="SvgjsG6056" class="apexcharts-series Revenue" data:longestSeries="true" rel="2" data:realIndex="1"><path id="apexcharts-area-1" d="M 18.5 88C 31.45 88 42.55 70 55.5 70C 68.45 70 79.55 38 92.5 38C 105.45 38 116.55 44 129.5 44C 142.45 44 153.55 66 166.5 66C 179.45 66 190.55 30 203.5 30C 216.45 30 227.55 58 240.5 58C 253.45 58 264.55 12 277.5 12C 290.45 12 301.55 52 314.5 52" fill="none" fill-opacity="1" stroke="transparent" stroke-opacity="1" stroke-linecap="butt" stroke-width="2" stroke-dasharray="0" class="apexcharts-area" index="1" clip-path="url(#gridRectMask1u64srkl)" pathTo="M 18.5 88C 31.45 88 42.55 70 55.5 70C 68.45 70 79.55 38 92.5 38C 105.45 38 116.55 44 129.5 44C 142.45 44 153.55 66 166.5 66C 179.45 66 190.55 30 203.5 30C 216.45 30 227.55 58 240.5 58C 253.45 58 264.55 12 277.5 12C 290.45 12 301.55 52 314.5 52" pathFrom="M -1 240L -1 240L 55.5 240L 92.5 240L 129.5 240L 166.5 240L 203.5 240L 240.5 240L 277.5 240L 314.5 240"></path><path id="apexcharts-area-1" d="M 18.5 200L 18.5 88C 31.45 88 42.55 70 55.5 70C 68.45 70 79.55 38 92.5 38C 105.45 38 116.55 44 129.5 44C 142.45 44 153.55 66 166.5 66C 179.45 66 190.55 30 203.5 30C 216.45 30 227.55 58 240.5 58C 253.45 58 264.55 12 277.5 12C 290.45 12 301.55 52 314.5 52C 314.5 52 314.5 52 314.5 200M 314.5 52z" fill="url(#SvgjsLinearGradient6060)" fill-opacity="1" stroke-opacity="1" stroke-linecap="butt" stroke-width="0" stroke-dasharray="0" class="apexcharts-area" index="1" clip-path="url(#gridRectMask1u64srkl)" pathTo="M 18.5 200L 18.5 88C 31.45 88 42.55 70 55.5 70C 68.45 70 79.55 38 92.5 38C 105.45 38 116.55 44 129.5 44C 142.45 44 153.55 66 166.5 66C 179.45 66 190.55 30 203.5 30C 216.45 30 227.55 58 240.5 58C 253.45 58 264.55 12 277.5 12C 290.45 12 301.55 52 314.5 52C 314.5 52 314.5 52 314.5 200M 314.5 52z" pathFrom="M -1 240L -1 240L 55.5 240L 92.5 240L 129.5 240L 166.5 240L 203.5 240L 240.5 240L 277.5 240L 314.5 240"></path><g id="SvgjsG6057" class="apexcharts-series-markers-wrap"><g class="apexcharts-series-markers"><circle id="SvgjsCircle6089" r="0" cx="18.5" cy="88" class="apexcharts-marker wfde0kvit no-pointer-events" stroke="#ffffff" fill="#00e396" fill-opacity="1" stroke-width="2" stroke-opacity="0.9" default-marker-size="0"></circle></g></g><g id="SvgjsG6058" class="apexcharts-datalabels"></g></g><g id="SvgjsG6047" class="apexcharts-series Net-Profit" data:longestSeries="true" rel="1" data:realIndex="0"><path id="apexcharts-area-0" d="M 18.5 152C 31.45 152 42.55 130 55.5 130C 68.45 130 79.55 126 92.5 126C 105.45 126 116.55 128 129.5 128C 142.45 128 153.55 118 166.5 118C 179.45 118 190.55 124 203.5 124C 216.45 124 227.55 114 240.5 114C 253.45 114 264.55 120 277.5 120C 290.45 120 301.55 108 314.5 108" fill="none" fill-opacity="1" stroke="transparent" stroke-opacity="1" stroke-linecap="butt" stroke-width="2" stroke-dasharray="0" class="apexcharts-area" index="0" clip-path="url(#gridRectMask1u64srkl)" pathTo="M 18.5 152C 31.45 152 42.55 130 55.5 130C 68.45 130 79.55 126 92.5 126C 105.45 126 116.55 128 129.5 128C 142.45 128 153.55 118 166.5 118C 179.45 118 190.55 124 203.5 124C 216.45 124 227.55 114 240.5 114C 253.45 114 264.55 120 277.5 120C 290.45 120 301.55 108 314.5 108" pathFrom="M -1 240L -1 240L 55.5 240L 92.5 240L 129.5 240L 166.5 240L 203.5 240L 240.5 240L 277.5 240L 314.5 240"></path><path id="apexcharts-area-0" d="M 18.5 200L 18.5 152C 31.45 152 42.55 130 55.5 130C 68.45 130 79.55 126 92.5 126C 105.45 126 116.55 128 129.5 128C 142.45 128 153.55 118 166.5 118C 179.45 118 190.55 124 203.5 124C 216.45 124 227.55 114 240.5 114C 253.45 114 264.55 120 277.5 120C 290.45 120 301.55 108 314.5 108C 314.5 108 314.5 108 314.5 200M 314.5 108z" fill="url(#SvgjsLinearGradient6051)" fill-opacity="1" stroke-opacity="1" stroke-linecap="butt" stroke-width="0" stroke-dasharray="0" class="apexcharts-area" index="0" clip-path="url(#gridRectMask1u64srkl)" pathTo="M 18.5 200L 18.5 152C 31.45 152 42.55 130 55.5 130C 68.45 130 79.55 126 92.5 126C 105.45 126 116.55 128 129.5 128C 142.45 128 153.55 118 166.5 118C 179.45 118 190.55 124 203.5 124C 216.45 124 227.55 114 240.5 114C 253.45 114 264.55 120 277.5 120C 290.45 120 301.55 108 314.5 108C 314.5 108 314.5 108 314.5 200M 314.5 108z" pathFrom="M -1 240L -1 240L 55.5 240L 92.5 240L 129.5 240L 166.5 240L 203.5 240L 240.5 240L 277.5 240L 314.5 240"></path><g id="SvgjsG6048" class="apexcharts-series-markers-wrap"><g class="apexcharts-series-markers"><circle id="SvgjsCircle6090" r="0" cx="18.5" cy="152" class="apexcharts-marker wym87f8p5 no-pointer-events" stroke="#ffffff" fill="#008ffb" fill-opacity="1" stroke-width="2" stroke-opacity="0.9" default-marker-size="0"></circle></g></g><g id="SvgjsG6049" class="apexcharts-datalabels"></g></g></g><line id="SvgjsLine6083" x1="0" y1="0" x2="333" y2="0" stroke="#b6b6b6" stroke-dasharray="0" stroke-width="1" class="apexcharts-ycrosshairs"></line><line id="SvgjsLine6084" x1="0" y1="0" x2="333" y2="0" stroke-dasharray="0" stroke-width="0" class="apexcharts-ycrosshairs-hidden"></line><g id="SvgjsG6085" class="apexcharts-yaxis-annotations"></g><g id="SvgjsG6086" class="apexcharts-xaxis-annotations"></g><g id="SvgjsG6087" class="apexcharts-point-annotations"></g></g><g id="SvgjsG6076" class="apexcharts-yaxis" rel="0" transform="translate(-32.015625, 0)"><g id="SvgjsG6077" class="apexcharts-yaxis-texts-g"></g><g id="SvgjsG6078" class="apexcharts-yaxis-title"><text id="SvgjsText6079" font-family="Helvetica, Arial, sans-serif" x="38.8046875" y="100" text-anchor="end" dominate-baseline="central" font-size="11px" fill="#373d3f" class="apexcharts-yaxis-title-text apexcharts-yaxis-title" style="font-family: Helvetica, Arial, sans-serif;" transform="rotate(-90 5.34375 96.3984375)">$ (thousands)</text></g></g></svg><div class="apexcharts-legend"></div><div class="apexcharts-tooltip light" style="left: 29px; top: 51.2px;"><div class="apexcharts-tooltip-title">Feb</div><div class="apexcharts-tooltip-series-group active" style="display: flex;"><span class="apexcharts-tooltip-marker" style="background-color: rgb(0, 143, 251);"></span><div class="apexcharts-tooltip-text"><div class="apexcharts-tooltip-y-group"><span class="apexcharts-tooltip-text-label">Net Profit: </span><span class="apexcharts-tooltip-text-value">$ 44 thousands</span></div><div class="apexcharts-tooltip-z-group"><span class="apexcharts-tooltip-text-z-label"></span><span class="apexcharts-tooltip-text-z-value"></span></div></div></div><div class="apexcharts-tooltip-series-group active" style="display: flex;"><span class="apexcharts-tooltip-marker" style="background-color: rgb(0, 227, 150);"></span><div class="apexcharts-tooltip-text"><div class="apexcharts-tooltip-y-group"><span class="apexcharts-tooltip-text-label">Revenue: </span><span class="apexcharts-tooltip-text-value">$ 76 thousands</span></div><div class="apexcharts-tooltip-z-group"><span class="apexcharts-tooltip-text-z-label"></span><span class="apexcharts-tooltip-text-z-value"></span></div></div></div><div class="apexcharts-tooltip-series-group active" style="display: flex;"><span class="apexcharts-tooltip-marker" style="background-color: rgb(254, 176, 25);"></span><div class="apexcharts-tooltip-text"><div class="apexcharts-tooltip-y-group"><span class="apexcharts-tooltip-text-label">Free Cash Flow: </span><span class="apexcharts-tooltip-text-value">$ 35 thousands</span></div><div class="apexcharts-tooltip-z-group"><span class="apexcharts-tooltip-text-z-label"></span><span class="apexcharts-tooltip-text-z-value"></span></div></div></div></div></div></div>
-                    <div class="resize-triggers"><div class="expand-trigger"><div style="width: 374px; height: 241px;"></div></div><div class="contract-trigger"></div></div>
-                </div>*@
             <div class="p-0 d-block card-footer">
                 <div class="grid-menu grid-menu-2col">
                     <div class="no-gutters row">
                         <div class="p-2 col-sm-6">
-                            <form asp-controller="Appointments" asp-action="Active" method="post">
-                                <button class="btn-icon-vertical btn-transition-text btn-transition btn-transition-alt pt-2 pb-2 btn btn-outline-success">
-                                    <i class="lnr-menu text-success opacity-7 btn-icon-wrapper mb-2"> </i>Today
-                                    @*<i class="fa fa-fw" aria-hidden="true" title="Copy to use address-card"></i>New Appointments*@
-                                </button>
-                            </form>
-                        </div>
-                        <div class="p-2 col-sm-6">
-                            <form asp-controller="Appointments" asp-action="Index" method="post">                           
-                            <button class="btn-icon-vertical btn-transition-text btn-transition btn-transition-alt pt-2 pb-2 btn btn-outline-warning">
-                                <i class="lnr-hourglass text-warning opacity-7 btn-icon-wrapper mb-2"> </i>Weekly
+                            <button class="btn-icon-vertical btn-transition-text btn-transition btn-transition-alt pt-2 pb-2 btn btn-outline-success asp-controller="Appointments" asp-action="TotalNewAppointment" type="button">
+                                <a href="/Appointments/TodayConfirmAppointments">  <i class="lnr-menu text-success opacity-7 btn-icon-wrapper mb-2"> </i>Today</a>
                             </button>
-                                </form>
+
                         </div>
                         <div class="p-2 col-sm-6">
-                            <form asp-controller="Appointments" asp-action="Index" method="post">
-                                <button class="btn-icon-vertical btn-transition-text btn-transition btn-transition-alt pt-2 pb-2 btn btn-outline-info">
+                            <button class="btn-icon-vertical btn-transition-text btn-transition btn-transition-alt pt-2 pb-2 btn btn-outline-warning asp-controller="Appointments" asp-action="TotalNewAppointment">
+                                <a href="/Appointments/WeeklyConfirmAppointments">
+                                    <i class="lnr-hourglass text-warning opacity-7 btn-icon-wrapper mb-2"> </i>Weekly
+                                </a>
+                            </button>
+                        </div>
+                        <div class="p-2 col-sm-6">
+                            <button class="btn-icon-vertical btn-transition-text btn-transition btn-transition-alt pt-2 pb-2 btn btn-outline-info asp-controller="Appointments" asp-action="Track">
+                                <a href="/Appointments/MonthlyConfirmAppointments">
                                     <i class="lnr-book text-info opacity-7 btn-icon-wrapper mb-2"> </i>Monthly
-                                </button>
-                                </form>
-                           </div>
-                            <div class="p-2 col-sm-6">
-                        <form asp-controller="Appointments" asp-action="Index" method="post">
-                                <button class="btn-icon-vertical btn-transition-text btn-transition btn-transition-alt pt-2 pb-2 btn btn-outline-alternate">
+                                </a>
+                            </button>
+                        </div>
+                        <div class="p-2 col-sm-6">
+                            <button class="btn-icon-vertical btn-transition-text btn-transition btn-transition-alt pt-2 pb-2 btn btn-outline-alternate">
+                                <a href="/Appointments/YearlyConfirmAppointments">
                                     <i class="lnr-gift text-alternate opacity-7 btn-icon-wrapper mb-2"> </i>Yearly
-                                </button>
-                            </form>
-                            </div>
+                                </a>
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+
+
     <div class="col-sm-12 col-lg-4">
         <div class="mb-3 card">
             <div class="card-header-tab card-header">
                 <div class="card-header-title font-size-lg text-capitalize font-weight-normal">Rescheduled Appointments!</div>
-                @*<div class="card-header-title font-size-lg text-capitalize font-weight-normal">Make an Appointment</div>*@
-
-                @*<div class="btn-actions-pane-right text-capitalize">
-                        <button class="btn-wide btn-outline-2x btn btn-outline-primary btn-sm">View All</button>
-                    </div>*@
             </div>
-            @*<div class="card-body" style="position: relative;">
-                    <div id="chart-col-3" style="min-height: 200px;"><div id="apexcharts1u64srkl" class="apexcharts-canvas apexcharts1u64srkl" style="width: 333px; height: 200px;"><svg id="SvgjsSvg6037" width="333" height="200" xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svgjs="http://svgjs.com/svgjs" class="apexcharts-svg" xmlns:data="ApexChartsNS" transform="translate(0, 0)" style="background: transparent;"><g id="SvgjsG6039" class="apexcharts-inner apexcharts-graphical" transform="translate(0, 0)"><defs id="SvgjsDefs6038"><clipPath id="gridRectMask1u64srkl"><rect id="SvgjsRect6043" width="335" height="202" x="-1" y="-1" rx="0" ry="0" fill="#ffffff" opacity="1" stroke-width="0" stroke="none" stroke-dasharray="0"></rect></clipPath><clipPath id="gridRectMarkerMask1u64srkl"><rect id="SvgjsRect6044" width="347" height="214" x="-7" y="-7" rx="0" ry="0" fill="#ffffff" opacity="1" stroke-width="0" stroke="none" stroke-dasharray="0"></rect></clipPath><linearGradient id="SvgjsLinearGradient6051" x1="0" y1="0" x2="0" y2="1"><stop id="SvgjsStop6052" stop-opacity="0.65" stop-color="rgba(0,143,251,0.65)" offset="0"></stop><stop id="SvgjsStop6053" stop-opacity="0.5" stop-color="rgba(128,199,253,0.5)" offset="1"></stop><stop id="SvgjsStop6054" stop-opacity="0.5" stop-color="rgba(128,199,253,0.5)" offset="1"></stop></linearGradient><linearGradient id="SvgjsLinearGradient6060" x1="0" y1="0" x2="0" y2="1"><stop id="SvgjsStop6061" stop-opacity="0.65" stop-color="rgba(0,227,150,0.65)" offset="0"></stop><stop id="SvgjsStop6062" stop-opacity="0.5" stop-color="rgba(128,241,203,0.5)" offset="1"></stop><stop id="SvgjsStop6063" stop-opacity="0.5" stop-color="rgba(128,241,203,0.5)" offset="1"></stop></linearGradient><linearGradient id="SvgjsLinearGradient6069" x1="0" y1="0" x2="0" y2="1"><stop id="SvgjsStop6070" stop-opacity="0.65" stop-color="rgba(254,176,25,0.65)" offset="0"></stop><stop id="SvgjsStop6071" stop-opacity="0.5" stop-color="rgba(255,216,140,0.5)" offset="1"></stop><stop id="SvgjsStop6072" stop-opacity="0.5" stop-color="rgba(255,216,140,0.5)" offset="1"></stop></linearGradient></defs><rect id="SvgjsRect6042" width="1" height="200" x="18" y="0" rx="0" ry="0" fill="#b1b9c4" opacity="1" stroke-width="0" stroke-dasharray="0" class="apexcharts-xcrosshairs" filter="none" fill-opacity="0.9"></rect><g id="SvgjsG6074" class="apexcharts-xaxis" transform="translate(0, 0)"><g id="SvgjsG6075" class="apexcharts-xaxis-texts-g" transform="translate(0, -4)"></g></g><g id="SvgjsG6080" class="apexcharts-grid"><line id="SvgjsLine6082" x1="0" y1="200" x2="333" y2="200" stroke="transparent" stroke-dasharray="0"></line><line id="SvgjsLine6081" x1="0" y1="1" x2="0" y2="200" stroke="transparent" stroke-dasharray="0"></line></g><g id="SvgjsG6046" class="apexcharts-area-series apexcharts-plot-series"><g id="SvgjsG6065" class="apexcharts-series Free-Cash-Flow" data:longestSeries="true" rel="3" data:realIndex="2"><path id="apexcharts-area-2" d="M 18.5 170C 31.45 170 42.55 158 55.5 158C 68.45 158 79.55 168 92.5 168C 105.45 168 116.55 188 129.5 188C 142.45 188 153.55 150 166.5 150C 179.45 150 190.55 144 203.5 144C 216.45 144 227.55 136 240.5 136C 253.45 136 264.55 134 277.5 134C 290.45 134 301.55 158 314.5 158" fill="none" fill-opacity="1" stroke="transparent" stroke-opacity="1" stroke-linecap="butt" stroke-width="2" stroke-dasharray="0" class="apexcharts-area" index="2" clip-path="url(#gridRectMask1u64srkl)" pathTo="M 18.5 170C 31.45 170 42.55 158 55.5 158C 68.45 158 79.55 168 92.5 168C 105.45 168 116.55 188 129.5 188C 142.45 188 153.55 150 166.5 150C 179.45 150 190.55 144 203.5 144C 216.45 144 227.55 136 240.5 136C 253.45 136 264.55 134 277.5 134C 290.45 134 301.55 158 314.5 158" pathFrom="M -1 240L -1 240L 55.5 240L 92.5 240L 129.5 240L 166.5 240L 203.5 240L 240.5 240L 277.5 240L 314.5 240"></path><path id="apexcharts-area-2" d="M 18.5 200L 18.5 170C 31.45 170 42.55 158 55.5 158C 68.45 158 79.55 168 92.5 168C 105.45 168 116.55 188 129.5 188C 142.45 188 153.55 150 166.5 150C 179.45 150 190.55 144 203.5 144C 216.45 144 227.55 136 240.5 136C 253.45 136 264.55 134 277.5 134C 290.45 134 301.55 158 314.5 158C 314.5 158 314.5 158 314.5 200M 314.5 158z" fill="url(#SvgjsLinearGradient6069)" fill-opacity="1" stroke-opacity="1" stroke-linecap="butt" stroke-width="0" stroke-dasharray="0" class="apexcharts-area" index="2" clip-path="url(#gridRectMask1u64srkl)" pathTo="M 18.5 200L 18.5 170C 31.45 170 42.55 158 55.5 158C 68.45 158 79.55 168 92.5 168C 105.45 168 116.55 188 129.5 188C 142.45 188 153.55 150 166.5 150C 179.45 150 190.55 144 203.5 144C 216.45 144 227.55 136 240.5 136C 253.45 136 264.55 134 277.5 134C 290.45 134 301.55 158 314.5 158C 314.5 158 314.5 158 314.5 200M 314.5 158z" pathFrom="M -1 240L -1 240L 55.5 240L 92.5 240L 129.5 240L 166.5 240L 203.5 240L 240.5 240L 277.5 240L 314.5 240"></path><g id="SvgjsG6066" class="apexcharts-series-markers-wrap"><g class="apexcharts-series-markers"><circle id="SvgjsCircle6088" r="0" cx="18.5" cy="170" class="apexcharts-marker w0g9ymt4kk no-pointer-events" stroke="#ffffff" fill="#feb019" fill-opacity="1" stroke-width="2" stroke-opacity="0.9" default-marker-size="0"></circle></g></g><g id="SvgjsG6067" class="apexcharts-datalabels"></g></g><g id="SvgjsG6056" class="apexcharts-series Revenue" data:longestSeries="true" rel="2" data:realIndex="1"><path id="apexcharts-area-1" d="M 18.5 88C 31.45 88 42.55 70 55.5 70C 68.45 70 79.55 38 92.5 38C 105.45 38 116.55 44 129.5 44C 142.45 44 153.55 66 166.5 66C 179.45 66 190.55 30 203.5 30C 216.45 30 227.55 58 240.5 58C 253.45 58 264.55 12 277.5 12C 290.45 12 301.55 52 314.5 52" fill="none" fill-opacity="1" stroke="transparent" stroke-opacity="1" stroke-linecap="butt" stroke-width="2" stroke-dasharray="0" class="apexcharts-area" index="1" clip-path="url(#gridRectMask1u64srkl)" pathTo="M 18.5 88C 31.45 88 42.55 70 55.5 70C 68.45 70 79.55 38 92.5 38C 105.45 38 116.55 44 129.5 44C 142.45 44 153.55 66 166.5 66C 179.45 66 190.55 30 203.5 30C 216.45 30 227.55 58 240.5 58C 253.45 58 264.55 12 277.5 12C 290.45 12 301.55 52 314.5 52" pathFrom="M -1 240L -1 240L 55.5 240L 92.5 240L 129.5 240L 166.5 240L 203.5 240L 240.5 240L 277.5 240L 314.5 240"></path><path id="apexcharts-area-1" d="M 18.5 200L 18.5 88C 31.45 88 42.55 70 55.5 70C 68.45 70 79.55 38 92.5 38C 105.45 38 116.55 44 129.5 44C 142.45 44 153.55 66 166.5 66C 179.45 66 190.55 30 203.5 30C 216.45 30 227.55 58 240.5 58C 253.45 58 264.55 12 277.5 12C 290.45 12 301.55 52 314.5 52C 314.5 52 314.5 52 314.5 200M 314.5 52z" fill="url(#SvgjsLinearGradient6060)" fill-opacity="1" stroke-opacity="1" stroke-linecap="butt" stroke-width="0" stroke-dasharray="0" class="apexcharts-area" index="1" clip-path="url(#gridRectMask1u64srkl)" pathTo="M 18.5 200L 18.5 88C 31.45 88 42.55 70 55.5 70C 68.45 70 79.55 38 92.5 38C 105.45 38 116.55 44 129.5 44C 142.45 44 153.55 66 166.5 66C 179.45 66 190.55 30 203.5 30C 216.45 30 227.55 58 240.5 58C 253.45 58 264.55 12 277.5 12C 290.45 12 301.55 52 314.5 52C 314.5 52 314.5 52 314.5 200M 314.5 52z" pathFrom="M -1 240L -1 240L 55.5 240L 92.5 240L 129.5 240L 166.5 240L 203.5 240L 240.5 240L 277.5 240L 314.5 240"></path><g id="SvgjsG6057" class="apexcharts-series-markers-wrap"><g class="apexcharts-series-markers"><circle id="SvgjsCircle6089" r="0" cx="18.5" cy="88" class="apexcharts-marker wfde0kvit no-pointer-events" stroke="#ffffff" fill="#00e396" fill-opacity="1" stroke-width="2" stroke-opacity="0.9" default-marker-size="0"></circle></g></g><g id="SvgjsG6058" class="apexcharts-datalabels"></g></g><g id="SvgjsG6047" class="apexcharts-series Net-Profit" data:longestSeries="true" rel="1" data:realIndex="0"><path id="apexcharts-area-0" d="M 18.5 152C 31.45 152 42.55 130 55.5 130C 68.45 130 79.55 126 92.5 126C 105.45 126 116.55 128 129.5 128C 142.45 128 153.55 118 166.5 118C 179.45 118 190.55 124 203.5 124C 216.45 124 227.55 114 240.5 114C 253.45 114 264.55 120 277.5 120C 290.45 120 301.55 108 314.5 108" fill="none" fill-opacity="1" stroke="transparent" stroke-opacity="1" stroke-linecap="butt" stroke-width="2" stroke-dasharray="0" class="apexcharts-area" index="0" clip-path="url(#gridRectMask1u64srkl)" pathTo="M 18.5 152C 31.45 152 42.55 130 55.5 130C 68.45 130 79.55 126 92.5 126C 105.45 126 116.55 128 129.5 128C 142.45 128 153.55 118 166.5 118C 179.45 118 190.55 124 203.5 124C 216.45 124 227.55 114 240.5 114C 253.45 114 264.55 120 277.5 120C 290.45 120 301.55 108 314.5 108" pathFrom="M -1 240L -1 240L 55.5 240L 92.5 240L 129.5 240L 166.5 240L 203.5 240L 240.5 240L 277.5 240L 314.5 240"></path><path id="apexcharts-area-0" d="M 18.5 200L 18.5 152C 31.45 152 42.55 130 55.5 130C 68.45 130 79.55 126 92.5 126C 105.45 126 116.55 128 129.5 128C 142.45 128 153.55 118 166.5 118C 179.45 118 190.55 124 203.5 124C 216.45 124 227.55 114 240.5 114C 253.45 114 264.55 120 277.5 120C 290.45 120 301.55 108 314.5 108C 314.5 108 314.5 108 314.5 200M 314.5 108z" fill="url(#SvgjsLinearGradient6051)" fill-opacity="1" stroke-opacity="1" stroke-linecap="butt" stroke-width="0" stroke-dasharray="0" class="apexcharts-area" index="0" clip-path="url(#gridRectMask1u64srkl)" pathTo="M 18.5 200L 18.5 152C 31.45 152 42.55 130 55.5 130C 68.45 130 79.55 126 92.5 126C 105.45 126 116.55 128 129.5 128C 142.45 128 153.55 118 166.5 118C 179.45 118 190.55 124 203.5 124C 216.45 124 227.55 114 240.5 114C 253.45 114 264.55 120 277.5 120C 290.45 120 301.55 108 314.5 108C 314.5 108 314.5 108 314.5 200M 314.5 108z" pathFrom="M -1 240L -1 240L 55.5 240L 92.5 240L 129.5 240L 166.5 240L 203.5 240L 240.5 240L 277.5 240L 314.5 240"></path><g id="SvgjsG6048" class="apexcharts-series-markers-wrap"><g class="apexcharts-series-markers"><circle id="SvgjsCircle6090" r="0" cx="18.5" cy="152" class="apexcharts-marker wym87f8p5 no-pointer-events" stroke="#ffffff" fill="#008ffb" fill-opacity="1" stroke-width="2" stroke-opacity="0.9" default-marker-size="0"></circle></g></g><g id="SvgjsG6049" class="apexcharts-datalabels"></g></g></g><line id="SvgjsLine6083" x1="0" y1="0" x2="333" y2="0" stroke="#b6b6b6" stroke-dasharray="0" stroke-width="1" class="apexcharts-ycrosshairs"></line><line id="SvgjsLine6084" x1="0" y1="0" x2="333" y2="0" stroke-dasharray="0" stroke-width="0" class="apexcharts-ycrosshairs-hidden"></line><g id="SvgjsG6085" class="apexcharts-yaxis-annotations"></g><g id="SvgjsG6086" class="apexcharts-xaxis-annotations"></g><g id="SvgjsG6087" class="apexcharts-point-annotations"></g></g><g id="SvgjsG6076" class="apexcharts-yaxis" rel="0" transform="translate(-32.015625, 0)"><g id="SvgjsG6077" class="apexcharts-yaxis-texts-g"></g><g id="SvgjsG6078" class="apexcharts-yaxis-title"><text id="SvgjsText6079" font-family="Helvetica, Arial, sans-serif" x="38.8046875" y="100" text-anchor="end" dominate-baseline="central" font-size="11px" fill="#373d3f" class="apexcharts-yaxis-title-text apexcharts-yaxis-title" style="font-family: Helvetica, Arial, sans-serif;" transform="rotate(-90 5.34375 96.3984375)">$ (thousands)</text></g></g></svg><div class="apexcharts-legend"></div><div class="apexcharts-tooltip light" style="left: 29px; top: 51.2px;"><div class="apexcharts-tooltip-title">Feb</div><div class="apexcharts-tooltip-series-group active" style="display: flex;"><span class="apexcharts-tooltip-marker" style="background-color: rgb(0, 143, 251);"></span><div class="apexcharts-tooltip-text"><div class="apexcharts-tooltip-y-group"><span class="apexcharts-tooltip-text-label">Net Profit: </span><span class="apexcharts-tooltip-text-value">$ 44 thousands</span></div><div class="apexcharts-tooltip-z-group"><span class="apexcharts-tooltip-text-z-label"></span><span class="apexcharts-tooltip-text-z-value"></span></div></div></div><div class="apexcharts-tooltip-series-group active" style="display: flex;"><span class="apexcharts-tooltip-marker" style="background-color: rgb(0, 227, 150);"></span><div class="apexcharts-tooltip-text"><div class="apexcharts-tooltip-y-group"><span class="apexcharts-tooltip-text-label">Revenue: </span><span class="apexcharts-tooltip-text-value">$ 76 thousands</span></div><div class="apexcharts-tooltip-z-group"><span class="apexcharts-tooltip-text-z-label"></span><span class="apexcharts-tooltip-text-z-value"></span></div></div></div><div class="apexcharts-tooltip-series-group active" style="display: flex;"><span class="apexcharts-tooltip-marker" style="background-color: rgb(254, 176, 25);"></span><div class="apexcharts-tooltip-text"><div class="apexcharts-tooltip-y-group"><span class="apexcharts-tooltip-text-label">Free Cash Flow: </span><span class="apexcharts-tooltip-text-value">$ 35 thousands</span></div><div class="apexcharts-tooltip-z-group"><span class="apexcharts-tooltip-text-z-label"></span><span class="apexcharts-tooltip-text-z-value"></span></div></div></div></div></div></div>
-                    <div class="resize-triggers"><div class="expand-trigger"><div style="width: 374px; height: 241px;"></div></div><div class="contract-trigger"></div></div>
-                </div>*@
             <div class="p-0 d-block card-footer">
                 <div class="grid-menu grid-menu-2col">
-                    <form asp-controller="Appointments" asp-action="Rescheduled" method="post">
+                    <div class="no-gutters row">
+                        <div class="p-2 col-sm-6">
+                            <button class="btn-icon-vertical btn-transition-text btn-transition btn-transition-alt pt-2 pb-2 btn btn-outline-success asp-controller="Appointments" asp-action="TotalNewAppointment" type="button">
+                                <a href="/Appointments/TodayPending">  <i class="lnr-menu text-success opacity-7 btn-icon-wrapper mb-2"> </i>Today</a>
+                            </button>
 
-                        <div class="no-gutters row">
-                            <div class="p-2 col-sm-6">
-                                <button class="btn-icon-vertical btn-transition-text btn-transition btn-transition-alt pt-2 pb-2 btn btn-outline-success">
-                                    <i class="lnr-menu text-success opacity-7 btn-icon-wrapper mb-2"> </i>Today
-                                    @*<i class="fa fa-fw" aria-hidden="true" title="Copy to use address-card"></i>New Appointments*@
-                                </button>
-                            </div>
-                            <div class="p-2 col-sm-6">
-                                <button class="btn-icon-vertical btn-transition-text btn-transition btn-transition-alt pt-2 pb-2 btn btn-outline-warning">
-                                    <i class="lnr-hourglass text-warning opacity-7 btn-icon-wrapper mb-2"> </i>Weely
-                                </button>
-                            </div>
-                            <div class="p-2 col-sm-6">
-                                <button class="btn-icon-vertical btn-transition-text btn-transition btn-transition-alt pt-2 pb-2 btn btn-outline-info">
+                        </div>
+                        <div class="p-2 col-sm-6">
+                            <button class="btn-icon-vertical btn-transition-text btn-transition btn-transition-alt pt-2 pb-2 btn btn-outline-warning asp-controller="Appointments" asp-action="TotalNewAppointment">
+                                <a href="/Appointments/WeeklyPending">
+                                    <i class="lnr-hourglass text-warning opacity-7 btn-icon-wrapper mb-2"> </i>Weekly
+                                </a>
+                            </button>
+                        </div>
+                        <div class="p-2 col-sm-6">
+                            <button class="btn-icon-vertical btn-transition-text btn-transition btn-transition-alt pt-2 pb-2 btn btn-outline-info asp-controller="Appointments" asp-action="Track">
+                                <a href="/Appointments/MonthlyPending">
                                     <i class="lnr-book text-info opacity-7 btn-icon-wrapper mb-2"> </i>Monthly
-                                </button>
-                            </div>
-                            <div class="p-2 col-sm-6">
-                                <button class="btn-icon-vertical btn-transition-text btn-transition btn-transition-alt pt-2 pb-2 btn btn-outline-alternate">
+                                </a>
+                            </button>
+                        </div>
+                        <div class="p-2 col-sm-6">
+                            <button class="btn-icon-vertical btn-transition-text btn-transition btn-transition-alt pt-2 pb-2 btn btn-outline-alternate">
+                                <a href="/Appointments/YearlyPending">
                                     <i class="lnr-gift text-alternate opacity-7 btn-icon-wrapper mb-2"> </i>Yearly
-                                </button>
-                            </div>
-                        </div>
-                        </form>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-
-<!--First rows end-->
-<div class="row">
-    <div class="col-sm-12 col-lg-4">
-        <div class="widget-chart widget-chart2 text-left mb-3 card-btm-border card-shadow-primary border-primary card">
-            <div class="widget-chat-wrapper-outer">
-                <div class="widget-chart-content">
-                    <div class="widget-title opacity-10 text-uppercase">
-                        <a href="~/Appointments/Create">
-                            <i class="widget-title opacity-10 text-uppercase">Pending Appointment</i>
-                        </a>
-                    </div>
-                    <div class="widget-numbers mt-2 fsize-4 mb-0 w-100">
-                        <div class="widget-chart-flex align-items-center">
-                            <div>
-                                <small class="opacity-10 text-primary pr-2">+</small>
-                                58
-                                <small class="opacity-5 pl-1">..</small>
-                            </div>
-                            @*<div>
-                                    <span class="opacity-10 text-success pr-2">
-                                        <i class="fa fa-angle-up"></i>
-                                    </span>
-                                    234
-                                    <small class="opacity-5 pl-1">%</small>
-                                </div>*@
-                            <div class="widget-title ml-auto font-size-lg font-weight-normal text-muted">
-                                <div class="circle-progress circle-progress-gradient-alt-sm d-inline-block">
-                                    <small></small>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="col-sm-12 col-lg-4">
-
-        <div class="widget-chart widget-chart2 text-left mb-3 card-btm-border card-shadow-warning border-warning card">
-            <div class="widget-chat-wrapper-outer">
-                <div class="widget-chart-content">
-                    <div class="widget-title opacity-10 text-uppercase">
-                        <a href="~/Appointments/Active">
-                            <i class="widget-title opacity-10 text-uppercase text-warning">Completed Appointments</i>
-                        </a>
-                    </div>
-                    @*<div class="widget-title opacity-5 text-uppercase">Company Value</div>*@
-                    <div class="widget-numbers mt-2 fsize-4 mb-0 w-100">
-                        <div class="widget-chart-flex align-items-center">
-                            <div>
-                                <small class="opacity-5 text-warning pr-1">+</small>
-                                72
-                                <small class="opacity-5 pl-1">..</small>
-                            </div>
-                            @*<div>
-                                    <small class="opacity-5 pr-1">$</small>
-                                    1,45M
-                                </div>*@
-                            <div class="widget-title ml-auto font-size-lg font-weight-normal text-muted">
-                                <div class="circle-progress circle-progress-warning-sm d-inline-block">
-                                    <small></small>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-    </div>
-    <div class="col-sm-12 col-lg-4">
-        <div class="widget-chart widget-chart2 text-left mb-3 card-btm-border card-shadow-danger border-danger card">
-            <div class="widget-chat-wrapper-outer">
-                <div class="widget-chart-content">
-                    <div class="widget-title opacity-10 text-uppercase">
-                        <a href="~/Appointments/Active">
-                            <i class="widget-title opacity-10 text-uppercase text-danger">Cancel Appointments</i>
-                        </a>
-                    </div>
-                    <div class="widget-numbers mt-2 fsize-4 mb-0 w-100">
-                        <div class="widget-chart-flex align-items-center">
-                            <div>
-                                <small class="opacity-10 text-danger pr-2">+</small>
-                                62
-                                <small class="opacity-5 pl-1">..</small>
-                            </div>
-
-                            @*<div>
-                                    <span class="opacity-10 text-danger pr-2">
-                                        <i class="fa fa-angle-down"></i>
-                                    </span>
-                                    71
-                                    <small class="opacity-5 pl-1">..</small>
-                                </div>*@
-                            <div class="widget-title ml-auto font-size-lg font-weight-normal text-muted">
-                                <div class="circle-progress circle-progress-danger-sm d-inline-block">
-                                    <small></small>
-                                </div>
-                            </div>
+                                </a>
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -263,448 +159,548 @@
         </div>
     </div>
 
-</div>
-
-<!--Second rows End Final-->
-
-<br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
-<div class="row">
-    <div class="col-md-6 col-lg-3">
-        <div class="widget-chart widget-chart2 text-left mb-3 card-btm-border card-shadow-primary border-primary card">
-            <div class="widget-chat-wrapper-outer">
-                <div class="widget-chart-content">
-                    <div class="widget-title opacity-10 text-uppercase">
-                        <a href="~/Appointments/Create">
-                            <i class="widget-title opacity-10 text-uppercase">Make New Appointment</i>
-                        </a>
-                    </div>
-                    <div class="widget-numbers mt-2 fsize-4 mb-0 w-100">
-                        <div class="widget-chart-flex align-items-center">
-                            <div>
-                                <small class="opacity-10 text-primary pr-2">+</small>
-                                34
-                                <small class="opacity-5 pl-1">..</small>
-                            </div>
-                            @*<div>
-                                    <span class="opacity-10 text-success pr-2">
-                                        <i class="fa fa-angle-up"></i>
-                                    </span>
-                                    234
-                                    <small class="opacity-5 pl-1">%</small>
-                                </div>*@
-                            <div class="widget-title ml-auto font-size-lg font-weight-normal text-muted">
-                                <div class="circle-progress circle-progress-gradient-alt-sm d-inline-block">
-                                    <small></small>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
     </div>
-    <div class="col-md-6 col-lg-3">
-        <div class="widget-chart widget-chart2 text-left mb-3 card-btm-border card-shadow-danger border-danger card">
-            <div class="widget-chat-wrapper-outer">
-                <div class="widget-chart-content">
-                    <div class="widget-title opacity-10 text-uppercase">
-                        <a href="~/Appointments/Active">
-                            <i class="widget-title opacity-10 text-uppercase text-danger">Cancel Appointments</i>
-                        </a>
-                    </div>
-                    <div class="widget-numbers mt-2 fsize-4 mb-0 w-100">
-                        <div class="widget-chart-flex align-items-center">
-                            <div>
-                                <small class="opacity-10 text-danger pr-2">+</small>
-                                74
-                                <small class="opacity-5 pl-1">..</small>
-                            </div>
-
-                            @*<div>
-                                    <span class="opacity-10 text-danger pr-2">
-                                        <i class="fa fa-angle-down"></i>
-                                    </span>
-                                    71
-                                    <small class="opacity-5 pl-1">..</small>
-                                </div>*@
-                            <div class="widget-title ml-auto font-size-lg font-weight-normal text-muted">
-                                <div class="circle-progress circle-progress-danger-sm d-inline-block">
-                                    <small></small>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="col-md-6 col-lg-3">
-        <div class="widget-chart widget-chart2 text-left mb-3 card-btm-border card-shadow-success border-success card">
-            <div class="widget-chat-wrapper-outer">
-                <div class="widget-chart-content">
-                    <a href="~/Appointments/Active">
-                        <i class="widget-title opacity-10 text-uppercase text-success">Today Appointments</i>
-                    </a>
-                    @*<div class="widget-title opacity-10 text-uppercase text-success">New Employees</div>*@
-                    <div class="widget-numbers mt-2 fsize-4 mb-0 w-100">
-                        <div class="widget-chart-flex align-items-center">
-                            <div>
-                                <small class="text-success pr-1">+</small>
-                                34
-                                <small class="opacity-5 pl-1">..</small>
-                            </div>
-                            <div class="widget-title ml-auto font-size-lg font-weight-normal text-muted">
-                                <div class="circle-progress circle-progress-success-sm d-inline-block">
-                                    @*<canvas width="57" height="57" style="height: 46px; width: 46px;"></canvas>*@
-                                    <small></small>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="col-md-6 col-lg-3">
-        <div class="widget-chart widget-chart2 text-left mb-3 card-btm-border card-shadow-warning border-warning card">
-            <div class="widget-chat-wrapper-outer">
-                <div class="widget-chart-content">
-                    <div class="widget-title opacity-10 text-uppercase">
-                        <a href="~/Appointments/Active">
-                            <i class="widget-title opacity-10 text-uppercase text-warning">Weekly Appointments</i>
-                        </a>
-                    </div>
-                    @*<div class="widget-title opacity-5 text-uppercase">Company Value</div>*@
-                    <div class="widget-numbers mt-2 fsize-4 mb-0 w-100">
-                        <div class="widget-chart-flex align-items-center">
-                            <div>
-                                <small class="opacity-5 text-warning pr-1">+</small>
-                                34
-                                <small class="opacity-5 pl-1">..</small>
-                            </div>
-                            @*<div>
-                                    <small class="opacity-5 pr-1">$</small>
-                                    1,45M
-                                </div>*@
-                            <div class="widget-title ml-auto font-size-lg font-weight-normal text-muted">
-                                <div class="circle-progress circle-progress-warning-sm d-inline-block">
-                                    <small></small>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<!--Second rows-->
-<div class="row">
-    <div class="col-md-6 col-lg-3">
-        <div class="widget-chart widget-chart2 text-left mb-3 card-btm-border card-shadow-primary border-primary card">
-            <div class="widget-chat-wrapper-outer">
-                <div class="widget-chart-content">
-                    <div class="widget-title opacity-10 text-uppercase">
-                        <a href="~/Appointments/Create">
-                            <i class="widget-title opacity-10 text-uppercase">Pending Appointment</i>
-                        </a>
-                    </div>
-                    <div class="widget-numbers mt-2 fsize-4 mb-0 w-100">
-                        <div class="widget-chart-flex align-items-center">
-                            <div>
-                                <small class="opacity-10 text-primary pr-2">+</small>
-                                34
-                                <small class="opacity-5 pl-1">..</small>
-                            </div>
-                            @*<div>
-                                    <span class="opacity-10 text-success pr-2">
-                                        <i class="fa fa-angle-up"></i>
-                                    </span>
-                                    234
-                                    <small class="opacity-5 pl-1">%</small>
-                                </div>*@
-                            <div class="widget-title ml-auto font-size-lg font-weight-normal text-muted">
-                                <div class="circle-progress circle-progress-gradient-alt-sm d-inline-block">
-                                    <small></small>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="col-md-6 col-lg-3">
-        <div class="widget-chart widget-chart2 text-left mb-3 card-btm-border card-shadow-danger border-danger card">
-            <div class="widget-chat-wrapper-outer">
-                <div class="widget-chart-content">
-                    <div class="widget-title opacity-10 text-uppercase">
-                        <a href="~/Appointments/Active">
-                            <i class="widget-title opacity-10 text-uppercase text-danger">Cancel Appointments</i>
-                        </a>
-                    </div>
-                    <div class="widget-numbers mt-2 fsize-4 mb-0 w-100">
-                        <div class="widget-chart-flex align-items-center">
-                            <div>
-                                <small class="opacity-10 text-danger pr-2">+</small>
-                                74
-                                <small class="opacity-5 pl-1">..</small>
-                            </div>
-
-                            @*<div>
-                                    <span class="opacity-10 text-danger pr-2">
-                                        <i class="fa fa-angle-down"></i>
-                                    </span>
-                                    71
-                                    <small class="opacity-5 pl-1">..</small>
-                                </div>*@
-                            <div class="widget-title ml-auto font-size-lg font-weight-normal text-muted">
-                                <div class="circle-progress circle-progress-danger-sm d-inline-block">
-                                    <small></small>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="col-md-6 col-lg-3">
-        <div class="widget-chart widget-chart2 text-left mb-3 card-btm-border card-shadow-warning  card">
-            <div class="widget-chat-wrapper-outer">
-                <div class="widget-chart-content">
-                    <div class="widget-title opacity-10 text-uppercase">
-                        <a href="~/Appointments/Active">
-                            <i class="widget-title opacity-10 text-uppercase text-warning">Completed Appointments</i>
-                        </a>
-                    </div>
-                    @*<div class="widget-title opacity-5 text-uppercase">Company Value</div>*@
-                    <div class="widget-numbers mt-2 fsize-4 mb-0 w-100">
-                        <div class="widget-chart-flex align-items-center">
-                            <div>
-                                <small class="opacity-5 text-warning pr-1">+</small>
-                                34
-                                <small class="opacity-5 pl-1">..</small>
-                            </div>
-                            @*<div>
-                                    <small class="opacity-5 pr-1">$</small>
-                                    1,45M
-                                </div>*@
-                            <div class="widget-title ml-auto font-size-lg font-weight-normal text-muted">
-                                <div class="circle-progress circle-progress-warning-sm d-inline-block">
-                                    <small></small>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="col-md-6 col-lg-3">
-        <div class="widget-chart widget-chart2 text-left mb-3 card-btm-border card-shadow-success border-success card">
-            <div class="widget-chat-wrapper-outer">
-                <div class="widget-chart-content">
-                    <a href="~/Appointments/Active">
-                        <i class="widget-title opacity-10 text-uppercase text-success">Rescheduled Appointments</i>
-                    </a>
-                    @*<div class="widget-title opacity-10 text-uppercase text-success">New Employees</div>*@
-                    <div class="widget-numbers mt-2 fsize-4 mb-0 w-100">
-                        <div class="widget-chart-flex align-items-center">
-                            <div>
-                                <small class="text-success pr-1">+</small>
-                                34
-                                <small class="opacity-5 pl-1">..</small>
-                            </div>
-                            <div class="widget-title ml-auto font-size-lg font-weight-normal text-muted">
-                                <div class="circle-progress circle-progress-success-sm d-inline-block">
-                                    @*<canvas width="57" height="57" style="height: 46px; width: 46px;"></canvas>*@
-                                    <small></small>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-
-<!--Third rows-->
-
-
-
-
-
-
-<div class="tabs-animation">
+    <!--First rows end-->
     <div class="row">
-        <div class="col-lg-12 col-xl-3">
-            <div class="main-card mb-3 card">
-                <div class="grid-menu grid-menu-2col">
-                    <div class="no-gutters row">
-                        <!--New Appointment-->
-                        <div class="col-sm-12">
-                            <div class="widget-chart widget-chart-hover">
-                                <a href="~/Appointments/Create">
-
-                                    <br />
-                                    <div class="icon-wrapper rounded-circle">
-                                        <br />
-                                        <div class="icon-wrapper-bg bg-primary"></div>
-                                        <i class="fa fa-fw" aria-hidden="true" title="Copy to use address-card"></i>
-                                        @*<i class="lnr-laptop text-primary"></i>*@
+        <div class="col-sm-12 col-lg-4">
+            <div class="widget-chart widget-chart2 text-left mb-3 card-btm-border card-shadow-primary border-primary card">
+                <div class="widget-chat-wrapper-outer">
+                    <div class="widget-chart-content">
+                        <div class="widget-title opacity-10 text-uppercase">
+                            <a href="~/Appointments/Pending">
+                                <i class="widget-title opacity-10 text-uppercase">Pending Appointment</i>
+                            </a>
+                        </div>
+                        <div class="widget-numbers mt-2 fsize-4 mb-0 w-100">
+                            <div class="widget-chart-flex align-items-center">
+                                <div>
+                                    <small class="opacity-10 text-primary pr-2">+</small>
+                                    58
+                                    <small class="opacity-5 pl-1">..</small>
+                                </div>
+                                <div class="widget-title ml-auto font-size-lg font-weight-normal text-muted">
+                                    <div class="circle-progress circle-progress-gradient-alt-sm d-inline-block">
+                                        <small></small>
                                     </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-12 col-lg-4">
 
-                                    @*<div class="font-icon-wrapper">
+            <div class="widget-chart widget-chart2 text-left mb-3 card-btm-border card-shadow-warning border-warning card">
+                <div class="widget-chat-wrapper-outer">
+                    <div class="widget-chart-content">
+                        <div class="widget-title opacity-10 text-uppercase">
+                            <a href="~/Appointments/Active">
+                                <i class="widget-title opacity-10 text-uppercase text-warning">Completed Appointments</i>
+                            </a>
+                        </div>
+                        @*<div class="widget-title opacity-5 text-uppercase">Company Value</div>*@
+                        <div class="widget-numbers mt-2 fsize-4 mb-0 w-100">
+                            <div class="widget-chart-flex align-items-center">
+                                <div>
+                                    <small class="opacity-5 text-warning pr-1">+</small>
+                                    72
+                                    <small class="opacity-5 pl-1">..</small>
+                                </div>
+                                @*<div>
+                                        <small class="opacity-5 pr-1">$</small>
+                                        1,45M
+                                    </div>*@
+                                <div class="widget-title ml-auto font-size-lg font-weight-normal text-muted">
+                                    <div class="circle-progress circle-progress-warning-sm d-inline-block">
+                                        <small></small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="col-sm-12 col-lg-4">
+            <div class="widget-chart widget-chart2 text-left mb-3 card-btm-border card-shadow-danger border-danger card">
+                <div class="widget-chat-wrapper-outer">
+                    <div class="widget-chart-content">
+                        <div class="widget-title opacity-10 text-uppercase">
+                            <a href="~/Appointments/Active">
+                                <i class="widget-title opacity-10 text-uppercase text-danger">Cancel Appointments</i>
+                            </a>
+                        </div>
+                        <div class="widget-numbers mt-2 fsize-4 mb-0 w-100">
+                            <div class="widget-chart-flex align-items-center">
+                                <div>
+                                    <small class="opacity-10 text-danger pr-2">+</small>
+                                    62
+                                    <small class="opacity-5 pl-1">..</small>
+                                </div>
+
+                                @*<div>
+                                        <span class="opacity-10 text-danger pr-2">
+                                            <i class="fa fa-angle-down"></i>
+                                        </span>
+                                        71
+                                        <small class="opacity-5 pl-1">..</small>
+                                    </div>*@
+                                <div class="widget-title ml-auto font-size-lg font-weight-normal text-muted">
+                                    <div class="circle-progress circle-progress-danger-sm d-inline-block">
+                                        <small></small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!--Second rows End Final-->
+
+    <br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
+    <div class="row">
+        <div class="col-md-6 col-lg-3">
+            <div class="widget-chart widget-chart2 text-left mb-3 card-btm-border card-shadow-primary border-primary card">
+                <div class="widget-chat-wrapper-outer">
+                    <div class="widget-chart-content">
+                        <div class="widget-title opacity-10 text-uppercase">
+                            <a href="~/Appointments/Create">
+                                <i class="widget-title opacity-10 text-uppercase">Make New Appointment</i>
+                            </a>
+                        </div>
+                        <div class="widget-numbers mt-2 fsize-4 mb-0 w-100">
+                            <div class="widget-chart-flex align-items-center">
+                                <div>
+                                    <small class="opacity-10 text-primary pr-2">+</small>
+                                    34
+                                    <small class="opacity-5 pl-1">..</small>
+                                </div>
+                                @*<div>
+                                        <span class="opacity-10 text-success pr-2">
+                                            <i class="fa fa-angle-up"></i>
+                                        </span>
+                                        234
+                                        <small class="opacity-5 pl-1">%</small>
+                                    </div>*@
+                                <div class="widget-title ml-auto font-size-lg font-weight-normal text-muted">
+                                    <div class="circle-progress circle-progress-gradient-alt-sm d-inline-block">
+                                        <small></small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 col-lg-3">
+            <div class="widget-chart widget-chart2 text-left mb-3 card-btm-border card-shadow-danger border-danger card">
+                <div class="widget-chat-wrapper-outer">
+                    <div class="widget-chart-content">
+                        <div class="widget-title opacity-10 text-uppercase">
+                            <a href="~/Appointments/Active">
+                                <i class="widget-title opacity-10 text-uppercase text-danger">Cancel Appointments</i>
+                            </a>
+                        </div>
+                        <div class="widget-numbers mt-2 fsize-4 mb-0 w-100">
+                            <div class="widget-chart-flex align-items-center">
+                                <div>
+                                    <small class="opacity-10 text-danger pr-2">+</small>
+                                    74
+                                    <small class="opacity-5 pl-1">..</small>
+                                </div>
+
+                                @*<div>
+                                        <span class="opacity-10 text-danger pr-2">
+                                            <i class="fa fa-angle-down"></i>
+                                        </span>
+                                        71
+                                        <small class="opacity-5 pl-1">..</small>
+                                    </div>*@
+                                <div class="widget-title ml-auto font-size-lg font-weight-normal text-muted">
+                                    <div class="circle-progress circle-progress-danger-sm d-inline-block">
+                                        <small></small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 col-lg-3">
+            <div class="widget-chart widget-chart2 text-left mb-3 card-btm-border card-shadow-success border-success card">
+                <div class="widget-chat-wrapper-outer">
+                    <div class="widget-chart-content">
+                        <a href="~/Appointments/Active">
+                            <i class="widget-title opacity-10 text-uppercase text-success">Today Appointments</i>
+                        </a>
+                        @*<div class="widget-title opacity-10 text-uppercase text-success">New Employees</div>*@
+                        <div class="widget-numbers mt-2 fsize-4 mb-0 w-100">
+                            <div class="widget-chart-flex align-items-center">
+                                <div>
+                                    <small class="text-success pr-1">+</small>
+                                    34
+                                    <small class="opacity-5 pl-1">..</small>
+                                </div>
+                                <div class="widget-title ml-auto font-size-lg font-weight-normal text-muted">
+                                    <div class="circle-progress circle-progress-success-sm d-inline-block">
+                                        @*<canvas width="57" height="57" style="height: 46px; width: 46px;"></canvas>*@
+                                        <small></small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 col-lg-3">
+            <div class="widget-chart widget-chart2 text-left mb-3 card-btm-border card-shadow-warning border-warning card">
+                <div class="widget-chat-wrapper-outer">
+                    <div class="widget-chart-content">
+                        <div class="widget-title opacity-10 text-uppercase">
+                            <a href="~/Appointments/Active">
+                                <i class="widget-title opacity-10 text-uppercase text-warning">Weekly Appointments</i>
+                            </a>
+                        </div>
+                        @*<div class="widget-title opacity-5 text-uppercase">Company Value</div>*@
+                        <div class="widget-numbers mt-2 fsize-4 mb-0 w-100">
+                            <div class="widget-chart-flex align-items-center">
+                                <div>
+                                    <small class="opacity-5 text-warning pr-1">+</small>
+                                    34
+                                    <small class="opacity-5 pl-1">..</small>
+                                </div>
+                                @*<div>
+                                        <small class="opacity-5 pr-1">$</small>
+                                        1,45M
+                                    </div>*@
+                                <div class="widget-title ml-auto font-size-lg font-weight-normal text-muted">
+                                    <div class="circle-progress circle-progress-warning-sm d-inline-block">
+                                        <small></small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--Second rows-->
+    <div class="row">
+        <div class="col-md-6 col-lg-3">
+            <div class="widget-chart widget-chart2 text-left mb-3 card-btm-border card-shadow-primary border-primary card">
+                <div class="widget-chat-wrapper-outer">
+                    <div class="widget-chart-content">
+                        <div class="widget-title opacity-10 text-uppercase">
+                            <a href="~/Appointments/Create">
+                                <i class="widget-title opacity-10 text-uppercase">Pending Appointment</i>
+                            </a>
+                        </div>
+                        <div class="widget-numbers mt-2 fsize-4 mb-0 w-100">
+                            <div class="widget-chart-flex align-items-center">
+                                <div>
+                                    <small class="opacity-10 text-primary pr-2">+</small>
+                                    34
+                                    <small class="opacity-5 pl-1">..</small>
+                                </div>
+                                @*<div>
+                                        <span class="opacity-10 text-success pr-2">
+                                            <i class="fa fa-angle-up"></i>
+                                        </span>
+                                        234
+                                        <small class="opacity-5 pl-1">%</small>
+                                    </div>*@
+                                <div class="widget-title ml-auto font-size-lg font-weight-normal text-muted">
+                                    <div class="circle-progress circle-progress-gradient-alt-sm d-inline-block">
+                                        <small></small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 col-lg-3">
+            <div class="widget-chart widget-chart2 text-left mb-3 card-btm-border card-shadow-danger border-danger card">
+                <div class="widget-chat-wrapper-outer">
+                    <div class="widget-chart-content">
+                        <div class="widget-title opacity-10 text-uppercase">
+                            <a href="~/Appointments/Active">
+                                <i class="widget-title opacity-10 text-uppercase text-danger">Cancel Appointments</i>
+                            </a>
+                        </div>
+                        <div class="widget-numbers mt-2 fsize-4 mb-0 w-100">
+                            <div class="widget-chart-flex align-items-center">
+                                <div>
+                                    <small class="opacity-10 text-danger pr-2">+</small>
+                                    74
+                                    <small class="opacity-5 pl-1">..</small>
+                                </div>
+
+                                @*<div>
+                                        <span class="opacity-10 text-danger pr-2">
+                                            <i class="fa fa-angle-down"></i>
+                                        </span>
+                                        71
+                                        <small class="opacity-5 pl-1">..</small>
+                                    </div>*@
+                                <div class="widget-title ml-auto font-size-lg font-weight-normal text-muted">
+                                    <div class="circle-progress circle-progress-danger-sm d-inline-block">
+                                        <small></small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 col-lg-3">
+            <div class="widget-chart widget-chart2 text-left mb-3 card-btm-border card-shadow-warning  card">
+                <div class="widget-chat-wrapper-outer">
+                    <div class="widget-chart-content">
+                        <div class="widget-title opacity-10 text-uppercase">
+                            <a href="~/Appointments/Active">
+                                <i class="widget-title opacity-10 text-uppercase text-warning">Completed Appointments</i>
+                            </a>
+                        </div>
+                        @*<div class="widget-title opacity-5 text-uppercase">Company Value</div>*@
+                        <div class="widget-numbers mt-2 fsize-4 mb-0 w-100">
+                            <div class="widget-chart-flex align-items-center">
+                                <div>
+                                    <small class="opacity-5 text-warning pr-1">+</small>
+                                    34
+                                    <small class="opacity-5 pl-1">..</small>
+                                </div>
+                                @*<div>
+                                        <small class="opacity-5 pr-1">$</small>
+                                        1,45M
+                                    </div>*@
+                                <div class="widget-title ml-auto font-size-lg font-weight-normal text-muted">
+                                    <div class="circle-progress circle-progress-warning-sm d-inline-block">
+                                        <small></small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 col-lg-3">
+            <div class="widget-chart widget-chart2 text-left mb-3 card-btm-border card-shadow-success border-success card">
+                <div class="widget-chat-wrapper-outer">
+                    <div class="widget-chart-content">
+                        <a href="~/Appointments/Active">
+                            <i class="widget-title opacity-10 text-uppercase text-success">Rescheduled Appointments</i>
+                        </a>
+                        @*<div class="widget-title opacity-10 text-uppercase text-success">New Employees</div>*@
+                        <div class="widget-numbers mt-2 fsize-4 mb-0 w-100">
+                            <div class="widget-chart-flex align-items-center">
+                                <div>
+                                    <small class="text-success pr-1">+</small>
+                                    34
+                                    <small class="opacity-5 pl-1">..</small>
+                                </div>
+                                <div class="widget-title ml-auto font-size-lg font-weight-normal text-muted">
+                                    <div class="circle-progress circle-progress-success-sm d-inline-block">
+                                        @*<canvas width="57" height="57" style="height: 46px; width: 46px;"></canvas>*@
+                                        <small></small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!--Third rows-->
+
+
+
+
+
+
+    <div class="tabs-animation">
+        <div class="row">
+            <div class="col-lg-12 col-xl-3">
+                <div class="main-card mb-3 card">
+                    <div class="grid-menu grid-menu-2col">
+                        <div class="no-gutters row">
+                            <!--New Appointment-->
+                            <div class="col-sm-12">
+                                <div class="widget-chart widget-chart-hover">
+                                    <a href="~/Appointments/Create">
+
+                                        <br />
+                                        <div class="icon-wrapper rounded-circle">
+                                            <br />
+                                            <div class="icon-wrapper-bg bg-primary"></div>
                                             <i class="fa fa-fw" aria-hidden="true" title="Copy to use address-card"></i>
-                                        </div>*@
+                                            @*<i class="lnr-laptop text-primary"></i>*@
+                                        </div>
+
+                                        @*<div class="font-icon-wrapper">
+                                                <i class="fa fa-fw" aria-hidden="true" title="Copy to use address-card"></i>
+                                            </div>*@
 
 
-                                    <div class="widget-title opacity-10 text-uppercase">
-                                        <br />
-                                        <i class="metismenu-icon"></i> New Appointment
+                                        <div class="widget-title opacity-10 text-uppercase">
+                                            <br />
+                                            <i class="metismenu-icon"></i> New Appointment
 
-                                    </div>
+                                        </div>
 
-                                    <div class="widget-numbers align-items-center text-center mt-2 fsize-4 mb-0 w-100">
-                                        <div class="widget-chart-flex ">
-                                            <div class="align-items-center " style=" margin-left: 29%; ">
+                                        <div class="widget-numbers align-items-center text-center mt-2 fsize-4 mb-0 w-100">
+                                            <div class="widget-chart-flex ">
+                                                <div class="align-items-center " style=" margin-left: 29%; ">
 
-                                                <small class="opacity-5 text-dark pr-1 ">+</small>
-                                                54
-                                                <small class="opacity-5 pl-1"></small>
+                                                    <small class="opacity-5 text-dark pr-1 ">+</small>
+                                                    54
+                                                    <small class="opacity-5 pl-1"></small>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                </a>
+                                    </a>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <!--Approved Appointment Demo's -->
+            <!--Approved Appointment Demo's -->
 
-        <div class="col-lg-12 col-xl-3">
-            <div class="main-card mb-3 card">
-                <div class="grid-menu grid-menu-2col">
-                    <div class="no-gutters row">
-                        <div class="col-sm-12">
-                            <div class="widget-chart widget-chart-hover">
-                                <a href="~/Appointments/Active">
+            <div class="col-lg-12 col-xl-3">
+                <div class="main-card mb-3 card">
+                    <div class="grid-menu grid-menu-2col">
+                        <div class="no-gutters row">
+                            <div class="col-sm-12">
+                                <div class="widget-chart widget-chart-hover">
+                                    <a href="~/Appointments/Active">
 
-                                    <br />
-                                    <div class="icon-wrapper rounded-circle">
                                         <br />
-                                        <div class="icon-wrapper-bg bg-primary"></div>
-                                        <i class="fa fa-gavel icon-gradient bg-happy-fisher"></i>
-                                    </div>
-                                    @*<div class="font-icon-wrapper font-icon-lg">
-                                            <i class="fa fa-gavel icon-gradient bg-happy-fisher"> </i>
-                                        </div>*@
-                                    @*<div class="icon-wrapper rounded-circle">
-                                            <i class=" fa fa-gavel icon-gradient bg-happy-fisher"> </i>
-                                        </div>*@
+                                        <div class="icon-wrapper rounded-circle">
+                                            <br />
+                                            <div class="icon-wrapper-bg bg-primary"></div>
+                                            <i class="fa fa-gavel icon-gradient bg-happy-fisher"></i>
+                                        </div>
+                                        @*<div class="font-icon-wrapper font-icon-lg">
+                                                <i class="fa fa-gavel icon-gradient bg-happy-fisher"> </i>
+                                            </div>*@
+                                        @*<div class="icon-wrapper rounded-circle">
+                                                <i class=" fa fa-gavel icon-gradient bg-happy-fisher"> </i>
+                                            </div>*@
 
 
-                                    <div class="widget-title opacity-10 text-uppercase">
-                                        <br />
-                                        <i class="metismenu-icon pr-1"></i> Approved Appointment
+                                        <div class="widget-title opacity-10 text-uppercase">
+                                            <br />
+                                            <i class="metismenu-icon pr-1"></i> Approved Appointment
 
-                                    </div>
-                                    @*<br /><br />*@
-                                    <div class="widget-numbers align-items-center text-center mt-2 fsize-4 mb-0 w-100">
-                                        <div class="widget-chart-flex ">
-                                            <div class="align-items-center " style=" margin-left: 29%; ">
+                                        </div>
+                                        @*<br /><br />*@
+                                        <div class="widget-numbers align-items-center text-center mt-2 fsize-4 mb-0 w-100">
+                                            <div class="widget-chart-flex ">
+                                                <div class="align-items-center " style=" margin-left: 29%; ">
 
-                                                <small class="opacity-5 text-warning pr-1 ">+</small>
-                                                34
-                                                <small class="opacity-5 pl-1"></small>
+                                                    <small class="opacity-5 text-warning pr-1 ">+</small>
+                                                    34
+                                                    <small class="opacity-5 pl-1"></small>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                </a>
+                                    </a>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
 
-        <div class="col-lg-12 col-xl-3">
-            <div class="main-card mb-3 card">
-                <div class="grid-menu grid-menu-2col">
-                    <div class="no-gutters row">
-                        <!--New Appointment-->
-                        <div class="col-sm-12">
-                            <div class="widget-chart widget-chart-hover">
-                                <a href="~/Appointments/Pending">
+            <div class="col-lg-12 col-xl-3">
+                <div class="main-card mb-3 card">
+                    <div class="grid-menu grid-menu-2col">
+                        <div class="no-gutters row">
+                            <!--New Appointment-->
+                            <div class="col-sm-12">
+                                <div class="widget-chart widget-chart-hover">
+                                    <a href="~/Appointments/Pending">
 
-                                    <br />
-                                    <div class="icon-wrapper rounded-circle">
                                         <br />
-                                        <div class="icon-wrapper-bg bg-danger"></div>
-                                        <i class="lnr-hourglass icon-gradient bg-love-kiss"></i>
-                                    </div>
-                                    <div class="widget-title opacity-10 text-uppercase">
-                                        <br />
-                                        <i class="metismenu-icon bg-danger"></i> Pending Appointment
+                                        <div class="icon-wrapper rounded-circle">
+                                            <br />
+                                            <div class="icon-wrapper-bg bg-danger"></div>
+                                            <i class="lnr-hourglass icon-gradient bg-love-kiss"></i>
+                                        </div>
+                                        <div class="widget-title opacity-10 text-uppercase">
+                                            <br />
+                                            <i class="metismenu-icon bg-danger"></i> Pending Appointment
 
-                                    </div>
-                                    <div class="widget-numbers align-items-center text-center mt-2 fsize-4 mb-0 w-100">
-                                        <div class="widget-chart-flex ">
-                                            <div class="align-items-center " style=" margin-left: 29%; ">
+                                        </div>
+                                        <div class="widget-numbers align-items-center text-center mt-2 fsize-4 mb-0 w-100">
+                                            <div class="widget-chart-flex ">
+                                                <div class="align-items-center " style=" margin-left: 29%; ">
 
-                                                <small class="opacity-5 text-danger pr-1 ">+</small>
-                                                55
-                                                <small class="opacity-5 pl-1"></small>
+                                                    <small class="opacity-5 text-danger pr-1 ">+</small>
+                                                    55
+                                                    <small class="opacity-5 pl-1"></small>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                </a>
+                                    </a>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
 
 
-        <div class="col-lg-12 col-xl-3">
-            <div class="main-card mb-3 card">
-                <div class="grid-menu grid-menu-2col">
-                    <div class="no-gutters row">
-                        <!--New Appointment-->
-                        <div class="col-sm-12">
-                            <div class="widget-chart widget-chart-hover">
-                                <a href="~/Appointments/Rescheduled">
+            <div class="col-lg-12 col-xl-3">
+                <div class="main-card mb-3 card">
+                    <div class="grid-menu grid-menu-2col">
+                        <div class="no-gutters row">
+                            <!--New Appointment-->
+                            <div class="col-sm-12">
+                                <div class="widget-chart widget-chart-hover">
+                                    <a href="~/Appointments/Rescheduled">
 
-                                    <br />
-                                    <div class="icon-wrapper rounded-circle">
                                         <br />
-                                        <div class="icon-wrapper-bg bg-arielle-smile"></div>
-                                        <i class="lnr-cog icon-gradient bg-tempting-azure"></i>
-                                    </div>
-                                    <div class="widget-title opacity-10 text-uppercase">
-                                        <br />
-                                        <i class="metismenu-icon"></i>Rescheduled Appointment
+                                        <div class="icon-wrapper rounded-circle">
+                                            <br />
+                                            <div class="icon-wrapper-bg bg-arielle-smile"></div>
+                                            <i class="lnr-cog icon-gradient bg-tempting-azure"></i>
+                                        </div>
+                                        <div class="widget-title opacity-10 text-uppercase">
+                                            <br />
+                                            <i class="metismenu-icon"></i>Rescheduled Appointment
 
-                                    </div>
-                                    <div class="widget-description text-success">
-                                        <span class="pl-1"> </span>
-                                    </div>
-                                </a>
+                                        </div>
+                                        <div class="widget-description text-success">
+                                            <span class="pl-1"> </span>
+                                        </div>
+                                    </a>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
 
+        </div>
     </div>
-</div>
 
 
 
@@ -713,119 +709,15 @@
 
 
 
-<div class="tabs-animation">
-    <div class="row">
-        <div class="col-lg-12 col-xl-3">
-            <div class="main-card mb-3 card">
-                <div class="grid-menu grid-menu-2col">
-                    <div class="no-gutters row">
-                        <!--New Appointment-->
-                        <div class="col-sm-12">
-                            <div class="widget-chart widget-chart-hover ">
-                                <br />
-                                <div class="icon-wrapper rounded-circle">
-                                    <br />
-                                    <div class="icon-wrapper-bg bg-primary"></div>
-                                    <i class="lnr-laptop text-primary"></i>
-                                </div>
-                                <div class="widget-title opacity-10 text-uppercase">
-                                    <a href="~/Appointments/Create">
-                                        <br />
-                                        <i class="metismenu-icon"></i> Completed
-                                    </a>
-                                </div>
-                                <div class="widget-description text-success">
-                                    <span class="pl-1"> </span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        @*<form asp-controller="Appointments" asp-action="Create" method="post">*@
-
-        <div class="col-lg-12 col-xl-3">
-            <div class="main-card mb-3 card">
-                <div class="grid-menu grid-menu-2col">
-                    <div class="no-gutters row">
-                        <!--New Appointment-->
-                        <div class="col-sm-12">
-                            <div class="widget-chart widget-chart-hover">
-                                <br />
-                                <div class="icon-wrapper rounded-circle">
-                                    <br />
-                                    <div class="icon-wrapper-bg bg-primary"></div>
-                                    <i class="lnr-laptop text-primary"></i>
-                                </div>
-                                <div class="widget-title opacity-10 text-uppercase">
-
-                                    @*<span>
-                                            <button href="~/Appointments/Create" class="mb-2 mr-2 btn btn-shadow btn-link ">Create</button>
-                                        </span>*@
-                                    <a href="~/Appointments/Create">
-                                        <br />
-                                        <i class="metismenu-icon"></i> Cancel
-                                    </a>
-                                    @*<br />
-                                        <form asp-controller="Appointments" asp-action="Create" method="post">
-
-                                         <button class="mb-2 mr-2 btn btn-shadow btn-success">Create</button>
-                                            </form>*@
-                                </div>
-                                <div class="widget-description text-success">
-                                    <span class="pl-1"> </span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        @*</form>*@
-        <div class="col-lg-12 col-xl-3">
-            <div class="main-card mb-3 card">
-                <div class="grid-menu grid-menu-2col">
-                    <div class="no-gutters row">
-                        <!--Active Appointment-->
-                        <div class="col-sm-12">
-                            <div class="widget-chart widget-chart-hover">
-                                <a href="~/Appointments/Active">
-
-                                    <br />
-                                    <div class="icon-wrapper rounded-circle">
-                                        <br />
-                                        <div class="icon-wrapper-bg bg-success"></div>
-                                        <i class="lnr-screen "></i>
-                                    </div>
-                                    <div class="widget-title opacity-10 text-uppercase">
-                                        <br />
-                                        <i class="metismenu-icon pr-1"></i> Today Appointment
-
-                                    </div>
-                                    <div class="widget-description text-success">
-                                        <span class="pl-1"> </span>
-                                    </div>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-
-
-        <!--<div class="col-lg-12 col-xl-3">
-        <div class="main-card mb-3 card">
-            <div class="grid-menu grid-menu-2col">
-                <div class="no-gutters row">-->
-        <!--New Appointment-->
-        <!--<div class="col-sm-12">
-                            <div class="widget-chart widget-chart-hover ">
-                                <a href="~/Appointments/Create">
-
+    <div class="tabs-animation">
+        <div class="row">
+            <div class="col-lg-12 col-xl-3">
+                <div class="main-card mb-3 card">
+                    <div class="grid-menu grid-menu-2col">
+                        <div class="no-gutters row">
+                            <!--New Appointment-->
+                            <div class="col-sm-12">
+                                <div class="widget-chart widget-chart-hover ">
                                     <br />
                                     <div class="icon-wrapper rounded-circle">
                                         <br />
@@ -833,147 +725,251 @@
                                         <i class="lnr-laptop text-primary"></i>
                                     </div>
                                     <div class="widget-title opacity-10 text-uppercase">
-                                        <br />
-                                        <i class="metismenu-icon"></i> New Appointment
-
+                                        <a href="~/Appointments/Create">
+                                            <br />
+                                            <i class="metismenu-icon"></i> Completed
+                                        </a>
                                     </div>
                                     <div class="widget-description text-success">
                                         <span class="pl-1"> </span>
                                     </div>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>-->
-        <!--<div class="col-lg-12 col-xl-3">
-        <div class="main-card mb-3 card">
-            <div class="grid-menu grid-menu-2col">
-                <div class="no-gutters row">-->
-        <!--New Appointment-->
-        <!--<div class="col-sm-12">
-                            <div class="widget-chart widget-chart-hover">
-                                <br />
-                                <div class="icon-wrapper rounded-circle">
-                                    <br />
-                                    <div class="icon-wrapper-bg bg-primary"></div>
-                                    <i class="lnr-laptop text-primary"></i>
-                                </div>
-                                <div class="widget-title opacity-10 text-uppercase">
-                                    <a href="~/Appointments/Create">
-                                        <br />
-                                        <i class="metismenu-icon"></i> New Appointment
-                                    </a>
-                                </div>
-                                <div class="widget-description text-success">
-                                    <span class="pl-1"> </span>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>-->
 
-    </div>
-</div>
+            @*<form asp-controller="Appointments" asp-action="Create" method="post">*@
 
-
-<div class="tabs-animation">
-    <div class="row">
-       
-
-        <div class="col-lg-12 col-xl-3">
-            <div class="main-card mb-3 card">
-                <div class="grid-menu grid-menu-2col">
-                    <div class="no-gutters row">
-                        <!--Active Appointment-->
-                        <div class="col-sm-12">
-                            <div class="widget-chart widget-chart-hover">
-                                <a href="~/Appointments/Active">
-
+            <div class="col-lg-12 col-xl-3">
+                <div class="main-card mb-3 card">
+                    <div class="grid-menu grid-menu-2col">
+                        <div class="no-gutters row">
+                            <!--New Appointment-->
+                            <div class="col-sm-12">
+                                <div class="widget-chart widget-chart-hover">
                                     <br />
                                     <div class="icon-wrapper rounded-circle">
                                         <br />
-                                        <div class="icon-wrapper-bg bg-success"></div>
-                                        <i class="lnr-screen "></i>
+                                        <div class="icon-wrapper-bg bg-primary"></div>
+                                        <i class="lnr-laptop text-primary"></i>
                                     </div>
                                     <div class="widget-title opacity-10 text-uppercase">
-                                        <br />
-                                        <i class="metismenu-icon pr-1"></i> Today Appointment
 
+                                        @*<span>
+                                                <button href="~/Appointments/Create" class="mb-2 mr-2 btn btn-shadow btn-link ">Create</button>
+                                            </span>*@
+                                        <a href="~/Appointments/Create">
+                                            <br />
+                                            <i class="metismenu-icon"></i> Cancel
+                                        </a>
+                                        @*<br />
+                                            <form asp-controller="Appointments" asp-action="Create" method="post">
+
+                                             <button class="mb-2 mr-2 btn btn-shadow btn-success">Create</button>
+                                                </form>*@
                                     </div>
-                                    <br /><br />
-
-                                </a>
+                                    <div class="widget-description text-success">
+                                        <span class="pl-1"> </span>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
+            @*</form>*@
+            <div class="col-lg-12 col-xl-3">
+                <div class="main-card mb-3 card">
+                    <div class="grid-menu grid-menu-2col">
+                        <div class="no-gutters row">
+                            <!--Active Appointment-->
+                            <div class="col-sm-12">
+                                <div class="widget-chart widget-chart-hover">
+                                    <a href="~/Appointments/Active">
 
+                                        <br />
+                                        <div class="icon-wrapper rounded-circle">
+                                            <br />
+                                            <div class="icon-wrapper-bg bg-success"></div>
+                                            <i class="lnr-screen "></i>
+                                        </div>
+                                        <div class="widget-title opacity-10 text-uppercase">
+                                            <br />
+                                            <i class="metismenu-icon pr-1"></i> Today Appointment
 
-
-
-    </div>
-</div>
-
-
-<!--Color dashboard-->
-
-<div class="row">
-    <div class="col-md-6 col-xl-4">
-        <div class="card mb-3 widget-content bg-night-fade">
-            <div class="widget-content-wrapper text-white">
-                <div class="widget-content-left">
-                    <div class="widget-heading">Make New Appointments</div>
-                    <div class="widget-subheading">Last year expenses</div>
+                                        </div>
+                                        <div class="widget-description text-success">
+                                            <span class="pl-1"> </span>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="widget-content-right">
-                    <div class="widget-numbers text-white"><span>+ 40</span></div>
+            </div>
+
+
+
+            <!--<div class="col-lg-12 col-xl-3">
+            <div class="main-card mb-3 card">
+                <div class="grid-menu grid-menu-2col">
+                    <div class="no-gutters row">-->
+            <!--New Appointment-->
+            <!--<div class="col-sm-12">
+                                <div class="widget-chart widget-chart-hover ">
+                                    <a href="~/Appointments/Create">
+
+                                        <br />
+                                        <div class="icon-wrapper rounded-circle">
+                                            <br />
+                                            <div class="icon-wrapper-bg bg-primary"></div>
+                                            <i class="lnr-laptop text-primary"></i>
+                                        </div>
+                                        <div class="widget-title opacity-10 text-uppercase">
+                                            <br />
+                                            <i class="metismenu-icon"></i> New Appointment
+
+                                        </div>
+                                        <div class="widget-description text-success">
+                                            <span class="pl-1"> </span>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>-->
+            <!--<div class="col-lg-12 col-xl-3">
+            <div class="main-card mb-3 card">
+                <div class="grid-menu grid-menu-2col">
+                    <div class="no-gutters row">-->
+            <!--New Appointment-->
+            <!--<div class="col-sm-12">
+                                <div class="widget-chart widget-chart-hover">
+                                    <br />
+                                    <div class="icon-wrapper rounded-circle">
+                                        <br />
+                                        <div class="icon-wrapper-bg bg-primary"></div>
+                                        <i class="lnr-laptop text-primary"></i>
+                                    </div>
+                                    <div class="widget-title opacity-10 text-uppercase">
+                                        <a href="~/Appointments/Create">
+                                            <br />
+                                            <i class="metismenu-icon"></i> New Appointment
+                                        </a>
+                                    </div>
+                                    <div class="widget-description text-success">
+                                        <span class="pl-1"> </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>-->
+
+        </div>
+    </div>
+
+
+    <div class="tabs-animation">
+        <div class="row">
+
+
+            <div class="col-lg-12 col-xl-3">
+                <div class="main-card mb-3 card">
+                    <div class="grid-menu grid-menu-2col">
+                        <div class="no-gutters row">
+                            <!--Active Appointment-->
+                            <div class="col-sm-12">
+                                <div class="widget-chart widget-chart-hover">
+                                    <a href="~/Appointments/Active">
+
+                                        <br />
+                                        <div class="icon-wrapper rounded-circle">
+                                            <br />
+                                            <div class="icon-wrapper-bg bg-success"></div>
+                                            <i class="lnr-screen "></i>
+                                        </div>
+                                        <div class="widget-title opacity-10 text-uppercase">
+                                            <br />
+                                            <i class="metismenu-icon pr-1"></i> Today Appointment
+
+                                        </div>
+                                        <br /><br />
+
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+
+        </div>
+    </div>
+
+
+    <!--Color dashboard-->
+
+    <div class="row">
+        <div class="col-md-6 col-xl-4">
+            <div class="card mb-3 widget-content bg-night-fade">
+                <div class="widget-content-wrapper text-white">
+                    <div class="widget-content-left">
+                        <div class="widget-heading">Make New Appointments</div>
+                        <div class="widget-subheading">Last year expenses</div>
+                    </div>
+                    <div class="widget-content-right">
+                        <div class="widget-numbers text-white"><span>+ 40</span></div>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-    <div class="col-md-6 col-xl-4">
-        <div class="card mb-3 widget-content bg-arielle-smile">
-            <div class="widget-content-wrapper text-white">
-                <div class="widget-content-left">
-                    <div class="widget-heading">Completed Appointments</div>
-                    <div class="widget-subheading">Total Clients Profit</div>
-                </div>
-                <div class="widget-content-right">
-                    <div class="widget-numbers text-white"><span>+ 25</span></div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="col-md-6 col-xl-4">
-        <div class="card mb-3 widget-content bg-happy-green">
-            <div class="widget-content-wrapper text-white">
-                <div class="widget-content-left">
-                    <div class="widget-heading">Cancelled Appointments </div>
-                    <div class="widget-subheading">People Interested</div>
-                </div>
-                <div class="widget-content-right">
-                    <div class="widget-numbers text-white"><span>+ 60</span></div>
+        <div class="col-md-6 col-xl-4">
+            <div class="card mb-3 widget-content bg-arielle-smile">
+                <div class="widget-content-wrapper text-white">
+                    <div class="widget-content-left">
+                        <div class="widget-heading">Completed Appointments</div>
+                        <div class="widget-subheading">Total Clients Profit</div>
+                    </div>
+                    <div class="widget-content-right">
+                        <div class="widget-numbers text-white"><span>+ 25</span></div>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-    @*<div class="d-xl-none d-lg-block col-md-6 col-xl-4">
-        <div class="card mb-3 widget-content bg-premium-dark">
-            <div class="widget-content-wrapper text-white">
-                <div class="widget-content-left">
-                    <div class="widget-heading">Products Sold</div>
-                    <div class="widget-subheading">Revenue streams</div>
-                </div>
-                <div class="widget-content-right">
-                    <div class="widget-numbers text-warning"><span>$14M</span></div>
+        <div class="col-md-6 col-xl-4">
+            <div class="card mb-3 widget-content bg-happy-green">
+                <div class="widget-content-wrapper text-white">
+                    <div class="widget-content-left">
+                        <div class="widget-heading">Cancelled Appointments </div>
+                        <div class="widget-subheading">People Interested</div>
+                    </div>
+                    <div class="widget-content-right">
+                        <div class="widget-numbers text-white"><span>+ 60</span></div>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>*@
-</div>
+        @*<div class="d-xl-none d-lg-block col-md-6 col-xl-4">
+                <div class="card mb-3 widget-content bg-premium-dark">
+                    <div class="widget-content-wrapper text-white">
+                        <div class="widget-content-left">
+                            <div class="widget-heading">Products Sold</div>
+                            <div class="widget-subheading">Revenue streams</div>
+                        </div>
+                        <div class="widget-content-right">
+                            <div class="widget-numbers text-warning"><span>$14M</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>*@
+    </div>

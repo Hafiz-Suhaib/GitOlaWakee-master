@@ -25,6 +25,7 @@
     <Folder Include="Data\Migrations\" />
     <Folder Include="DB\" />
     <Folder Include="at\" />
+    <Folder Include="Views\RescheduledAppointment\" />
     <Folder Include="wwwroot\Uploads\" />
     <Folder Include="wwwroot\VectorIconImages\" />
   </ItemGroup>

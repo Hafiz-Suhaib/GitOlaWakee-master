@@ -5,114 +5,211 @@
     Layout = "~/Views/Shared/_Layout1.cshtml";
 }
 
-    <div class="app-page-title">
-        <div class="page-title-wrapper">
-            <div class="page-title-heading">
-                <div class="page-title-icon">
-                    <i class="lnr-graduation-hat icon-gradient bg-mean-fruit"></i>
-                </div>
-                <div>
-                    Rescheduled
+<div class="app-page-title">
+    <div class="page-title-wrapper">
+        <div class="page-title-heading">
+            <div class="page-title-icon">
+                <i class="lnr-graduation-hat icon-gradient bg-mean-fruit"></i>
+            </div>
+            <div>
+                Rescheduled
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<div class="card mb-3">
+    <div class="card-header-tab card-header">
+        <div class="card-header-title font-size-lg text-capitalize font-weight-normal">
+            Rescheduled Appointments
+        </div>
+        <div class="btn-actions-pane-right actions-icon-btn">
+
+        </div>
+    </div>
+    <div class="card-body">
+        <div id="example_wrapper" class="dataTables_wrapper dt-bootstrap4">
+
+            <div class="row">
+                <div class="col-sm-12">
+                    <table style="width: 100%;" id="example" class="table table-hover table-striped table-bordered dataTable dtr-inline" role="grid" aria-describedby="example_info">
+                        <thead>
+                            <tr>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.TimeFrom)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.TimeTo)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.ScheduleDate)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.AppoinmentStatus)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Date)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Customer)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Lawyer)
+                                </th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.TimeFrom)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.TimeTo)
+                                </td>
+
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.ScheduleDate)
+                                </td>
+
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.AppoinmentStatus)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Date)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Customer.CustomerId)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Lawyer.LawyerId)
+                                </td>
+                            </tr>
+}
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.TimeFrom)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.TimeTo)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.ScheduleDate)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.AppoinmentStatus)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Date)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Customer)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Lawyer)
+                                </th>
+                                <th></th>
+                            </tr>
+                        </tfoot>
+                    </table>
                 </div>
             </div>
         </div>
     </div>
+</div>
 
 
-    <table class="table">
-        <thead>
+
+
+
+
+
+@*@section scripts{
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="~/js/CommonJs.js"></script>
+}*@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@*<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.TimeFrom)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TimeTo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ScheduleDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AppoinmentStatus)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Date)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Customer)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Lawyer)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
             <tr>
-                @*<th>
-                        @Html.DisplayNameFor(model => model.AppointmentCode)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.LawyerAddress)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.CaseCategory)
-                    </th>*@
-                <th>
-                    @Html.DisplayNameFor(model => model.TimeFrom)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.TimeTo)
-                </th>
-                @*<th>
-                        @Html.DisplayNameFor(model => model.CaseCharges)
-                    </th>*@
-                <th>
-                    @Html.DisplayNameFor(model => model.ScheduleDate)
-                </th>
-                @*<th>
-                        @Html.DisplayNameFor(model => model.Rating)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.AppoinmentType)
-                    </th>*@
-                <th>
-                    @Html.DisplayNameFor(model => model.AppoinmentStatus)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Date)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Customer)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Lawyer)
-                </th>
-                <th></th>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TimeFrom)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TimeTo)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.ScheduleDate)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.AppoinmentStatus)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Date)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Customer.CustomerId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Lawyer.LawyerId)
+                </td>
             </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Model)
-            {
-                <tr>
-                    @*<td>
-                            @Html.DisplayFor(modelItem => item.AppointmentCode)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.LawyerAddress.LawyerAddressId)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.CaseCategory.CaseCategoryId)
-                        </td>*@
-                    <td>
-                        @Html.DisplayFor(modelItem => item.TimeFrom)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.TimeTo)
-                    </td>
-                    @*<td>
-                            @Html.DisplayFor(modelItem => item.CaseCharges)
-                        </td>*@
-                    <td>
-                        @Html.DisplayFor(modelItem => item.ScheduleDate)
-                    </td>
-                    @*<td>
-                            @Html.DisplayFor(modelItem => item.Rating)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.AppoinmentType)
-                        </td>*@
-                    <td>
-                        @Html.DisplayFor(modelItem => item.AppoinmentStatus)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Date)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Customer.CustomerId)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Lawyer.LawyerId)
-                    </td>
-                    @*<td>
-                            <a asp-action="Edit" asp-route-id="@item.AppoinmentId">Edit</a> |
-                            <a asp-action="Details" asp-route-id="@item.AppoinmentId">Details</a> |
-                            <a asp-action="Delete" asp-route-id="@item.AppoinmentId">Delete</a>
-                        </td>*@
-                </tr>
-            }
-        </tbody>
-    </table>
+        }
+    </tbody>
+</table>*@
+
+

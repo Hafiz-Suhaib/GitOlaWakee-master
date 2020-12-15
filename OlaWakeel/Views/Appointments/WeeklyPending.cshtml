@@ -1,0 +1,88 @@
+﻿@model IEnumerable<OlaWakeel.Models.Appointment>
+
+@{
+    ViewData["Title"] = "WeeklyPending";
+    Layout = "~/Views/Shared/_Layout1.cshtml";
+}
+
+<div class="app-page-title">
+    <div class="page-title-wrapper">
+        <div class="page-title-heading">
+            <div class="page-title-icon">
+                <i class="lnr-graduation-hat icon-gradient bg-mean-fruit"></i>
+            </div>
+            <div>
+               Weekly Pending Appointments
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="app-main__inner">
+    <div class="main-card mb-3 card">
+        <div class="card-body">
+            <table style="width: 100%;" id="example" class="table table-hover table-striped table-bordered">
+
+                @*<table class="table">*@
+                <thead>
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.AppoinmentType)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.TimeFrom)
+                        </th>
+
+                        <th>
+                            @Html.DisplayNameFor(model => model.TimeTo)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.AppoinmentStatus)
+                        </th>
+
+                        <th>
+                            @Html.DisplayNameFor(model => model.ScheduleDate)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Date)
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+
+                    {
+
+
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.AppoinmentType)
+                            </td>
+
+                            <td>
+                                @Html.DisplayFor(modelItem => item.TimeFrom)
+                            </td>
+
+                            <td>
+                                @Html.DisplayFor(modelItem => item.TimeTo)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.AppoinmentStatus)
+                            </td>
+
+                            <td>
+                                @Html.DisplayFor(modelItem => item.ScheduleDate)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Date)
+                            </td>
+
+                        </tr>
+
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

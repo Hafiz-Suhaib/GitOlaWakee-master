@@ -2,10 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 using OlaWakeel.Data;
+using OlaWakeel.Data.ApplicationUser;
 using OlaWakeel.Models;
 
 namespace OlaWakeel.Controllers
@@ -13,10 +17,13 @@ namespace OlaWakeel.Controllers
     public class AppointmentsController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly UserManager<AppUser> _userManager;
+        private UserManager<AppUser> userManager;
 
         public AppointmentsController(ApplicationDbContext context)
         {
             _context = context;
+            _userManager = userManager;
         }
 
         public IActionResult IndexDashboard()
@@ -40,7 +47,6 @@ namespace OlaWakeel.Controllers
             {
                 return NotFound();
             }
-
             var appointment = await _context.Appointments
                 .Include(a => a.CaseCategory)
                 .Include(a => a.Customer)
@@ -77,6 +83,15 @@ namespace OlaWakeel.Controllers
                 .Include(a => a.LawyerAddress);
             return View(await applicationDbContext.ToListAsync());
         }
+        public async Task<IActionResult> TrackAppointment()
+        {
+            var applicationDbContext = _context.Appointments
+                .Include(a => a.CaseCategory)
+                .Include(a => a.Customer)
+                .Include(a => a.Lawyer)
+                .Include(a => a.LawyerAddress);
+            return View(await applicationDbContext.ToListAsync());
+        }
         public async Task<IActionResult> Active()
         {
             //var pT = _context.Appointments.Where(w => w.Date == DateTime.Today).FirstOrDefault();
@@ -94,34 +109,180 @@ namespace OlaWakeel.Controllers
 
             return View(await aA.ToListAsync());
         }
+        //Pending appointments
         public async Task<IActionResult> Pending()
         {
-            var pA = _context.Appointments
-                .Include(a => a.CaseCategory)
-                .Include(a => a.Customer)
-                .Include(a => a.Lawyer)
-                .Include(a => a.LawyerAddress)
-                .Where(d => d.Date > DateTime.Today);
-            return View(await pA.ToListAsync());
-        }
-        public async Task<IActionResult> Rescheduled()
-        {
-            //if (id == null)
-            //{
-            //    return NotFound();
-            //}
-            var rA = _context.Appointments
-                .Include(a => a.CaseCategory)
-                .Include(a => a.Customer)
-                .Include(a => a.Lawyer)
-                .Include(a => a.LawyerAddress)
-                .Where(w => w.Date == DateTime.Today);
-            //if (aA == null)
-            //{
-            //    return NotFound();
-            //}
+            try
+            {
+                var a = _context.Customers.Where(a => !_context.Appointments.Any(x => x.CustomerId == a.CustomerId)).ToList();
 
-            return View(await rA.ToListAsync());
+                return View(a);
+            }
+            catch (Exception ex)
+            {
+                return Json("Invalid Data");
+            }
+        }
+        public async Task<IActionResult> TodayPending()
+        {
+            var aA = _context.Appointments
+               .Include(a => a.CaseCategory)
+               .Include(a => a.Customer)
+               .Include(a => a.Lawyer)
+               .Include(a => a.LawyerAddress)
+               .Where(w => w.ScheduleDate.Date >= DateTime.Today.Date && w.ScheduleDate.Date < DateTime.Today.AddDays(1).Date);
+
+            return View(await aA.ToListAsync());
+        }
+        public async Task<IActionResult> WeeklyPending()
+        {
+            var aA = _context.Appointments
+              .Include(a => a.CaseCategory)
+              .Include(a => a.Customer)
+              .Include(a => a.Lawyer)
+              .Include(a => a.LawyerAddress)
+              .Where(w => w.ScheduleDate.Date >= DateTime.Today.Date && w.ScheduleDate.Date < DateTime.Today.AddDays(7).Date);
+
+            return View(await aA.ToListAsync());
+            //try
+            //{
+            //    var a = _context.Customers.Where(a => !_context.Appointments.Any(x => x.CustomerId == a.CustomerId)).ToList();
+            //    return View(a);
+            //}
+            //catch (Exception ex)
+            //{
+            //    return Json("Invalid Data");
+            //}
+        }
+        public async Task<IActionResult> MonthlyPending()
+        {
+            var aA = _context.Appointments
+             .Include(a => a.CaseCategory)
+             .Include(a => a.Customer)
+             .Include(a => a.Lawyer)
+             .Include(a => a.LawyerAddress)
+             .Where(w => w.ScheduleDate.Date >= DateTime.Today.Date && w.ScheduleDate.Date < DateTime.Today.AddMonths(1).Date);
+
+            return View(await aA.ToListAsync());
+            //try
+            //{
+            //    var a = _context.Customers.Where(a => !_context.Appointments.Any(x => x.CustomerId == a.CustomerId)).ToList();
+            //    return View(a);
+            //}
+            //catch (Exception ex)
+            //{
+            //    return Json("Invalid Data");
+            //}
+        }
+        public async Task<IActionResult> YearlyPending()
+        {
+            var aA = _context.Appointments
+              .Include(a => a.CaseCategory)
+              .Include(a => a.Customer)
+              .Include(a => a.Lawyer)
+              .Include(a => a.LawyerAddress)
+              .Where(w => w.ScheduleDate.Date >= DateTime.Today.Date && w.ScheduleDate.Date < DateTime.Today.AddYears(1).Date);
+
+            return View(await aA.ToListAsync());
+        }
+        public async Task<IActionResult> TodayConfirmAppointments()
+        {
+            var aA = _context.Appointments
+             .Include(a => a.CaseCategory)
+             .Include(a => a.Customer)
+             .Include(a => a.Lawyer)
+             .Include(a => a.LawyerAddress)
+             .Where(w => w.ScheduleDate.Date >= DateTime.Today.Date && w.ScheduleDate.Date < DateTime.Today.AddDays(1).Date);
+
+            return View(await aA.ToListAsync());
+            //try
+            //{
+            //    var a = _context.Customers.Where(a => _context.Appointments.Any(x => x.CustomerId == a.CustomerId)).ToList();
+            //    return View(a);
+            //}
+            //catch (Exception ex)
+            //{
+            //    return Json("Invalid Data");
+            //}
+        }
+        public async Task<IActionResult> WeeklyConfirmAppointments()
+        {
+            var aA = _context.Appointments
+             .Include(a => a.CaseCategory)
+             .Include(a => a.Customer)
+             .Include(a => a.Lawyer)
+             .Include(a => a.LawyerAddress)
+             .Where(w => w.ScheduleDate.Date >= DateTime.Today.Date && w.ScheduleDate.Date < DateTime.Today.AddDays(7).Date);
+
+            return View(await aA.ToListAsync());
+        }
+        public async Task<IActionResult> MonthlyConfirmAppointments()
+        {
+            try
+            {
+                var a = _context.Customers.Where(a => _context.Appointments.Any(x => x.CustomerId == a.CustomerId)).ToList();
+                return View(a);
+            }
+            catch (Exception ex)
+            {
+                return Json("Invalid Data");
+            }
+        }
+        public async Task<IActionResult> YearlyConfirmAppointments()
+        {
+            try
+            {
+                var a = _context.Customers.Where(a => _context.Appointments.Any(x => x.CustomerId == a.CustomerId)).ToList();
+                return View(a);
+            }
+            catch (Exception ex)
+            {
+                return Json("Invalid Data");
+            }
+        }
+        //REscheduled Appointment
+        public ActionResult Rescheduled(int? Id)
+        {
+            if (Id == null)
+            {
+                return NotFound();
+            }
+
+            var reappoint = _context.RescheduleAppoints.Find(Id);
+            var appoint = _context.Appointments.Find(Id);
+            appoint.AppoinmentStatus = "Confirmed";
+            appoint.CaseCharges = reappoint.CaseCharges;
+            appoint.Date = DateTime.Now;
+            appoint.ScheduleDate = reappoint.RescheduleDate;
+            appoint.TimeFrom = reappoint.TimeFrom;
+            appoint.TimeTo = reappoint.TimeTo;
+
+            _context.Appointments.Update(appoint);
+            _context.SaveChanges();
+            return View(appoint);
+
+        }
+        //Today Reschedule Appointments
+        public ActionResult TodayRescheduleAppointments(int? Id)
+        {
+            if (Id == null)
+            {
+                return NotFound();
+            }
+
+            var reappoint = _context.RescheduleAppoints.Find(Id);
+            var appoint = _context.Appointments.Find(Id);
+            appoint.AppoinmentStatus = "Confirmed";
+            appoint.CaseCharges = reappoint.CaseCharges;
+            appoint.Date = DateTime.Now;
+            appoint.ScheduleDate = reappoint.RescheduleDate;
+            appoint.TimeFrom = reappoint.TimeFrom;
+            appoint.TimeTo = reappoint.TimeTo;
+
+            _context.Appointments.Update(appoint);
+            _context.SaveChanges();
+            return View(appoint);
+
         }
         // GET: Appointments/Details/5
         public async Task<IActionResult> Details(int? id)
@@ -159,6 +320,42 @@ namespace OlaWakeel.Controllers
             ViewData["LawyerId"] = new SelectList(_context.Lawyers, "LawyerId", "LawyerId");
             ViewData["LawyerAddressId"] = new SelectList(_context.LawyerAddresses, "LawyerAddressId", "LawyerAddressId");
             return View();
+        }
+
+        //public IActionResult CustomerWithoutAppoint()
+        //{
+        //    var a = _context.Customers.Where(a => !_context.Appointments.Any(x =>x.CustomerId==a.CustomerId)).ToList();
+
+        //        return View();
+        //}
+
+        public async Task<IActionResult> CustomerWithoutAppoint()
+        {
+            try
+            {
+                var a =  _context.Customers.Where(a => !_context.Appointments.Any(x => x.CustomerId == a.CustomerId)).ToList();
+              
+                //return Json(a);
+                return View(a);
+            }
+            catch (Exception ex)
+            {
+                return Json("Invalid Data");
+            }
+        }
+        public async Task<IActionResult> CustomerWithAppoint()
+        {
+            try
+            {
+                var a = _context.Customers.Where(a => _context.Appointments.Any(x => x.CustomerId == a.CustomerId)).ToList();
+
+                //return Json(a);
+                return View(a);
+            }
+            catch (Exception ex)
+            {
+                return Json("Invalid Data");
+            }
         }
 
         // POST: Appointments/Create
@@ -240,6 +437,37 @@ namespace OlaWakeel.Controllers
             return View(appointment);
         }
 
+
+        //public async Task<IActionResult> Delete(int Id)
+        //{
+        //    string userId = Id.ToString();
+
+        //    var user = await _userManager.FindByIdAsync(userId);
+
+        //    if (user == null)
+        //    {
+        //        ViewBag.ErrorMessage = $"User with Id =  { userId } can not be found";
+        //        return View("Not Found");
+        //    }
+        //    else
+        //    {
+        //        var result = await _userManager.DeleteAsync(user);
+
+        //        if (result.Succeeded)
+        //        {
+        //            RedirectToAction("Index");
+        //        }
+
+        //        foreach (var error in result.Errors)
+        //        {
+        //            ModelState.AddModelError("", error.Description);
+        //        }
+
+        //        return RedirectToAction("Index");
+        //    }
+        //}
+
+
         // GET: Appointments/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
@@ -247,7 +475,6 @@ namespace OlaWakeel.Controllers
             {
                 return NotFound();
             }
-
             var appointment = await _context.Appointments
                 .Include(a => a.CaseCategory)
                 .Include(a => a.Customer)
@@ -284,6 +511,41 @@ namespace OlaWakeel.Controllers
             return _context.Appointments.Any(e => e.AppoinmentId == id);
         }
 
-        
+
+        //public async Task<JsonResult> RescheduleAppointt(IFormCollection form)
+        //{
+
+        //    try
+        //    {
+                
+        //        var appointmentData = JsonConvert.DeserializeObject<Appointment>(Request.Form["Appointment"]);
+        //       // var user = JsonConvert.DeserializeObject<obj4>(Request.Form["user"]);
+        //        var appoint = _context.Appointments.Find(appointmentData.AppoinmentId);
+        //        appoint.AppoinmentStatus = appoint.AppoinmentStatus;
+        //        if (appointmentData.LawyerAddressId == null)
+        //            appoint.LawyerAddress = null;
+        //        appoint.LawyerAddressId = appointmentData.LawyerAddressId;
+        //        appoint.ScheduleDate = appointmentData.ScheduleDate;
+        //        appoint.TimeFrom = appointmentData.TimeFrom;
+        //        appoint.TimeTo = appointmentData.TimeTo;
+        //        appoint.AppoinmentType = appointmentData.AppoinmentType;
+        //        appoint.CaseCharges = appointmentData.CaseCharges;
+        //        appoint.AppoinmentStatus = "Confirmed";
+        //        _context.Appointments.Update(appointmentData);
+        //        await _context.SaveChangesAsync();
+              
+        //      //  return Json(appoint);
+        //        return View(appointmentData);
+        //    }
+        //    catch (Exception ex)
+        //    {
+
+        //        return Json("Invalid Data");
+        //    }
+
+        //}
+
+
+
     }
 }

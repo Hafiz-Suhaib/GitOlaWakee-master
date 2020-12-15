@@ -185,7 +185,7 @@ namespace OlaWakeel.Controllers
                         LawyerServiceId = c.LawyerCaseCategoryId,
                         CaseCategoryId = c.CaseCategoryId,
                     }).ToList(),
-                    LawyerPackages = _context.LawyerTimings.OrderByDescending(or => or.LawyerAddressId).Where(t => t.LawyerId == x.LawyerId && t.Status && t.SlotDate.Date == DateTime.Now.Date).Select(p => new
+                    LawyerPackages = _context.LawyerTimings.OrderByDescending(or => or.SlotDate).OrderByDescending(df => df.LawyerAddressId).Where(t => t.LawyerId == x.LawyerId && t.Status && t.SlotDate.Date >= DateTime.Now.Date).Select(p => new
                     {
                         Day = p.Day,
                         StartTime = p.TimeFrom,

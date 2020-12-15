@@ -902,16 +902,12 @@ namespace OlaWakeel.Controllers
                         }
                         catch (Exception ex)
                         {
-
-
+                            return Json("Invalid Data");
                         }
 
 
                         byte[] imageBytes = Convert.FromBase64String(customerData.ProfilePic);
                         System.IO.File.WriteAllBytes(imgPath, imageBytes);
-
-
-
                         customer.ProfilePic = Imagename;
 
                     }
@@ -994,7 +990,7 @@ namespace OlaWakeel.Controllers
 
         }
 
-        //for Cancled Appointments
+        //for Canceled Appointments
         [HttpGet]
         public async Task<JsonResult> UpdateAppoint(int appointmentId, string appointmentStatus, string user, string decs)
         {
@@ -1003,7 +999,7 @@ namespace OlaWakeel.Controllers
             {
                 //var appointmentData = JsonConvert.DeserializeObject<Appointment>(Request.Form["Appointment"]);
                 //var appointmentLog = JsonConvert.DeserializeObject<Log>(Request.Form["AppointmentCancel"]);
-                //var appoint = _context.Appointments.Find(appointmentData.AppoinmentId);
+               // var appoint = _context.Appointments.Find(appointmentData.AppoinmentId);
                 var appoint = _context.Appointments.Find(appointmentId);
                 appoint.AppoinmentStatus = appointmentStatus;
                 _context.Appointments.Update(appoint);

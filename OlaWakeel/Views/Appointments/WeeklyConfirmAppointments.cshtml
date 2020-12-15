@@ -1,9 +1,10 @@
-﻿@model IEnumerable<OlaWakeel.Models.Customer>
+﻿@model IEnumerable<OlaWakeel.Models.Appointment>
 
 @{
-    ViewData["Title"] = "Pending";
+    ViewData["Title"] = "WeeklyConfirmAppointments";
     Layout = "~/Views/Shared/_Layout1.cshtml";
 }
+
 
 <div class="app-page-title">
     <div class="page-title-wrapper">
@@ -12,7 +13,7 @@
                 <i class="lnr-graduation-hat icon-gradient bg-mean-fruit"></i>
             </div>
             <div>
-                Appointment
+               Weekly Confirmed Appointments
             </div>
         </div>
     </div>
@@ -27,7 +28,7 @@
                 @*<table class="table">*@
                 <thead>
                     <tr>
-                        <th>
+                        @*<th>
                             @Html.DisplayNameFor(model => model.FirstName)
                         </th>
                         <th>
@@ -43,7 +44,7 @@
 
                         <th>
                             @Html.DisplayNameFor(model => model.Address)
-                        </th>
+                        </th>*@
                         <th>
                             @Html.DisplayNameFor(model => model.Date)
                         </th>
@@ -53,7 +54,7 @@
                     @foreach (var item in Model)
                     {
                         <tr>
-                            <td>
+                            @*<td>
                                 @Html.DisplayFor(modelItem => item.FirstName)
                             </td>
 
@@ -70,7 +71,7 @@
 
                             <td>
                                 @Html.DisplayFor(modelItem => item.Address)
-                            </td>
+                            </td>*@
                             <td>
                                 @Html.DisplayFor(modelItem => item.Date)
                             </td>
@@ -82,34 +83,3 @@
         </div>
     </div>
 </div>
-@*<div class="app-main__inner">
-        <div class="main-card mb-3 card">
-            <div class="card-body">
-                <table style="width: 100%;" id="example" class="table table-hover table-striped table-bordered">
-                    <thead>
-                        <tr>
-                            <th>Name</th>
-                            <th>Position</th>
-                            <th>Office</th>
-                            <th>Age</th>
-                            <th>Start date</th>
-                            <th>Salary</th>
-                        </tr>
-                    </thead>
-                  <tbody>
-
-                  </tbody>
-                    <tfoot>
-                        <tr>
-                            <th>Name</th>
-                            <th>Position</th>
-                            <th>Office</th>
-                            <th>Age</th>
-                            <th>Start date</th>
-                            <th>Salary</th>
-                        </tr>
-                    </tfoot>
-                </table>
-            </div>
-        </div>
-    </div>*@
