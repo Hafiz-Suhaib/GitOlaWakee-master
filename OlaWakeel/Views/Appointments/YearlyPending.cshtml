@@ -28,6 +28,13 @@
                 <thead>
                     <tr>
                         <th>
+                            Customer
+                        </th>
+                        <th>
+                            Lawyer
+                        </th>
+
+                        <th>
                             @Html.DisplayNameFor(model => model.AppoinmentType)
                         </th>
                         <th>
@@ -55,30 +62,36 @@
                     {
 
 
-                        <tr>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.AppoinmentType)
-                            </td>
+                    <tr>
+                        <th>
+                            @Html.DisplayFor(modelItem => item.Customer.FirstName)
+                        </th>
+                        <th>
+                            @Html.DisplayFor(modelItem => item.Lawyer.FirstName)
+                        </th>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.AppoinmentType)
+                        </td>
 
-                            <td>
-                                @Html.DisplayFor(modelItem => item.TimeFrom)
-                            </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.TimeFrom)
+                        </td>
 
-                            <td>
-                                @Html.DisplayFor(modelItem => item.TimeTo)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.AppoinmentStatus)
-                            </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.TimeTo)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.AppoinmentStatus)
+                        </td>
 
-                            <td>
-                                @Html.DisplayFor(modelItem => item.ScheduleDate)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Date)
-                            </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ScheduleDate)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Date)
+                        </td>
 
-                        </tr>
+                    </tr>
 
                     }
                 </tbody>

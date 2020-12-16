@@ -1,4 +1,4 @@
-﻿@model IEnumerable<OlaWakeel.Models.Appointment>
+﻿@model IEnumerable<OlaWakeel.Models.Customer>
 
 @{
     ViewData["Title"] = "WeeklyConfirmAppointments";
@@ -28,7 +28,7 @@
                 @*<table class="table">*@
                 <thead>
                     <tr>
-                        @*<th>
+                        <th>
                             @Html.DisplayNameFor(model => model.FirstName)
                         </th>
                         <th>
@@ -44,7 +44,7 @@
 
                         <th>
                             @Html.DisplayNameFor(model => model.Address)
-                        </th>*@
+                        </th>
                         <th>
                             @Html.DisplayNameFor(model => model.Date)
                         </th>
@@ -54,7 +54,7 @@
                     @foreach (var item in Model)
                     {
                         <tr>
-                            @*<td>
+                            <td>
                                 @Html.DisplayFor(modelItem => item.FirstName)
                             </td>
 
@@ -71,7 +71,7 @@
 
                             <td>
                                 @Html.DisplayFor(modelItem => item.Address)
-                            </td>*@
+                            </td>
                             <td>
                                 @Html.DisplayFor(modelItem => item.Date)
                             </td>

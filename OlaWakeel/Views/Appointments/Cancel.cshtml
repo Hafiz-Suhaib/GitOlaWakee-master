@@ -1,9 +1,10 @@
-﻿@model IEnumerable<OlaWakeel.Models.Customer>
+﻿@model IEnumerable<OlaWakeel.Models.Appointment>
 
 @{
-    ViewData["Title"] = "Pending";
+    ViewData["Title"] = "Cancel";
     Layout = "~/Views/Shared/_Layout1.cshtml";
 }
+
 
 <div class="app-page-title">
     <div class="page-title-wrapper">
@@ -18,10 +19,11 @@
     </div>
 </div>
 
+
 <div class="card mb-3">
     <div class="card-header-tab card-header">
         <div class="card-header-title font-size-lg text-capitalize font-weight-normal">
-            <i class="header-icon mr-3 text-muted opacity-6"> </i>Pending Appointment
+            <i class="header-icon mr-3 text-muted opacity-6"> </i>Cancel Appointment
         </div>
     </div>
     <div class="card-body">
@@ -33,25 +35,27 @@
                         @*<table class="table">*@
                         <thead>
                             <tr>
-                                <th>
-                                    @Html.DisplayNameFor(model => model.FirstName)
-                                </th>
-                                <th>
-                                    @Html.DisplayNameFor(model => model.LastName)
-                                </th>
 
                                 <th>
-                                    @Html.DisplayNameFor(model => model.City)
+                                    Appointment Code
                                 </th>
                                 <th>
-                                    @Html.DisplayNameFor(model => model.Country)
+                                    Customer
                                 </th>
-
                                 <th>
-                                    @Html.DisplayNameFor(model => model.Address)
+                                    Lawyer
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.AppoinmentType)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.CaseCharges)
                                 </th>
                                 <th>
                                     @Html.DisplayNameFor(model => model.Date)
+                                </th>
+                                <th>
+                                    AppointmentStatus
                                 </th>
                             </tr>
                         </thead>
@@ -60,64 +64,37 @@
                             {
                                 <tr>
                                     <td>
-                                        @Html.DisplayFor(modelItem => item.FirstName)
+                                        @Html.DisplayFor(modelItem => item.AppointmentCode)
                                     </td>
 
                                     <td>
-                                        @Html.DisplayFor(modelItem => item.LastName)
+                                        @Html.DisplayFor(modelItem => item.Customer.FirstName)
+                                        @Html.DisplayFor(modelItem => item.Customer.LastName)
                                     </td>
 
                                     <td>
-                                        @Html.DisplayFor(modelItem => item.City)
+                                        @Html.DisplayFor(modelItem => item.Lawyer.FirstName)
+                                        @Html.DisplayFor(modelItem => item.Lawyer.LastName)
                                     </td>
                                     <td>
-                                        @Html.DisplayFor(modelItem => item.Country)
+                                        @Html.DisplayFor(modelItem => item.AppoinmentType)
                                     </td>
 
                                     <td>
-                                        @Html.DisplayFor(modelItem => item.Address)
+                                        @Html.DisplayFor(modelItem => item.CaseCharges)
                                     </td>
                                     <td>
                                         @Html.DisplayFor(modelItem => item.Date)
                                     </td>
-
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.AppoinmentStatus)
+                                    </td>
                                 </tr>
                             }
                         </tbody>
                     </table>
                 </div>
             </div>
-        </div>  
-    </div>
         </div>
-        @*<div class="app-main__inner">
-                <div class="main-card mb-3 card">
-                    <div class="card-body">
-                        <table style="width: 100%;" id="example" class="table table-hover table-striped table-bordered">
-                            <thead>
-                                <tr>
-                                    <th>Name</th>
-                                    <th>Position</th>
-                                    <th>Office</th>
-                                    <th>Age</th>
-                                    <th>Start date</th>
-                                    <th>Salary</th>
-                                </tr>
-                            </thead>
-                          <tbody>
-
-                          </tbody>
-                            <tfoot>
-                                <tr>
-                                    <th>Name</th>
-                                    <th>Position</th>
-                                    <th>Office</th>
-                                    <th>Age</th>
-                                    <th>Start date</th>
-                                    <th>Salary</th>
-                                </tr>
-                            </tfoot>
-                        </table>
-                    </div>
-                </div>
-            </div>*@
+    </div>
+</div>

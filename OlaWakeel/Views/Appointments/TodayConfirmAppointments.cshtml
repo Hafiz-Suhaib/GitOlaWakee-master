@@ -17,8 +17,6 @@
         </div>
     </div>
 </div>
-
-
 <div class="app-main__inner">
     <div class="main-card mb-3 card">
         <div class="card-body">
@@ -27,23 +25,23 @@
                 @*<table class="table">*@
                 <thead>
                     <tr>
-                        @*<th>
-                            @Html.DisplayNameFor(model => model.FirstName)
+                        <th>
+                            @Html.DisplayNameFor(model => model.Customer.FirstName)
                         </th>
                         <th>
-                            @Html.DisplayNameFor(model => model.LastName)
-                        </th>
-
-                        <th>
-                            @Html.DisplayNameFor(model => model.City)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.Country)
+                            @Html.DisplayNameFor(model => model.Customer.LastName)
                         </th>
 
                         <th>
-                            @Html.DisplayNameFor(model => model.Address)
-                        </th>*@
+                            @Html.DisplayNameFor(model => model.Customer.City)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Customer.Country)
+                        </th>
+
+                        <th>
+                            @Html.DisplayNameFor(model => model.Customer.Address)
+                        </th>
                         <th>
                             @Html.DisplayNameFor(model => model.Date)
                         </th>
@@ -53,24 +51,24 @@
                     @foreach (var item in Model)
                     {
                         <tr>
-                            @*<td>
-                                @Html.DisplayFor(modelItem => item.FirstName)
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Customer.FirstName)
                             </td>
 
                             <td>
-                                @Html.DisplayFor(modelItem => item.LastName)
+                                @Html.DisplayFor(modelItem => item.Customer.LastName)
                             </td>
 
                             <td>
-                                @Html.DisplayFor(modelItem => item.City)
+                                @Html.DisplayFor(modelItem => item.Customer.City)
                             </td>
                             <td>
-                                @Html.DisplayFor(modelItem => item.Country)
+                                @Html.DisplayFor(modelItem => item.Customer.Country)
                             </td>
 
                             <td>
-                                @Html.DisplayFor(modelItem => item.Address)
-                            </td>*@
+                                @Html.DisplayFor(modelItem => item.Customer.Address)
+                            </td>
                             <td>
                                 @Html.DisplayFor(modelItem => item.Date)
                             </td>
