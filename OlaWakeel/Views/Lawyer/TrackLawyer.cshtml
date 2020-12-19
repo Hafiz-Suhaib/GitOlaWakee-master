@@ -1,9 +1,9 @@
-﻿@model List<OlaWakeel.Models.Lawyer>
+﻿@model IEnumerable<OlaWakeel.Models.Lawyer>
 
 @{
+    //ViewData["Title"] = "TrackLawyer";
     ViewData["Title"] = ViewBag.Filter;
-Layout = "~/Views/Shared/_Layout1.cshtml"; 
-    
+    Layout = "~/Views/Shared/_Layout1.cshtml";
 }
 
 <div class="app-page-title">
@@ -13,19 +13,19 @@ Layout = "~/Views/Shared/_Layout1.cshtml";
                 <i class="lnr-graduation-hat icon-gradient bg-mean-fruit"></i>
             </div>
             <div>
-                Search Lawyer
+                Track Lawyer
             </div>
         </div>
     </div>
 </div>
 <div class="main-card mb-3 card">
     <div class="card-body">
-        <h5 class="card-title">Search Lawyer Here</h5>
+        <h5 class="card-title">Track Lawyer Here</h5>
         <form method="get" asp-action="TrackLawyer">
             <div class="position-relative form-group">
                 <label for="exampleEmail" class="">Search Lawyer</label>
                 <input name="searchapp" placeholder="Type here..." type="search" value="@ViewData["Lawyersearch"]" class="form-control">
-                <br />
+               <br />
                 <input type="submit" value="Search" class="btn btn-primary" />
             </div>
         </form>
@@ -48,8 +48,8 @@ Layout = "~/Views/Shared/_Layout1.cshtml";
                 <thead>
                     <tr>
                         @*<th>
-            LawyerID
-        </th>*@
+                            LawyerID
+                        </th>*@
                         <th>
                             Name
                         </th>
@@ -62,45 +62,49 @@ Layout = "~/Views/Shared/_Layout1.cshtml";
                         <th>
                             TotalExperience
                         </th>
-                        <th>Action</th>
+                       <th>
+                           Action
+                       </th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach (var item in Model)
                     {
-                        <tr>
-                            @*<td>
-                                    @Html.DisplayFor(modelItem => item.LawyerId)
-                                </td>*@
-                            <td>
-                                @Html.DisplayFor(modelItem => item.FirstName)
-                                @Html.DisplayFor(modelItem => item.LastName)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.VirtualChargesPkr)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.VirtualChargesUs)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.TotalExperience)
-                            </td>
-                            
-                            <td>
-                                @*<a asp-action="Details" asp-route-id="@item.AppoinmentId">Details</a>*@
-                                @*<a class="mb-2 mr-2 btn-icon btn-icon-only btn-shadow btn-dashed btn btn-outline-success" href="~/Lawyer/Details/@item.LawyerId" target="_blank"><i class="fas fa-info-circle"></i></a>*@
-                                <a class="mb-2 mr-2 btn-icon btn-icon-only btn-shadow btn-dashed btn btn-outline-info" href="~/Lawyer/LawyerProfile1/@item.AppUser.Id"><i class="lnr-user"> </i></a>
+                    <tr>
+                        @*<td>
+                            @Html.DisplayFor(modelItem => item.LawyerId)
+                        </td>*@
+                        <td>
+                            @Html.DisplayFor(modelItem => item.FirstName)
+                            @Html.DisplayFor(modelItem => item.LastName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.VirtualChargesPkr)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.VirtualChargesUs)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.TotalExperience)
+                        </td>
+                        <!--<td>-->
+                        @*<a asp-action="Details" asp-route-id="@item.AppoinmentId">Details</a>*@
+                        <!--<a class="mb-2 mr-2 btn-icon btn-icon-only btn-shadow btn-dashed btn btn-outline-success" href="~/Appointments/Details/@item.LawyerId" target="_blank"><i class="fas fa-info-circle"></i></a>
+                          </td>-->
+                    <td>
+                        <a class="mb-2 mr-2 btn-icon btn-icon-only btn-shadow btn-dashed btn btn-outline-info" href="~/Lawyer/LawyerProfile1"><i class="lnr-user"> </i></a>
 
-                            </td>
-                        </tr>
+                        @*<a class="mb-2 mr-2 btn-icon btn-icon-only btn-shadow btn-dashed btn btn-outline-success" href="~/Lawyer/LawyerProfile/@item.LawyerId" target="_blank"><i class="fas fa-info-circle"></i></a>*@
+                    </td>
+                    </tr>
                     }
 
                 </tbody>
                 <tfoot>
                     <tr>
                         @*<th>
-                                LawyerID
-                            </th>*@
+                            LawyerID
+                        </th>*@
                         <th>
                             Name
                         </th>
@@ -113,8 +117,9 @@ Layout = "~/Views/Shared/_Layout1.cshtml";
                         <th>
                             TotalExperience
                         </th>
-                        
-                            <th>Action</th>
+                        <th>
+                            Action
+                        </th>
                     </tr>
                 </tfoot>
             </table>

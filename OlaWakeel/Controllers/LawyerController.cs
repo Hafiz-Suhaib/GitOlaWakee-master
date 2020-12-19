@@ -8,7 +8,9 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
+using OlaWakeel.Data;
 //using OlaWakeel.Constant;
 using OlaWakeel.Data.ApplicationUser;
 using OlaWakeel.Dto;
@@ -23,6 +25,7 @@ namespace OlaWakeel.Controllers
     // [Authorize(Roles = "Admin")]
     public class LawyerController : Controller
     {
+        private readonly ApplicationDbContext _context;
         private readonly UserManager<AppUser> _userManager;
         private readonly RoleManager<AppRole> _roleManager;
         public readonly ILawyerService _lawyerService;
@@ -30,8 +33,9 @@ namespace OlaWakeel.Controllers
         private readonly IDegreeService _degreeService;
         private readonly ISpecializationService _specializationService;
         private readonly ICaseCategoryService _caseCategoryService;
-        public LawyerController(RoleManager<AppRole> roleManager, UserManager<AppUser> userManager, ILawyerService lawyerService, IHostingEnvironment hostingEnvironment, IDegreeService degreeService, ISpecializationService specializationService, ICaseCategoryService caseCategoryService)
+        public LawyerController(ApplicationDbContext context, RoleManager<AppRole> roleManager, UserManager<AppUser> userManager, ILawyerService lawyerService, IHostingEnvironment hostingEnvironment, IDegreeService degreeService, ISpecializationService specializationService, ICaseCategoryService caseCategoryService)
         {
+            _context = context;
             _roleManager = roleManager;
             _userManager = userManager;
             _lawyerService = lawyerService;
@@ -468,6 +472,13 @@ namespace OlaWakeel.Controllers
 
             return View(lawyerProfile);
         }
+
+        public async Task<IActionResult> LawyerProfile1(int id)
+        {
+            var lawyerProfile = await _lawyerService.LawyerProfile(id);
+
+            return View(lawyerProfile);
+        }
         // for edit Lawyer
         public async Task<JsonResult> UpdateLawyer(int id)
         {
@@ -503,6 +514,7 @@ namespace OlaWakeel.Controllers
             }
         }
         public async Task<IActionResult> SearchLawyers(string filter)
+        
         {
             if (filter == "TotalLawyers" || filter == null)
             {
@@ -524,6 +536,44 @@ namespace OlaWakeel.Controllers
             }
             return View();
         }
+        public async Task<IActionResult> TrackLawyer(string searchapp)
+        {
+
+            ViewData["Lawyersearch"] = searchapp;
+            var searchap = from x in _context.Lawyers select x;
+            if (!string.IsNullOrEmpty(searchapp))
+            {
+                searchap = _context.Lawyers;
+                searchap = searchap.Where(x => x.FirstName.Contains(searchapp));
+                return View(await searchap.AsNoTracking().ToListAsync());
+            }
+            var applicationDbContext = _context.Lawyers;
+            return View(await applicationDbContext.ToListAsync());
+        }
+
+        public async Task<IActionResult> TotalLawyers()
+        {
+            var applicationDbContext = _context.Lawyers.Include(a => a.AppUser);
+            return View(await applicationDbContext.ToListAsync());
+        }
+        public async Task<IActionResult> Details(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+            var lw = await _context.Lawyers
+                .Include(a => a.AppUser)
+                .FirstOrDefaultAsync(m => m.LawyerId == id);
+            if (lw == null)
+            {
+                return NotFound();
+            }
+
+            return View(lw);
+        }
+
+
         public async Task<JsonResult> ChangeLawyerStatus(int id)
         {
             await _lawyerService.ChangeLawyerStatus(id);
