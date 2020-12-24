@@ -1,0 +1,149 @@
+﻿@model OlaWakeel.Models.Lawyer
+
+@{
+    ViewData["Title"] = "Detail";
+    Layout = "~/Views/Shared/_Layout1.cshtml";
+}
+<div class="app-page-title">
+    <div class="page-title-wrapper">
+        <div class="page-title-heading">
+            <div class="page-title-icon">
+                <i class="pe-7s-cash icon-gradient bg-mean-fruit"></i>
+            </div>
+            <div>
+                Lawyer Details
+            </div>
+        </div>
+    </div>
+</div>
+<div class="col-md-12 col-lg-6 col-xl-4">
+    <div class="card-shadow-primary profile-responsive card-border mb-3 card">
+        <div class="dropdown-menu-header">
+            <div class="dropdown-menu-header-inner bg-danger">
+                <div class="menu-header-image" style="background-image: url('/assets/images/dropdown-header/abstract1.jpg')"></div>
+                <div class="menu-header-content btn-pane-right">
+                    <div class="avatar-icon-wrapper mr-2 avatar-icon-xl">
+                        <div class="avatar-icon">
+                            @if (Model.ProfilePic != null)
+                            {
+                                <img src="~/Uploads/@Model.ProfilePic" alt="  ">
+                            }
+                            <img src="~/Uploads/logo.png" />
+                        </div>
+                    </div>
+                    <div>
+                        <h5 class="menu-header-title">@Model.FirstName @Model.LastName</h5>
+                      @if(Model.OnlineStatus != null)
+                      {
+                          @Model.OnlineStatus
+                      }
+                      @*<text> Status not selected</text>*@
+                    </div>
+                    <div class="menu-header-btn-pane">
+                        <button class="btn-icon btn btn-success btn-sm"> <a href="~/Lawyer/LawyerDetailProfile">  View Profile</a></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item">
+                <div class="widget-content p-0">
+                    <div class="widget-content-wrapper">
+                        <div class="widget-content-left mr-3">
+                            <div class="icon-wrapper m-0">
+                                <div class="progress-circle-wrapper">
+                                    <div class="circle-progress d-inline-block circle-progress-success">
+                                        <canvas width="65" height="65" style="height: 52px; width: 52px;"></canvas>
+                                        <small><span>81%<span></span></span></small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="widget-content-left">
+                            <div class="widget-heading">Total Earning in Dollars</div>
+                            <div class="widget-subheading">$ @Model.VirtualChargesUs</div>
+                        </div>
+                        <div class="widget-content-right">
+                            <div class="widget-numbers widget-numbers-sm text-primary">
+                                <span>$ @Model.VirtualChargesUs</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </li>
+            <li class="list-group-item">
+                <div class="widget-content p-0">
+                    <div class="widget-content-wrapper">
+                        <div class="widget-content-left mr-3">
+                            <div class="icon-wrapper m-0">
+                                <div class="progress-circle-wrapper">
+                                    <div class="circle-progress d-inline-block circle-progress-info">
+                                        <canvas width="65" height="65" style="height: 52px; width: 52px;"></canvas>
+                                        <small><span>69%<span></span></span></small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="widget-content-left">
+                            <div class="widget-heading">Total Earning in Rupees</div>
+                            <div class="widget-subheading">Rs. @Model.VirtualChargesPkr</div>
+                        </div>
+                        <div class="widget-content-right">
+                            <div class="widget-numbers widget-numbers-sm text-warning">
+                                <span>Rs. @Model.VirtualChargesPkr</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </li>
+            <li class="list-group-item">
+                <div class="widget-content p-0">
+                    <div class="widget-content-wrapper">
+                        <div class="widget-content-left mr-3">
+                            <div class="icon-wrapper m-0">
+                                <div class="progress-circle-wrapper">
+                                    <div class="circle-progress d-inline-block circle-progress-danger">
+                                        <canvas width="65" height="65" style="height: 52px; width: 52px;"></canvas>
+                                        <small><span>23%<span></span></span></small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="widget-content-left">
+                            <div class="widget-heading">Contact </div>
+                            <div class="widget-subheading">@Model.Contact</div>
+                        </div>
+                        <div class="widget-content-right">
+                            <div class="widget-numbers widget-numbers-sm text-danger">
+                                <span></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </li>
+            <li class="list-group-item">
+                <div class="widget-content p-0">
+                    <div class="widget-content-wrapper">
+                        <div class="widget-content-left mr-3">
+                            <div class="icon-wrapper m-0">
+                                <div class="progress-circle-wrapper">
+                                    <div class="circle-progress d-inline-block circle-progress-dark">
+                                        <canvas width="65" height="65" style="height: 52px; width: 52px;"></canvas>
+                                        <small><span>69%<span></span></span></small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="widget-content-left">
+                            <div class="widget-heading">April Sales</div>
+                            <div class="widget-subheading">Curabitur ullamcorper ultricies</div>
+                        </div>
+                        <div class="widget-content-right">
+                            <div class="widget-numbers widget-numbers-sm text-info"><span></span></div>
+                        </div>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>

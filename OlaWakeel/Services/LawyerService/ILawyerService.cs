@@ -21,6 +21,8 @@ namespace OlaWakeel.Services.LawyerService
         public Task<List<Lawyer>> GetOnlineLawyers();
         public Task<List<Lawyer>> GetOfflineLawyers();
         public Task<Lawyer> LawyerProfile(int id);
+       public Task<Lawyer> LawyerProfile1(int id);
+        public Task<Lawyer> LawyerProfile2(int id);
         public Task<Lawyer> GetAccountProfile(int id);
         // editing
         public Task EditLawyerQualification(LawyerQualification editLawyerQualification);
@@ -318,7 +320,63 @@ namespace OlaWakeel.Services.LawyerService
                  .Include(x => x.LawyerCaseCategories)
                  .ThenInclude(x => x.CaseCategory)
                  .Include(x=>x.LawyerAddresses)
+                 
                  .SingleOrDefaultAsync(x => x.AppUserId == id);
+            return lawerProfile;
+        }
+        public async Task<Lawyer> LawyerProfile1(int id)
+        {
+            var lawyerProfile = await _context.Lawyers.Include(x => x.AppUser)
+                .Include(x => x.LawyerLicenses)
+                .Include(x => x.LawyerClients)
+                .Include(x => x.lawyerLanguages)
+                .Include(x => x.LawyerQualifications)
+                .Include(x => x.LawyerCaseCategories)
+                .Include(x => x.LawerTimings)
+                .Include(x=>x.LawyerAddresses)
+                .Include(x=>x.LawyerExperiences)
+                 .FirstOrDefaultAsync(x=>x.LawyerId == id);
+
+
+            //.Include(x => x.LawyerQualifications)
+            //    .ThenInclude(x => x.Specialization)
+            //    .Include(x => x.LawyerQualifications)
+            //    .ThenInclude(x => x.Degree)
+            //    .ThenInclude(x => x.DegreeTypes)
+            //     .Include(x => x.LawyerExperiences)
+            //     .ThenInclude(x => x.CaseCategory)
+            //     .Include(x => x.LawerTimings)
+            //     .Include(x => x.LawyerClients)
+            //     .Include(x => x.lawyerLanguages)
+            //     .Include(x => x.LawyerLicenses)
+            //     .ThenInclude(x => x.LicenseCity)
+            //     .Include(x => x.LawyerCaseCategories)
+            //     .ThenInclude(x => x.CaseCategory)
+            //     .Include(x => x.LawyerAddresses)
+            return lawyerProfile;
+        }
+
+        public async Task<Lawyer> LawyerProfile2(int id)
+        {
+            var lawerProfile = await _context.Lawyers.Include(x => x.AppUser)
+                .Include(x => x.LawyerQualifications)
+                .ThenInclude(x => x.Specialization)
+                .Include(x => x.LawyerQualifications)
+                .ThenInclude(x => x.Degree)
+                .ThenInclude(x => x.DegreeTypes)
+
+                 .Include(x => x.LawyerExperiences)
+                 .ThenInclude(x => x.CaseCategory)
+                 .Include(x => x.LawerTimings)
+                 .Include(x => x.LawyerClients)
+                 .Include(x => x.lawyerLanguages)
+                 .Include(x => x.LawyerLicenses)
+                 .ThenInclude(x => x.LicenseCity)
+                 .Include(x => x.LawyerCaseCategories)
+                 .ThenInclude(x => x.CaseCategory)
+                 .Include(x => x.LawyerAddresses)
+
+                 .Where(x => x.LawyerId == id).SingleOrDefaultAsync();
             return lawerProfile;
         }
         //GetAccountProfile for edit

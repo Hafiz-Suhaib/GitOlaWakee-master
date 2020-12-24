@@ -1,4 +1,4 @@
-﻿@model List<OlaWakeel.Models.Lawyer>
+﻿@model IEnumerable<OlaWakeel.Models.Lawyer>
 
 @{
     ViewData["Title"] = ViewBag.Filter;
@@ -34,12 +34,6 @@ Layout = "~/Views/Shared/_Layout1.cshtml";
 
 
 <div class="card mb-3">
-    <!--<div class="card-header-tab card-header">-->
-    @*<br />
-        <div class="card-header-title font-size-lg text-capitalize font-weight-normal">
-            <i class="header-icon mr-3 text-muted opacity-6"> </i>Track the Appointment
-        </div>*@
-    <!--</div>-->
     <div class="card-body">
 
 
@@ -47,9 +41,6 @@ Layout = "~/Views/Shared/_Layout1.cshtml";
             <table style="width: 100%;" class="table table-hover table-striped table-bordered dataTable dtr-inline listing-datatable" role="grid" aria-describedby="example_info">
                 <thead>
                     <tr>
-                        @*<th>
-            LawyerID
-        </th>*@
                         <th>
                             Name
                         </th>
@@ -62,45 +53,37 @@ Layout = "~/Views/Shared/_Layout1.cshtml";
                         <th>
                             TotalExperience
                         </th>
-                        <th>Action</th>
+                        @*<th>Action</th>*@
                     </tr>
                 </thead>
                 <tbody>
                     @foreach (var item in Model)
                     {
                         <tr>
-                            @*<td>
-                                    @Html.DisplayFor(modelItem => item.LawyerId)
-                                </td>*@
                             <td>
                                 @Html.DisplayFor(modelItem => item.FirstName)
                                 @Html.DisplayFor(modelItem => item.LastName)
                             </td>
                             <td>
-                                @Html.DisplayFor(modelItem => item.VirtualChargesPkr)
+                                Rs. @Html.DisplayFor(modelItem => item.VirtualChargesPkr)
                             </td>
                             <td>
-                                @Html.DisplayFor(modelItem => item.VirtualChargesUs)
+                               $  @Html.DisplayFor(modelItem => item.VirtualChargesUs)
                             </td>
                             <td>
-                                @Html.DisplayFor(modelItem => item.TotalExperience)
+                                @Html.DisplayFor(modelItem => item.TotalExperience) Years
                             </td>
                             
-                            <td>
-                                @*<a asp-action="Details" asp-route-id="@item.AppoinmentId">Details</a>*@
-                                @*<a class="mb-2 mr-2 btn-icon btn-icon-only btn-shadow btn-dashed btn btn-outline-success" href="~/Lawyer/Details/@item.LawyerId" target="_blank"><i class="fas fa-info-circle"></i></a>*@
-                                <a class="mb-2 mr-2 btn-icon btn-icon-only btn-shadow btn-dashed btn btn-outline-info" href="~/Lawyer/LawyerProfile1/@item.AppUser.Id"><i class="lnr-user"> </i></a>
+                            @*<td>
+                               <a class="mb-2 mr-2 btn-icon btn-icon-only btn-shadow btn-dashed btn btn-outline-info" href="~/Lawyer/LawyerProfile1/@item.LawyerId"><i class="lnr-user"> </i></a>
 
-                            </td>
+                            </td>*@
                         </tr>
                     }
 
                 </tbody>
                 <tfoot>
                     <tr>
-                        @*<th>
-                                LawyerID
-                            </th>*@
                         <th>
                             Name
                         </th>
@@ -114,7 +97,7 @@ Layout = "~/Views/Shared/_Layout1.cshtml";
                             TotalExperience
                         </th>
                         
-                            <th>Action</th>
+                            @*<th>Action</th>*@
                     </tr>
                 </tfoot>
             </table>

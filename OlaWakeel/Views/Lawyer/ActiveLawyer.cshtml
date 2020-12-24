@@ -1,0 +1,75 @@
+﻿@model IEnumerable<OlaWakeel.Models.Lawyer>
+
+@{
+    ViewData["Title"] = "ActiveLawyer";
+    Layout = "~/Views/Shared/_Layout1.cshtml";
+}
+
+
+
+<div class="app-page-title">
+    <div class="page-title-wrapper">
+        <div class="page-title-heading">
+            <div class="page-title-icon">
+                <i class="lnr-graduation-hat icon-gradient bg-mean-fruit"></i>
+            </div>
+            <div>
+                Active Lawyers
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="card mb-3">
+    <div class="card-header-tab card-header">
+        <div class="card-header-title font-size-lg text-capitalize font-weight-normal">
+            <i class="header-icon mr-3 text-muted opacity-6"> </i>Pending Appointment
+        </div>
+    </div>
+    <div class="card-body">
+        <div id="example_wrapper" class="dataTables_wrapper dt-bootstrap4">
+            <div class="row">
+                <div class="col-sm-12">
+                    <table style="width: 100%;" id="example" class="table table-hover table-striped table-bordered">
+
+                        @*<table class="table">*@
+                        <thead>
+                            <tr>
+                                <td>Name</td>
+                                <td>Contact</td>
+                                <td>TotalExperience</td>
+                                <td>VirtualChargesPkr</td>
+                                <td>VirtualChargesUs</td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.FirstName) @Html.DisplayFor(modelItem => item.LastName)
+                                    </td>
+
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Contact)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.TotalExperience) Years
+                                    </td>
+
+                                    <td>
+                                        Rs.  @Html.DisplayFor(modelItem => item.VirtualChargesPkr)
+                                    </td>
+                                    <td>
+                                       $  @Html.DisplayFor(modelItem => item.VirtualChargesUs)
+                                    </td>
+
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -64,5 +64,6 @@ namespace OlaWakeel.Data
                     .IsRequired();
             });
         }
+       
     }
 }

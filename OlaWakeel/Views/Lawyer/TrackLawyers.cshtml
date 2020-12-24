@@ -1,0 +1,299 @@
+﻿@model IEnumerable<OlaWakeel.Models.Lawyer>
+
+@{
+    ViewData["Title"] = "TrackLawyers";
+    Layout = "~/Views/Shared/_Layout1.cshtml";
+}
+@{ int i = 1;}
+<div class="app-page-title">
+    <div class="page-title-wrapper">
+        <div class="page-title-heading">
+            <div class="page-title-icon">
+                <i class="lnr-graduation-hat icon-gradient bg-mean-fruit"></i>
+            </div>
+            <div>
+                Track Lawyers
+            </div>
+        </div>
+    </div>
+</div>
+<div class="main-card mb-3 card">
+    <div class="card-body">
+        <h5 class="card-title">Track Lawyer Here</h5>
+        <form method="get" asp-action="TrackLawyer">
+            <div class="position-relative form-group">
+                <label for="exampleEmail" class="">Search Lawyer</label>
+                <input name="searchapp" placeholder="Type here..." type="search" value="@ViewData["Lawyersearch"]" class="form-control">
+                <br />
+                <input type="submit" value="Search" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+
+<div class="card mb-3">
+    <div class="card-body">
+        <div class="col-sm-12">
+            <table style="width: 100%;" class="table table-hover table-striped table-bordered dataTable dtr-inline listing-datatable" role="grid" aria-describedby="example_info">
+                <thead>
+                    <tr>
+                        <th>Sr#</th>
+                        <th>
+                            Name
+                        </th>
+                        <th>
+                            Charges in Rupees
+                        </th>
+                        <th>
+                            Charges in Dollar
+                        </th>
+                        <th>
+                            Experience
+                        </th>
+                        
+                        <th>
+                            Action
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@i</td>
+                            @*<td>
+                                    @Html.DisplayFor(modelItem => item.LawyerId)
+                                </td>*@
+                            <td>
+                                @Html.DisplayFor(modelItem => item.FirstName)
+                                @Html.DisplayFor(modelItem => item.LastName)
+                            </td>
+                            <td>
+                              Rs.  @Html.DisplayFor(modelItem => item.VirtualChargesPkr)
+                            </td>
+                            <td>
+                               $ @Html.DisplayFor(modelItem => item.VirtualChargesUs)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.TotalExperience) Years
+                            </td>
+                            <!--<td>-->
+                            @*<a asp-action="Details" asp-route-id="@item.AppoinmentId">Details</a>*@
+                            <!--<a class="mb-2 mr-2 btn-icon btn-icon-only btn-shadow btn-dashed btn btn-outline-success" href="~/Appointments/Details/@item.LawyerId" target="_blank"><i class="fas fa-info-circle"></i></a>
+                              </td>-->
+                            <td>
+                                <a class="mb-2 mr-2 btn-icon btn-icon-only btn-shadow btn-dashed btn btn-outline-info" href="~/Lawyer/LawyerProfile2/@item.LawyerId"><i class="lnr-user"> </i></a>
+
+                                @*<a class="mb-2 mr-2 btn-icon btn-icon-only btn-shadow btn-dashed btn btn-outline-success" href="~/Lawyer/LawyerProfile/@item.LawyerId" target="_blank"><i class="fas fa-info-circle"></i></a>*@
+                            </td>
+                        </tr>
+                        i++;
+                    }
+
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <th>Sr#</th>
+                        <th>
+                            Name
+                        </th>
+                        <th>
+                            Charges in Rupees
+                        </th>
+                        <th>
+                            Charges in Dollar
+                        </th>
+                        <th>
+                            Experience
+                        </th>
+                        <th>
+                            Action
+                        </th>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+    </div>
+
+</div>
+
+
+
+
+
+
+@*<h1>TrackLawyers</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.FirstName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LastName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DateOfBirth)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Gender)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Age)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Contact)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FirbaseToken)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Cnic)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Biography)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.City)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Address)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Country)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Rating)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.VirtualChargesPkr)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.VirtualChargesUs)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TotalExperience)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.OnlineStatus)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ProfilePic)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CnicFrontPic)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CnicBackPic)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.RecentDegreePic)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AppUser)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ProfileVerified)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Status)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ProfileCompleted)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FirstName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LastName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DateOfBirth)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Gender)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Age)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Contact)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FirbaseToken)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Cnic)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Biography)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.City)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Address)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Country)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Rating)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.VirtualChargesPkr)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.VirtualChargesUs)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TotalExperience)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.OnlineStatus)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ProfilePic)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CnicFrontPic)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CnicBackPic)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.RecentDegreePic)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AppUser.Id)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ProfileVerified)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Status)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ProfileCompleted)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.LawyerId">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.LawyerId">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.LawyerId">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>*@

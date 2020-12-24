@@ -1,0 +1,155 @@
+﻿@model OlaWakeel.Models.Customer
+
+@{
+    ViewData["Title"] = "CustomerProfile";
+    Layout = "~/Views/Shared/_Layout1.cshtml";
+}
+
+
+@section css{
+
+}
+<div class="app-page-title">
+    <div class="page-title-wrapper">
+        <div class="page-title-heading">
+            <div class="page-title-icon">
+                <i class="lnr-user icon-gradient bg-ripe-malin"> </i>
+            </div>
+            <div>
+                Customer Profile
+            </div>
+        </div>
+    </div>
+</div>
+<div class="col-md-12 col-lg-6 col-xl-12">
+    <div class="card-hover-shadow profile-responsive card-border border-success mb-3 card">
+        <div class="dropdown-menu-header">
+            <div class="dropdown-menu-header-inner bg-success">
+                <div class="menu-header-content">
+                    <div class="avatar-icon-wrapper btn-hover-shine mb-2 avatar-icon-xl">
+                        <div class="avatar-icon rounded">
+                            @if (Model.ProfilePic != null)
+                            {
+                                <img src="~/Uploads/@Model.ProfilePic" alt="Profile pic">
+                            }
+                            else
+                            {
+
+                            <img src="~/Uploads/logo.png" />
+                            }
+                        </div>
+                    </div>
+                    <div>
+                        <h5 class="menu-header-title">@Model.FirstName @Model.LastName</h5>
+                       
+                        <h6 class="menu-header-subtitle">
+                            @if (Model.Status == true)
+                            {
+                               <h6>Online</h6>
+                            }
+                            else
+                            {
+
+                                <h6>Offline</h6>
+                            }
+                        </h6>
+                    </div>
+                    <div class="menu-header-btn-pane pt-2">
+                        <div role="group" class="btn-group text-center">
+                            <div class="nav">
+                                <a href="#tab-2-eg1" data-toggle="tab" class="active btn btn-dark mr-1 ml-1">Personal Info</a>
+                                @*<a href="#tab-2-eg2" data-toggle="tab" class="btn btn-dark mr-1 ml-1">Qualification</a>
+                                <a href="#tab-2-eg3" data-toggle="tab" class="btn btn-dark mr-1 ml-1">Experienece</a>
+                                <a href="#tab-2-eg4" data-toggle="tab" class="btn btn-dark mr-1 ml-1">Clients</a>
+                                <a href="#tab-2-eg5" data-toggle="tab" class="btn btn-dark mr-1 ml-1">TimeSlots</a>
+                                <a href="#tab-2-eg6" data-toggle="tab" class="btn btn-dark mr-1 ml-1">License</a>
+                                <a href="#tab-2-eg7" data-toggle="tab" class="btn btn-dark mr-1 ml-1">Services</a>
+                                <a href="#tab-2-eg8" data-toggle="tab" class="btn btn-dark mr-1 ml-1">Offices</a>*@
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="p-0 card-body">
+            <div class="tab-content">
+                <div class="tab-pane active show" id="tab-2-eg1">
+                    <div class="p-3">
+                        <div class="main-card mb-3 card" style="height:296px">
+                            <div class="card-header">
+                                <i class="fa fa-fw" aria-hidden="true" title="Copy to use info-circle"></i>&nbsp;
+                                Personal Info
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-3"><b>Date Of Birth</b></div>
+                                    <div class="col-md-3"><b>Gender</b></div>
+                                    <div class="col-md-3"><b>Age</b></div>
+                                    <div class="col-md-3"><b>Contact</b></div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-3">@Model.DateOfBirth</div>
+                                    <div class="col-md-3">@Model.Gender</div>
+                                    <div class="col-md-3">@Model.Age</div>
+                                    <div class="col-md-3">@Model.Contact</div>
+                                </div>
+                                <div class="row">
+                                    @*<div class="col-md-3"><b>UserName</b></div>
+                                    <div class="col-md-3"><b>Email</b></div>*@
+                                    <div class="col-md-3"><b>City</b></div>
+                                    <div class="col-md-3"><b>Country</b></div>
+                                </div>
+                                <div class="row">
+                                    @*<div class="col-md-3">@Model.AppUser.UserName</div>
+                                    <div class="col-md-3">@Model.AppUser.Email</div>*@
+                                    <div class="col-md-3">@Model.City</div>
+                                    <div class="col-md-3">@Model.Country</div>
+                                </div><br />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-pane" id="tab-2-eg4">
+                    <div class="p-3">
+                        <div class="main-card mb-3 card">
+                            <div class="card-header">
+                                <i class="fa fa-fw" aria-hidden="true" title="Copy to use user-circle"></i>&nbsp;
+                                Clients
+
+                            </div>
+                           
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+
+
+
+@*<table class="table">
+        <thead>
+            <tr>
+                <th>
+                   FirstName
+                </th>
+                <th>
+                  LastName
+                </th>
+                <th>
+                   Contact
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>@Model.FirstName</td>
+                <td>@Model.LastName</td>
+                <td>@Model.Contact</td>
+            </tr>
+        </tbody>
+    </table>*@

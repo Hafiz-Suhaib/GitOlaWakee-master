@@ -32,7 +32,7 @@
                     @*<form asp-controller="Appointments" asp-action="Index" method="post">*@
                     <div class="no-gutters row">
                         <div class="p-2 col-sm-6">
-                            <button class="btn-icon-vertical btn-transition-text btn-transition btn-transition-alt pt-2 pb-2 btn btn-outline-success asp-controller="Appointments" asp-action="TotalNewAppointment" type="button">
+                            <button class="btn-icon-vertical btn-transition-text btn-transition btn-transition-alt pt-2 pb-2 btn btn-outline-success" asp-controller="Appointments" asp-action="TotalNewAppointment" type="button">
                                 <a href="~/Appointments/TotalNewAppointment">  <i class="lnr-menu text-success opacity-7 btn-icon-wrapper mb-2"> </i>Total New Appointments</a>
                             </button>
 
@@ -45,14 +45,14 @@
 
                         </div>
                         <div class="p-2 col-sm-6">
-                            <button class="btn-icon-vertical btn-transition-text btn-transition btn-transition-alt pt-2 pb-2 btn btn-outline-warning asp-controller="Appointments" asp-action="TotalNewAppointment">
+                            <button class="btn-icon-vertical btn-transition-text btn-transition btn-transition-alt pt-2 pb-2 btn btn-outline-warning" asp-controller="Appointments" asp-action="TotalNewAppointment">
                                 <a href="/Appointments/CustomerWithAppoint">
                                     <i class="lnr-hourglass text-warning opacity-7 btn-icon-wrapper mb-2"> </i>Customers
                                 </a>
                             </button>
                         </div>
                         <div class="p-2 col-sm-6">
-                            <button class="btn-icon-vertical btn-transition-text btn-transition btn-transition-alt pt-2 pb-2 btn btn-outline-info asp-controller="Appointments" asp-action="Track">
+                            <button class="btn-icon-vertical btn-transition-text btn-transition btn-transition-alt pt-2 pb-2 btn btn-outline-info" asp-controller="Appointments" asp-action="Track">
                                 <a href="~/Appointments/TrackAppointment">
                                     <i class="lnr-book text-info opacity-7 btn-icon-wrapper mb-2"> </i>Track Appointment
                                 </a>
@@ -86,20 +86,20 @@
                 <div class="grid-menu grid-menu-2col">
                     <div class="no-gutters row">
                         <div class="p-2 col-sm-6">
-                            <button class="btn-icon-vertical btn-transition-text btn-transition btn-transition-alt pt-2 pb-2 btn btn-outline-success asp-controller="Appointments" asp-action="TotalNewAppointment" type="button">
+                            <button class="btn-icon-vertical btn-transition-text btn-transition btn-transition-alt pt-2 pb-2 btn btn-outline-success" asp-controller="Appointments" asp-action="TotalNewAppointment" type="button">
                                 <a href="/Appointments/TodayConfirmAppointments">  <i class="lnr-menu text-success opacity-7 btn-icon-wrapper mb-2"> </i>Today</a>
                             </button>
 
                         </div>
                         <div class="p-2 col-sm-6">
-                            <button class="btn-icon-vertical btn-transition-text btn-transition btn-transition-alt pt-2 pb-2 btn btn-outline-warning asp-controller="Appointments" asp-action="TotalNewAppointment">
+                            <button class="btn-icon-vertical btn-transition-text btn-transition btn-transition-alt pt-2 pb-2 btn btn-outline-warning" asp-controller="Appointments" asp-action="TotalNewAppointment">
                                 <a href="/Appointments/WeeklyConfirmAppointments">
                                     <i class="lnr-hourglass text-warning opacity-7 btn-icon-wrapper mb-2"> </i>Weekly
                                 </a>
                             </button>
                         </div>
                         <div class="p-2 col-sm-6">
-                            <button class="btn-icon-vertical btn-transition-text btn-transition btn-transition-alt pt-2 pb-2 btn btn-outline-info asp-controller="Appointments" asp-action="Track">
+                            <button class="btn-icon-vertical btn-transition-text btn-transition btn-transition-alt pt-2 pb-2 btn btn-outline-info" asp-controller="Appointments" asp-action="Track">
                                 <a href="/Appointments/MonthlyConfirmAppointments">
                                     <i class="lnr-book text-info opacity-7 btn-icon-wrapper mb-2"> </i>Monthly
                                 </a>
@@ -128,20 +128,20 @@
                 <div class="grid-menu grid-menu-2col">
                     <div class="no-gutters row">
                         <div class="p-2 col-sm-6">
-                            <button class="btn-icon-vertical btn-transition-text btn-transition btn-transition-alt pt-2 pb-2 btn btn-outline-success asp-controller="Appointments" asp-action="TotalNewAppointment" type="button">
+                            <button class="btn-icon-vertical btn-transition-text btn-transition btn-transition-alt pt-2 pb-2 btn btn-outline-success" asp-controller="Appointments" asp-action="TotalNewAppointment" type="button">
                                 <a href="/Appointments/TodayPending">  <i class="lnr-menu text-success opacity-7 btn-icon-wrapper mb-2"> </i>Today</a>
                             </button>
 
                         </div>
                         <div class="p-2 col-sm-6">
-                            <button class="btn-icon-vertical btn-transition-text btn-transition btn-transition-alt pt-2 pb-2 btn btn-outline-warning asp-controller="Appointments" asp-action="TotalNewAppointment">
+                            <button class="btn-icon-vertical btn-transition-text btn-transition btn-transition-alt pt-2 pb-2 btn btn-outline-warning" asp-controller="Appointments" asp-action="TotalNewAppointment">
                                 <a href="/Appointments/WeeklyPending">
                                     <i class="lnr-hourglass text-warning opacity-7 btn-icon-wrapper mb-2"> </i>Weekly
                                 </a>
                             </button>
                         </div>
                         <div class="p-2 col-sm-6">
-                            <button class="btn-icon-vertical btn-transition-text btn-transition btn-transition-alt pt-2 pb-2 btn btn-outline-info asp-controller="Appointments" asp-action="Track">
+                            <button class="btn-icon-vertical btn-transition-text btn-transition btn-transition-alt pt-2 pb-2 btn btn-outline-info" asp-controller="Appointments" asp-action="Track">
                                 <a href="/Appointments/MonthlyPending">
                                     <i class="lnr-book text-info opacity-7 btn-icon-wrapper mb-2"> </i>Monthly
                                 </a>
@@ -214,7 +214,7 @@
                                 <small class="opacity-5 text-warning pr-1">+</small>
                                 @if (Model != null)
                                 {
-                                    <span> @Model.Where(a => a.AppoinmentStatus == "Reschedule").Count() </span>
+                                    <span> @Model.Where(a => a.AppoinmentStatus == "Reschedule Request").Count() </span>
                                 }
                                 <small class="opacity-5 pl-1">..</small>
                             </div>

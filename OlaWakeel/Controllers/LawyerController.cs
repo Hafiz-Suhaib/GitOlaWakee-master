@@ -19,12 +19,15 @@ using OlaWakeel.Services.CaseCategoryService;
 using OlaWakeel.Services.DegreeService;
 using OlaWakeel.Services.ISpecializationService.cs;
 using OlaWakeel.Services.LawyerService;
+using OlaWakeel.ViewModels;
 
 namespace OlaWakeel.Controllers
 {
     // [Authorize(Roles = "Admin")]
     public class LawyerController : Controller
     {
+        [BindProperty]
+        public AppointmentVM AVM { get; set; }
         private readonly ApplicationDbContext _context;
         private readonly UserManager<AppUser> _userManager;
         private readonly RoleManager<AppRole> _roleManager;
@@ -43,14 +46,49 @@ namespace OlaWakeel.Controllers
             _degreeService = degreeService;
             _specializationService = specializationService;
             _caseCategoryService = caseCategoryService;
+            AVM = new AppointmentVM();
+
         }
         public IActionResult Index()
         {
-            return View();
+            var f = _context.Lawyers.ToList();
+            return View(f);
         }
         public IActionResult CreateLawyer()
         {
             return View();
+        }
+        public async Task<IActionResult> ActiveLawyer()
+        {
+            try
+
+            {
+                // var j = 0;
+                var a = _context.Lawyers.Where(a => a.OnlineStatus == "Online").ToList();
+                // var b= a.Count();
+                return View(a);
+
+            }
+            catch (Exception ex)
+            {
+                return Json("Invalid Data");
+            }
+        }
+        public async Task<IActionResult> BlockedLawyer()
+        {
+            try
+
+            {
+                // var j = 0;
+                var a = _context.Lawyers.Where(a => a.Status == false).ToList();
+                // var b= a.Count();
+                return View(a);
+
+            }
+            catch (Exception ex)
+            {
+                return Json("Invalid Data");
+            }
         }
         [HttpPost]
         public async Task<JsonResult> CheckUserAvailabilty(IFormCollection form)
@@ -103,7 +141,7 @@ namespace OlaWakeel.Controllers
             lawyer.LawyerClients = lawyerClient;
             lawyer.lawyerLanguages = lawyerLanguage;
             lawyer.LawyerLicenses = lawyerLicense;
-           // lawyer.LawyerAddresses = lawyerAddress;
+            // lawyer.LawyerAddresses = lawyerAddress;
             try
             {
                 AppUser user = await _userManager.FindByNameAsync(appUser.UserName);
@@ -144,7 +182,7 @@ namespace OlaWakeel.Controllers
                             //await _service.AddDishCategory(category);
                         }
 
-                        await _lawyerService.AddLawyer(lawyer,lawyerAddress,lawyerTimings, AddressesTemp);
+                        await _lawyerService.AddLawyer(lawyer, lawyerAddress, lawyerTimings, AddressesTemp);
                         return Json("Success");
                     }
                 }
@@ -158,7 +196,7 @@ namespace OlaWakeel.Controllers
         [HttpPost]
         public async Task<JsonResult> EditLawyer()
         {
-           
+
             var appUser = JsonConvert.DeserializeObject<AppUser>(Request.Form["appUser"]);
             var lawyer = JsonConvert.DeserializeObject<Lawyer>(Request.Form["lawyer"]);
             var lawyerLanguage = JsonConvert.DeserializeObject<List<LawyerLanguage>>(Request.Form["lawyerLanguages"]);
@@ -170,9 +208,9 @@ namespace OlaWakeel.Controllers
             var lawyerClient = JsonConvert.DeserializeObject<List<LawyerClient>>(Request.Form["lawyerClient"]);
             var lawyerLicense = JsonConvert.DeserializeObject<List<LawyerLicense>>(Request.Form["lawyerLicenses"]);
             var lawyerAddress = JsonConvert.DeserializeObject<List<LawyerAddress>>(Request.Form["lawyerAddress"]);
-            
 
-            
+
+
             //  lawyer.LawyerQualifications = lawyerQualification;
             // lawyer.LawyerSpecializations = lawyerSpecializations;
             //  lawyer.LawyerExperiences = lawyerExperiences;
@@ -283,15 +321,15 @@ namespace OlaWakeel.Controllers
             return View(lawyer);
         }
         [HttpPost]
-        public async Task<JsonResult> AddLawyerAddress(IFormCollection form) 
+        public async Task<JsonResult> AddLawyerAddress(IFormCollection form)
         {
-             var lawyerAddresses =  JsonConvert.DeserializeObject<List<LawyerAddress>>(form["lawyerAddresses"]);
-            try 
+            var lawyerAddresses = JsonConvert.DeserializeObject<List<LawyerAddress>>(form["lawyerAddresses"]);
+            try
             {
-               await _lawyerService.AddLawyerOffice(lawyerAddresses);
+                await _lawyerService.AddLawyerOffice(lawyerAddresses);
                 return Json("Success");
             }
-            catch (Exception ex) 
+            catch (Exception ex)
             {
 
             }
@@ -469,16 +507,25 @@ namespace OlaWakeel.Controllers
         public async Task<IActionResult> LawyerProfile(int id)
         {
             var lawyerProfile = await _lawyerService.LawyerProfile(id);
-
             return View(lawyerProfile);
         }
-
         public async Task<IActionResult> LawyerProfile1(int id)
         {
-            var lawyerProfile = await _lawyerService.LawyerProfile(id);
+            // AVM.AppointmentList = _context.Appointments.Where(a=>a.LawyerId==id).ToList();
+            //var lawyerProfile = await _lawyerService.LawyerProfile(id); 
 
+            AVM.AppointmentList = await _context.Appointments.Include(x => x.Lawyer).Where(l => l.LawyerId == id).ToListAsync();
+            AVM.LawyerList = await _lawyerService.LawyerProfile1(id);
+
+            // var lawyerProfile = await _context.Appointments.Include(x=>x.Lawyer).Where(l=>l.LawyerId == id).ToListAsync();
+            return View(AVM);
+        }
+        public async Task<IActionResult> LawyerProfile2(int id)
+        {
+            var lawyerProfile = await _lawyerService.LawyerProfile2(id);
             return View(lawyerProfile);
         }
+
         // for edit Lawyer
         public async Task<JsonResult> UpdateLawyer(int id)
         {
@@ -513,8 +560,22 @@ namespace OlaWakeel.Controllers
                 return RedirectToAction("GetAllLawyers");
             }
         }
+        public async Task<IActionResult> SearchLawyer(string searchapp)
+        {
+
+            ViewData["Lawyersearch"] = searchapp;
+            var searchap = from x in _context.Lawyers select x;
+            if (!string.IsNullOrEmpty(searchapp))
+            {
+                searchap = _context.Lawyers;
+                searchap = searchap.Include(a => a.LawyerLicenses).Where(x => x.FirstName.Contains(searchapp));
+                return View(await searchap.AsNoTracking().ToListAsync());
+            }
+            var applicationDbContext = _context.Lawyers;
+            return View(await applicationDbContext.ToListAsync());
+        }
         public async Task<IActionResult> SearchLawyers(string filter)
-        
+
         {
             if (filter == "TotalLawyers" || filter == null)
             {
@@ -535,6 +596,20 @@ namespace OlaWakeel.Controllers
                 return View(Lawyers);
             }
             return View();
+        }
+        public async Task<IActionResult> TrackLawyers(string searchapp)
+        {
+
+            ViewData["Lawyersearch"] = searchapp;
+            var searchap = from x in _context.Lawyers select x;
+            if (!string.IsNullOrEmpty(searchapp))
+            {
+                searchap = _context.Lawyers;
+                searchap = searchap.Include(a=>a.LawyerLicenses).Where(x => x.FirstName.Contains(searchapp));
+                return View(await searchap.AsNoTracking().ToListAsync());
+            }
+            var applicationDbContext = _context.Lawyers;
+            return View(await applicationDbContext.ToListAsync());
         }
         public async Task<IActionResult> TrackLawyer(string searchapp)
         {
@@ -572,13 +647,110 @@ namespace OlaWakeel.Controllers
 
             return View(lw);
         }
+        public async Task<IActionResult> Detail(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+            var lw = await _context.Lawyers
+                .Include(a => a.AppUser)
+                .FirstOrDefaultAsync(m => m.LawyerId == id);
+            if (lw == null)
+            {
+                return NotFound();
+            }
 
+            return View(lw);
+        }
 
         public async Task<JsonResult> ChangeLawyerStatus(int id)
         {
             await _lawyerService.ChangeLawyerStatus(id);
             return Json("Success");
         }
-    }
 
+        public async Task<IActionResult> TopLawyer()
+        {
+            var a = await _context.Lawyers.OrderByDescending(x => x.TotalExperience).FirstOrDefaultAsync();
+            return View(a);
+        }
+        public async Task<IActionResult> TopLawyerProfile()
+        {
+            var a = await _context.Lawyers.OrderByDescending(x => x.TotalExperience).FirstOrDefaultAsync();
+            return View(a);
+        }
+        public async Task<IActionResult> LawyerDetailProfile(int id)
+        {
+            try
+            {
+                //var a = _context.Lawyers.Where(a => _context.Lawyers.Any(x => x.LawyerId == a.LawyerId)).ToList();
+                var lawyerProfile = await _lawyerService.LawyerProfile(id);
+                return View(lawyerProfile);
+                //return Json(a);
+               // return View(a);
+            }
+            catch (Exception ex)
+            {
+                return Json("Invalid Data");
+            }
+        }
+        public async Task<IActionResult> LawyerWithAppoint()
+        {
+            try
+            {
+               
+                var a = _context.Lawyers.Include(a=>a.AppUser).Where(a => _context.Lawyers.Any(x => x.LawyerId == a.LawyerId)).ToList();
+
+                //return Json(a);
+                return View(a);
+            }
+            catch (Exception ex)
+            {
+                return Json("Invalid Data");
+            }
+        }
+        public async Task<IActionResult> LawyerWithoutAppoint()
+        {
+            try
+            {
+                var a = _context.Lawyers.Where(a => !_context.Lawyers.Any(x => x.LawyerId == a.LawyerId)).ToList();
+
+                //return Json(a);
+                return View(a);
+            }
+            catch (Exception ex)
+            {
+                return Json("Invalid Data");
+            }
+        }
+        public async Task<IActionResult> Cancel()
+        {
+            try
+
+            {
+                var a = _context.Appointments.Include(a => a.Lawyer).Where(a=>a.AppoinmentStatus == "Cancel");
+                return View(a);
+            }
+            catch (Exception ex)
+            {
+                return Json("Invalid Data");
+            }
+        }
+        public async Task<IActionResult> LawyersNotApproved()
+        {
+            try
+
+            {
+                var a = _context.Lawyers.Where(a => a.ProfileVerified == false);
+                return View(a);
+            }
+            catch (Exception ex)
+            {
+                return Json("Invalid Data");
+            }
+        }
+
+
+    }
 }

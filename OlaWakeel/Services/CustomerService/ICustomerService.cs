@@ -15,6 +15,7 @@ namespace OlaWakeel.Services.CustomerService
         public  List<Customer> GetAllCustomers();
         public Task<Customer> GetCustomerById(int id);
         public Task EditCustomer(Customer editCustomer, string UniqueFilename);
+        public Task<Customer> CustomerProfile(int id);
     }
     public class CustomerService : ICustomerService
     {
@@ -75,5 +76,17 @@ namespace OlaWakeel.Services.CustomerService
            var CustById= await _context.Customers.Include(x => x.AppUser).SingleOrDefaultAsync(x => x.AppUserId == id);
             return CustById;
         }
+        //public async Task<Customer> CustomerProfile(int id)
+        //{
+        //    var customerProfile = await _context.Customers.SingleOrDefaultAsync(x => x.CustomerId == id);
+        //    return customerProfile;
+        //}
+
+        public async Task<Customer> CustomerProfile(int id)
+        {
+            var customerProfile = await _context.Customers.SingleOrDefaultAsync(x => x.CustomerId == id);
+            return customerProfile;
+        }
+
     }
 }

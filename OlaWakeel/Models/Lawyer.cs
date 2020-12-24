@@ -36,7 +36,12 @@ namespace OlaWakeel.Models
         public string CnicBackPic { get; set; }
         public string RecentDegreePic { get; set; }
         public int AppUserId { get; set; }
+        //public int AppoinmentId { get; set; }
+        //public virtual Appointment Appointments { get; set; }
         public virtual AppUser AppUser { get; set; }
+        public bool ProfileVerified { get; set; }
+        public bool Status { get; set; }
+        public bool ProfileCompleted { get; set; }
         public List<LawyerQualification> LawyerQualifications { get; set; }
         public List<LawyerTiming> LawerTimings { get; set; }
         public List<LawyerExperience> LawyerExperiences { get; set; }
@@ -47,5 +52,7 @@ namespace OlaWakeel.Models
         public List<LawyerLicense> LawyerLicenses { get; set; }
         public List<LawyerAddress> LawyerAddresses { get; set; }
         public List<LawyerCertificatePic> LawyerCertificatePics { get; set; }
+
+        
     }
 }

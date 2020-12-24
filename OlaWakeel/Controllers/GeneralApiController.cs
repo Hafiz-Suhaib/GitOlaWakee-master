@@ -220,63 +220,8 @@ namespace OlaWakeel.Controllers
                         Language = la.Language,
                     }).ToList(),
                 }).ToList();
-
-                //var LawyerAll = new { };
-                // var Data = new Tuple<List<LawyerCaseCategory>, List<LawyerTiming>, List<LawyerQualification>, List<LawyerLanguage>>(ServiceProvide, LawyerPackages, LawyerDegree, LawyerLanguages);
-                //List<Tuple<Lawyer,List<LawyerCaseCategory>, List<LawyerTiming>, List<LawyerQualification>, List<LawyerLanguage>>> obj = new List<Tuple<Lawyer, List<LawyerCaseCategory>, List<LawyerTiming>, List<LawyerQualification>, List<LawyerLanguage>>>();
-                //int i = 0;
-                //foreach (var x in LawyerData)
-                //{
-                //    LawyerAll= new[int,string,string,int, int,string,bool,List<LawyerCaseCategory>,]
-                //    {
-                //        LawyerId = x.LawyerId,
-                //        LawyerName = x.FirstName + " " + x.LastName,
-                //        LawyerPic = x.ProfilePic,
-                //        TotalExperience = x.TotalExperience,
-                //        Rating = x.Rating,
-                //        LawyerGender = x.Gender,
-                //        OnlineStatus = x.OnlineStatus,
-                //        ServiceProvide = _context.LawyerCaseCategories.Where(sp => sp.LawyerId == x.LawyerId).Select(c => new
-                //        {
-                //            ServiceName = c.CaseCategory.Name,
-                //            LawyerServiceId = c.LawyerCaseCategoryId,
-                //            CaseCategoryId = c.CaseCategoryId,
-                //        }).ToList(),
-                //        LawyerPackages = _context.LawyerTimings.OrderByDescending(a => a.LawyerAddressId).Where(t => t.LawyerId == x.LawyerId).Select(p => new
-                //        {
-                //            Day = p.Day,
-                //            StartTime = p.TimeFrom,
-                //            EndTime = p.TimeTo,
-                //            Location = p.Location,
-                //            PackageType = p.SlotType,
-                //            Fee = p.Charges,
-                //            OfficeAddressId = p.LawyerAddressId,
-                //            OfficeAddress = p.LawyerAddress.Address,
-                //            Check1 = p.Check,
-                //            Check2 = p.Check2
-                //        }).ToList(),
-                //        LawyerDegree = _context.LawyerQualifications.Where(de => de.LawyerId == x.LawyerId).Select(d => new
-                //        {
-                //            DegreeName = d.Degree.Name
-                //        }).ToList(),
-                //        LawyerLanguages = _context.LawyerLanguages.Where(a => a.LawyerId == x.LawyerId).Select(la => new
-                //        {
-                //            Language = la.Language,
-                //        }).ToList(),
-                //    };
-
-
-                //}
-                //var LawyerAllData = new
-                //{
-                //    LawyerData = LawyerData,
-                //    LawyerLanguages = LawyerLanguages,
-                //    LawyerDegree = LawyerDegree,
-                //    LawyerPackages = LawyerPackages,
-                //    ServiceProvide = ServiceProvide,
-                //};
-
-                return Ok(LawyerData);
+                var allLawyers = LawyerData.Where(a =>checkLawyerProfile(a.LawyerId)).ToList();
+                return Ok(allLawyers);
             }
             catch (Exception e)
             {
@@ -287,58 +232,29 @@ namespace OlaWakeel.Controllers
 
 
         }
+        public bool checkLawyerProfile(int id)
+        {
+            var d = new
+            {
+                IntroStatus = _context.LawyerLanguages.Any(a => a.LawyerId == id),
+                EducationStatus = _context.LawyerQualifications.Any(a => a.LawyerId == id),
+                LawFieldStatus = _context.LawyerExperiences.Any(a => a.LawyerId == id),
+                AboutStatus = _context.LawyerClients.Any(a => a.LawyerId == id),
+                AddOfficeStatus = _context.LawyerAddresses.Any(a => a.LawyerId == id),
+                PackageStatus = _context.LawyerTimings.Any(a => a.LawyerId == id),
+                DocumentStatus = _context.LawyerCertificatePics.Any(a => a.LawyerId == id),
 
-        //[HttpGet]
-        //[Route("CategoryOnes")]
-        //public HttpResponseMessage CategoryOne()
-        //{
-
-
-
-        //    try
-        //    {
-        //        var response = new HttpResponseMessage(HttpStatusCode.OK);
-
-        //        var LawyerData = _context.Lawyers.ToList().Select(x => new {
-        //            LawyerId = x.LawyerId,
-        //            LawyerName = x.FirstName + x.LastName,
-        //            LawyerPic = x.ProfilePic,
-        //            TotalExperience = x.TotalExperience,
-        //            Rating = x.Rating,
-
-        //            ServiceProvide = x.LawyerCaseCategories.Select(c=>new{ ServiceName= c.CaseCategory.Name }).ToList(),
-        //            LawyerDegree = x.LawyerQualifications.Select(d=>new { DegreeName = d.Degree.Name }).ToList(),
-        //            LawyerPackages = x.LawerTimings.ToList(),
-        //            OnlineStatus = x.OnlineStatus,
-
-
-        //        });
-        //        var DegreeData = _context.Degrees.ToList();
-
-        //        response.Content = new StringContent(JsonConvert.SerializeObject(new
-        //        {
-        //            LawyersData = LawyerData,
-        //            DegreeData = DegreeData
-
-
-        //        }));
-        //        response.Content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
-        //        return response;
-        //    }
-        //    catch
-        //    {
-        //        return new HttpResponseMessage(HttpStatusCode.BadGateway);
-        //    }
-        //}
-
+            };
+            if(d.IntroStatus && d.LawFieldStatus && d.PackageStatus && d.EducationStatus && d.DocumentStatus && d.AddOfficeStatus && d.AboutStatus)
+                return true;
+            return false;
+        }
         [HttpGet]
         [Route("GetLawyerDetails")]
         public ActionResult GetLawyerDetails(int lawyerid)
         {
             try
             {
-               
-
                 DateTime startDate = DateTime.Parse(DateTime.Now.ToString());
                 DateTime expiryDate = startDate.AddDays(3);
                 var LawyerData = _context.Lawyers.Where(law => law.LawyerId == lawyerid).Select(x => new
@@ -600,7 +516,6 @@ namespace OlaWakeel.Controllers
             {
                 return Ok("Invalid Data");
             }
-
         }
 
         //screen # 6

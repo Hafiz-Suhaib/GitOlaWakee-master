@@ -171,7 +171,7 @@
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label><b>Password</b> <span class="text-danger">*</span></label>
-                                <input id="password" ng-change="validateCustomer()"  disabled name="password" ng-pattern="/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,20}$/" ng-model="addCustomerAccount.passwordHash" type="password" placeholder="Password Ex: Abcde@12" required class="form-control">
+                                <input id="password" ng-change="validateCustomer()"  name="password" ng-pattern="/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,20}$/" ng-model="addCustomerAccount.passwordHash" type="password" placeholder="Password Ex: Abcde@12" required class="form-control">
                                 @* <span toggle="#password-field" class="fa fa-lg fa-eye field-icon toggle-password"></span>*@
                                 @*<span style="color:Red" ng-show="customerProfileForm.password.$error.pattern">[Min 8 char]atleast one special,Uppercase & digit</span>*@
                             </div>
@@ -204,7 +204,7 @@
                             <div class="form-group">
                                 <div class="form-line">
                                     <label><b>City</b> <span class="text-danger">*</span></label>
-                                    <input type="text" id="locality" readonly ng-model="addCustomerProfile.city" required class="form-control" placeholder="Enter City" />
+                                    <input type="text" id="locality"  ng-model="addCustomerProfile.city" required class="form-control" placeholder="Enter City" />
                                 </div>
                             </div>
                         </div>

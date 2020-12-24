@@ -7,7 +7,9 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
+using OlaWakeel.Data;
 using OlaWakeel.Data.ApplicationUser;
 using OlaWakeel.Models;
 using OlaWakeel.Services.CustomerService;
@@ -16,12 +18,14 @@ namespace OlaWakeel.Controllers
 {
     public class CustomerController : Controller
     {
+        private readonly ApplicationDbContext _context;
         private readonly UserManager<AppUser> _userManager;
         private readonly RoleManager<AppRole> _roleManager;
         private readonly ICustomerService _customerService;
         private readonly IHostingEnvironment _hostingEnvironment;
-        public CustomerController(RoleManager<AppRole> roleManager, UserManager<AppUser> userManager, IHostingEnvironment hostingEnvironment, ICustomerService customerService)
+        public CustomerController(ApplicationDbContext context, RoleManager<AppRole> roleManager, UserManager<AppUser> userManager, IHostingEnvironment hostingEnvironment, ICustomerService customerService)
         {
+            _context = context;
             _roleManager = roleManager;
             _userManager = userManager;
             _customerService = customerService;
@@ -34,6 +38,11 @@ namespace OlaWakeel.Controllers
             return View();
         }
         public IActionResult Index()
+        {
+            var custList = _customerService.GetAllCustomers();
+            return View(custList);
+        }
+        public IActionResult riaz()
         {
             var custList = _customerService.GetAllCustomers();
             return View(custList);
@@ -205,6 +214,87 @@ namespace OlaWakeel.Controllers
                 }
 
                 return RedirectToAction("Index");
+            }
+        }
+        public async Task<IActionResult> TrackCustomer(string searchapp)
+        {
+
+            ViewData["customerSearch"] = searchapp;
+            var searchap = from x in _context.Customers select x;
+            if (!string.IsNullOrEmpty(searchapp))
+            {
+                searchap = _context.Customers;
+                searchap = searchap.Where(x => x.FirstName.Contains(searchapp));
+                return View(await searchap.AsNoTracking().ToListAsync());
+            }
+            var applicationDbContext = _context.Customers;
+            return View(await applicationDbContext.ToListAsync());
+        }
+        public async Task<IActionResult> CustomerProfile(int id)
+        {
+
+            //if (id == null)
+            //{
+            //    return NotFound();
+            //}
+            //var appointment = await _context.Customers.SingleOrDefaultAsync(m => m.CustomerId == id);
+            //if (appointment == null)
+            //{
+            //    return NotFound();
+            //}
+            //return View(appointment);
+
+
+
+            var customerProfile = await _customerService.CustomerProfile(id);
+
+            return View(customerProfile);
+        }
+
+        public async Task<IActionResult> BlockedCustomer()
+        {
+            try
+
+            {
+                // var j = 0;
+                var a = _context.Customers.Where(a => a.Status == false).ToList();
+                // var b= a.Count();
+                return View(a);
+
+            }
+            catch (Exception ex)
+            {
+                return Json("Invalid Data");
+            }
+        }
+        public async Task<IActionResult> ActiveCustomer()
+        {
+            try
+
+            {
+                // var j = 0;
+                var a = _context.Customers.Where(a => a.Status == true).ToList();
+                // var b= a.Count();
+                return View(a);
+
+            }
+            catch (Exception ex)
+            {
+                return Json("Invalid Data");
+            }
+        }
+        public async Task<IActionResult> CustomerWithoutAppoint()
+        {
+            try
+            {
+                var a = _context.Customers.Where(a => !_context.Customers.Any(x => x.CustomerId == a.CustomerId)).ToList();
+
+                //return Json(a);
+                return View(a);
+            }
+            catch (Exception ex)
+            {
+                return Json("Invalid Data");
             }
         }
     }

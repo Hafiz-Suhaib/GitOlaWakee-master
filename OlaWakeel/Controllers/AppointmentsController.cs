@@ -154,7 +154,6 @@ namespace OlaWakeel.Controllers
                 return Json("Invalid Data");
             }
         }
-
         public async Task<IActionResult> Cancel()
         {
             try
@@ -224,10 +223,8 @@ namespace OlaWakeel.Controllers
         }
         public async Task<IActionResult> TodayConfirmAppointments()
         {
-
             try
             {
-
                 var aA = _context.Appointments
               .Include(a => a.CaseCategory)
               .Include(a => a.Customer)
@@ -247,7 +244,6 @@ namespace OlaWakeel.Controllers
         {
             try
             {
-
                 var aA = _context.Appointments
               .Include(a => a.CaseCategory)
               .Include(a => a.Customer)

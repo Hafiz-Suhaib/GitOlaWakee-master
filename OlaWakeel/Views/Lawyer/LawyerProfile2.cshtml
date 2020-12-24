@@ -1,6 +1,7 @@
-﻿@model Lawyer
+﻿@model OlaWakeel.Models.Lawyer
+
 @{
-    ViewData["Title"] = "LawyerProfile";
+    ViewData["Title"] = "LawyerProfile2";
     Layout = "~/Views/Shared/_Layout1.cshtml";
 }
 
@@ -15,7 +16,6 @@
             </div>
             <div>
                 Profile
-                @*<div class="page-title-subheading">Lets Get Started With Basics.</div>*@
             </div>
         </div>
     </div>
@@ -29,9 +29,9 @@
                         <div class="avatar-icon rounded">
                             @if (Model.ProfilePic != null)
                             {
-                                <img src="~/Uploads/@Model.ProfilePic" alt="Avatar 6">
+                            <img src="~/Uploads/@Model.ProfilePic" alt="  ">
                             }
-                            @*<img src="~/Uploads/@Model.ProfilePic" alt="Avatar 6">*@
+                            <img src="~/Uploads/logo.png"/>
                         </div>
                     </div>
                     <div>
@@ -72,24 +72,6 @@
                             <div class="card-header">
                                 <i class="fa fa-fw" aria-hidden="true" title="Copy to use info-circle"></i>&nbsp;
                                 Personal Info
-                                @*<div class="btn-actions-pane-right actions-icon-btn">
-                            <button class="btn-icon btn-icon-only btn btn-link"><i class="pe-7s-leaf btn-icon-wrapper"></i></button>
-                            <button class="btn-icon btn-icon-only btn btn-link"><i class="pe-7s-cloud-download btn-icon-wrapper"></i></button>
-                            <div class="btn-group">
-                                <button type="button" aria-haspopup="true" aria-expanded="false" class="btn-icon btn-icon-only btn btn-link"><i class="pe-7s-menu btn-icon-wrapper"></i></button>
-                                <div tabindex="-1" role="menu" aria-hidden="true" class="dropdown-menu-right dropdown-menu-shadow dropdown-menu-hover-link dropdown-menu">
-                                    <h6 tabindex="-1" class="dropdown-header">Header</h6>
-                                    <button type="button" tabindex="0" class="dropdown-item"><i class="dropdown-icon lnr-inbox"> </i><span>Menus</span></button>
-                                    <button type="button" tabindex="0" class="dropdown-item"><i class="dropdown-icon lnr-file-empty"> </i><span>Settings</span></button>
-                                    <button type="button" tabindex="0" class="dropdown-item"><i class="dropdown-icon lnr-book"> </i><span>Actions</span></button>
-                                    <div tabindex="-1" class="dropdown-divider"></div>
-                                    <div class="p-3 text-right">
-                                        <button class="mr-2 btn-shadow btn-sm btn btn-link">View Details</button>
-                                        <button class="mr-2 btn-shadow btn-sm btn btn-primary">Action</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>*@
                             </div>
                             <div class="card-body">
                                 <div class="row">
@@ -131,20 +113,14 @@
                                             <tr>
                                                 @foreach (var lang in Model.lawyerLanguages)
                                                 {
-                                                    <td>
-                                                        @lang.Language
-                                                    </td>
-                                                }
+                                            <td>
+                                                @lang.Language
+                                            </td>}
                                             </tr>
                                         </table>
                                     </div>
                                 </div>
-
                             </div>
-                            @*<div class="d-block text-right card-footer">
-                        <button class="mr-2 btn btn-link btn-sm">Cancel</button>
-                        <button class="btn btn-success btn-lg">Save</button>
-                    </div>*@
                         </div>
                     </div>
                 </div>
@@ -171,20 +147,17 @@
                                                 <tbody>
                                                     @foreach (var quali in Model.LawyerQualifications)
                                                     {
-                                                        <tr>
-                                                            <td>@quali.Degree.DegreeTypes.TypeName</td>
-                                                            <td>@quali.Degree.Name</td>
-                                                            @if (quali.SpecializationId != null)
-                                                            {
-                                                                <td>@quali.Specialization.SpecializationName</td>
-                                                            }
-                                                            else
-                                                            {
-                                                                <td>None</td>
-                                                            }
-                                                            <td>@quali.CompletionYear</td>
-                                                        </tr>
-                                                    }
+                                                    <tr>
+                                                        <td>@quali.Degree.DegreeTypes.TypeName</td>
+                                                        <td>@quali.Degree.Name</td>
+                                                        @if (quali.SpecializationId != null)
+                                                        {
+                                                          <td>@quali.Specialization.SpecializationName</td> }
+                                                        else
+                                                        {
+                                                         <td>None</td>}
+                                                        <td>@quali.CompletionYear</td>
+                                                    </tr>}
 
                                                 </tbody>
                                                 <tfoot>
@@ -219,30 +192,25 @@
                                             <table id="new-orders-table" class="table table-hover table-xl mb-0">
                                                 <thead>
                                                     <tr>
-
                                                         <th>Service Name</th>
                                                         <th>Experience Years</th>
-
                                                     </tr>
                                                 </thead>
                                                 <tbody>
                                                     @foreach (var expe in Model.LawyerExperiences)
                                                     {
-                                                        <tr>
-                                                            <td>@expe.CaseCategory.Name</td>
-                                                            @*<td>@quali.CaseCategory.Name</td>*@
-                                                            @*<td>@quali.Location</td>*@
-                                                            <td>@expe.ExperienceYears YEAR</td>
-                                                        </tr>
-                                                    }
+                                                    <tr>
+                                                        <td>@expe.CaseCategory.Name</td>
+                                                        @*<td>@quali.CaseCategory.Name</td>*@
+                                                        @*<td>@quali.Location</td>*@
+                                                        <td>@expe.ExperienceYears YEAR</td>
+                                                    </tr>}
 
                                                 </tbody>
                                                 <tfoot>
                                                     <tr>
-
                                                         <th>Service Name</th>
                                                         <th>Experience Years</th>
-
                                                     </tr>
                                                 </tfoot>
                                             </table>
@@ -250,7 +218,6 @@
                                     </div>
                                 </div>
                             </div>
-
                         </div>
                     </div>
                 </div>
@@ -275,10 +242,9 @@
                                                 <tbody>
                                                     @foreach (var cli in Model.LawyerClients)
                                                     {
-                                                        <tr>
-                                                            <td>@cli.ClientName</td>
-                                                        </tr>
-                                                    }
+                                                    <tr>
+                                                        <td>@cli.ClientName</td>
+                                                    </tr>}
 
                                                 </tbody>
                                                 <tfoot>
@@ -291,7 +257,6 @@
                                     </div>
                                 </div>
                             </div>
-
                         </div>
                     </div>
                 </div>
@@ -321,27 +286,23 @@
                                                 <tbody>
                                                     @foreach (var time in Model.LawerTimings)
                                                     {
-                                                        <tr>
-                                                            <td>@time.Day</td>
-                                                            <td>@time.SlotType</td>
-                                                            @if (time.LawyerAddressId != null)
-                                                            {
-                                                                var addr = Model.LawyerAddresses.Where(x => x.LawyerAddressId == time.LawyerAddressId).SingleOrDefault().Address;
-                                                                <td>@addr</td>
-
-                                                            }
+                                        <tr>
+                                            <td>@time.Day</td>
+                                            <td>@time.SlotType</td>
+                                            @if (time.LawyerAddressId != null)
+                                            {
+                                            var addr = Model.LawyerAddresses.Where(x => x.LawyerAddressId == time.LawyerAddressId).SingleOrDefault().Address;
+                                            <td>@addr</td> }
                                                             else
                                                             {
-                                                                <td></td>
-}
+                                            <td></td>}
 
 
-                                                            <td>@time.AppoinmentFee</td>
-                                                            <td>@time.Charges</td>
-                                                            <td>@time.TimeFrom</td>
-                                                            <td>@time.TimeTo</td>
-                                                        </tr>
-                                                    }
+                                            <td>@time.AppoinmentFee</td>
+                                            <td>@time.Charges</td>
+                                            <td>@time.TimeFrom</td>
+                                            <td>@time.TimeTo</td>
+                                        </tr>}
 
                                                 </tbody>
                                                 <tfoot>
@@ -360,7 +321,6 @@
                                     </div>
                                 </div>
                             </div>
-
                         </div>
                     </div>
                 </div>
@@ -386,12 +346,11 @@
                                                 <tbody>
                                                     @foreach (var license in Model.LawyerLicenses)
                                                     {
-                                                        <tr>
-                                                            <td>@license.LicenseCity.CityName</td>
-                                                            <td>@license.CityBar</td>
-                                                            <td>@license.DistrictBar</td>
-                                                        </tr>
-                                                    }
+                                                    <tr>
+                                                        <td>@license.LicenseCity.CityName</td>
+                                                        <td>@license.CityBar</td>
+                                                        <td>@license.DistrictBar</td>
+                                                    </tr>}
                                                 </tbody>
                                                 <tfoot>
                                                     <tr>
@@ -405,11 +364,9 @@
                                     </div>
                                 </div>
                             </div>
-
                         </div>
                     </div>
                 </div>
-
                 <div class="tab-pane" id="tab-2-eg7">
                     <div class="p-3">
                         <div class="main-card mb-3 card">
@@ -423,30 +380,19 @@
                                             <table id="new-orders-table" class="table table-hover table-xl mb-0">
                                                 <thead>
                                                     <tr>
-
                                                         <th>Service Name</th>
-                                                        @*<th>Experience Years</th>*@
-
                                                     </tr>
                                                 </thead>
                                                 <tbody>
                                                     @foreach (var service in Model.LawyerCaseCategories)
                                                     {
-                                                        <tr>
-                                                            <td>@service.CaseCategory.Name</td>
-                                                            @*<td>@quali.CaseCategory.Name</td>*@
-                                                            @*<td>@quali.Location</td>*@
-
-                                                        </tr>
-                                                    }
-
+                                                <tr>
+                                            <td>@service.CaseCategory.Name</td>
+                                                  </tr>}
                                                 </tbody>
                                                 <tfoot>
                                                     <tr>
-
                                                         <th>Service Name</th>
-                                                        @*<th>Experience Years</th>*@
-
                                                     </tr>
                                                 </tfoot>
                                             </table>
@@ -480,13 +426,12 @@
                                                 <tbody>
                                                     @foreach (var addr in Model.LawyerAddresses)
                                                     {
-                                                        <tr>
-                                                            <td>@addr.Address</td>
-                                                            @*<td>@quali.CaseCategory.Name</td>*@
-                                                            @*<td>@quali.Location</td>*@
+                                        <tr>
+                                            <td>@addr.Address</td>
+                                            @*<td>@quali.CaseCategory.Name</td>*@
+                                            @*<td>@quali.Location</td>*@
 
-                                                        </tr>
-                                                    }
+                                        </tr>}
 
                                                 </tbody>
                                                 <tfoot>
@@ -511,35 +456,3 @@
 
     </div>
 </div>
-
-@section scripts{
-    @* <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>*@
-    @*<script>
-             $(document).ready(function () {
-                 // document.getElementsByClassName('slimScrollDiv').st = 'height', '100px';
-                 // $('div').attr('.slimScrollDiv', 'custom');
-                 //  $('div').attr('.media-list', 'custom');
-                 // var test = $(".slimScrollDiv").addClass('myclass');
-                 // var test2 = $(".media-list").addClass('myclass');
-                 // test.css("height", "110px");
-
-                 //$("#custom").css("height", "110px");
-                 //$("#custom").css("position", "relative");
-                 //$("#custom").css("overflow", "hidden");
-                 //$("#custom").css("width", "auto");
-                 //$(".media-list").css("position", "relative");
-                 //$(".media-list").css("overflow", "hidden");
-                 //$(".media-list").css("width", "auto");
-
-
-                 //   // $(".scrollouter .slimScrollDiv").css("height", "110px");
-               // //  $(".br-theme-css-stars").css("margin-left", "45%");
-
-
-                 // var el = document.getElementsByClassName("slimScrollDiv");
-                 // el.style.height = "100px";
-
-             });
-
-        </script>*@
-}

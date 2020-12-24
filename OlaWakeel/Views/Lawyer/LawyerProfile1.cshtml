@@ -1,5 +1,4 @@
-﻿@model OlaWakeel.Models.Lawyer
-
+﻿@model OlaWakeel.ViewModels.AppointmentVM
 @{
     ViewData["Title"] = "LawyerProfile1";
     Layout = "~/Views/Shared/_Layout1.cshtml";
@@ -29,16 +28,19 @@
                     <div class="menu-header-content btn-pane-right">
                         <div class="avatar-icon-wrapper mr-2 avatar-icon-xl">
                             <div class="avatar-icon rounded">
-                                @*<img src="\assets\images\avatars\12.jpg" alt="Avatar 5">*@
-                              @if(Model.ProfilePic != null)
+
+                                <img src="\assets\images\avatars\12.jpg" alt="Avatar 5">
+                                @if (Model.ProfilePic != null)
                                 {
-                                <img src="\Uploads\@Model.ProfilePic" alt="Avatar 6">
+                                    <img src="~/Uploads/@Model.ProfilePic" alt="Avatar 6">
                                 }
+
                             </div>
                         </div>
                         <div>
                             <h5 class="menu-header-title">@Model.FirstName @Model.LastName</h5>
                             <h6 class="menu-header-subtitle"> @Model.LawyerLicenses.Count()</h6>
+
                         </div>
                         <div class="menu-header-btn-pane">
                             <button class="ladda-button btn btn-pill btn-dark" data-style="slide-right">
@@ -60,25 +62,7 @@
                             </div>
                             <div class="widget-content-left">
                                 <span>City: @Model.City</span>
-                                @*<div class="widget-heading text-dark opacity-7">March Totals</div>
-                                <div class="widget-subheading opacity-10">
-                                    <span class="pr-2">
-                                        <b class="text-danger">12</b> new leads,
-                                    </span><span>
-                                        <b class="text-dark">$56,24</b> in sales
-                                    </span>
-                                </div>*@
                             </div>
-                            @*<div class="widget-content-right">
-                                <div class="icon-wrapper m-0">
-                                    <div class="progress-circle-wrapper">
-                                        <div class="circle-progress d-inline-block circle-progress-warning">
-                                            <canvas width="65" height="65" style="height: 52px; width: 52px;"></canvas>
-                                            <small><span>23%<span></span></span></small>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>*@
                         </div>
                     </div>
                 </li>
@@ -88,15 +72,17 @@
                             <div class="col-sm-6">
                                 <button class="btn-icon-vertical btn-square btn-transition btn btn-outline-link">
                                     <i class="lnr-license btn-icon-wrapper btn-icon-lg mb-3"> </i>
-                                    @*@if (Model != null)
-                                    {
-                                        <span> @Model.Where(a => a.AppoinmentStatus == "Pending").Count() </span>
-                                    }*@
-                                    @if (Model != null)
-                                    {
-                                        <span>Rating :@Model.Rating  </span>
-                                    }
-
+                                  
+                                    @*@foreach(var L in Model.LawyerList){
+                                            @foreach(var A in Model.AppointmentList)
+                                            {
+                                                if(A.LawyerId == L.LawyerId)
+                                                {
+                                                    <h5>@L.FirstName; @A.AppointmentCode</h5>
+                                                }
+                                            }
+                                        }*@
+                                    <span>Total Appointments :@Model.AppointmentList.Count()</span>
                                 </button>
                             </div>
                             <div class="col-sm-6">

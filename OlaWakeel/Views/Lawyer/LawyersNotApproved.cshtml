@@ -1,11 +1,12 @@
 ﻿@model IEnumerable<OlaWakeel.Models.Lawyer>
 
 @{
-
-    ViewData["Title"] = ViewBag.Filter;
+    ViewData["Title"] = "LawyersNotApproved";
     Layout = "~/Views/Shared/_Layout1.cshtml";
 }
+
 @{int i = 1; }
+
 <div class="app-page-title">
     <div class="page-title-wrapper">
         <div class="page-title-heading">
@@ -13,81 +14,92 @@
                 <i class="lnr-graduation-hat icon-gradient bg-mean-fruit"></i>
             </div>
             <div>
-                Total Lawyers
+                Lawyers Not Approved By Admin
             </div>
         </div>
     </div>
 </div>
 <div class="card mb-3">
-    <div class="card-header-tab card-header">
-        <div class="card-header-title font-size-lg text-capitalize font-weight-normal">
-            <i class="header-icon mr-3 text-muted opacity-6"> </i>Total Lawyers
-        </div>
-    </div>
     <div class="card-body">
-        <div id="example_wrapper" class="dataTables_wrapper dt-bootstrap4">
-            <div class="row">
-                <div class="col-sm-12">
-                    <table style="width: 100%;" id="example" class="table table-hover table-striped table-bordered dataTable dtr-inline listing-datatable" role="grid" aria-describedby="example_info">
-                        <thead>
-                            <tr>
-                                <th>Sr#</th>
-                                <th>Name</th>
-                                <th>VirtualChargesUs</th>
-                                <th>VirtualChargesPkr</th>
-                                <th>TotalExperience</th>
-                                <th>Status</th>
-                                <th>Action</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach (var item in Model)
-                            {
-                                <tr>
-                                    <td>@i</td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.FirstName)
-                                        @Html.DisplayFor(modelItem => item.LastName)
-                                    </td>
-                                    <td>
-                                        $  @Html.DisplayFor(modelItem => item.VirtualChargesUs)
-                                    </td>
-                                    <td>
-                                        Rs.  @Html.DisplayFor(modelItem => item.VirtualChargesPkr)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.TotalExperience) Years
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.OnlineStatus)
-                                    </td>
-                                    <td>
-                                        <a class="mb-2 mr-2 btn-icon btn-icon-only btn-shadow btn-dashed btn btn-outline-info" href="~/Lawyer/LawyerProfile1/@item.LawyerId"><i class="lnr-user"> </i></a>
-                                    </td>
-                                </tr>
-                                i++;
-                            }
-                        </tbody>
-                        <tfoot>
-                            <tr>
-                                <th>Sr#</th>
-                                <th>Name</th>
-                                <th>VirtualChargesUs</th>
-                                <th>VirtualChargesPkr</th>
-                                <th>TotalExperience</th>
-                                <th>Status</th>
-                                <th>Action</th>
-                            </tr>
-                        </tfoot>
-                    </table>
-                </div>
-            </div>
+        <div class="col-sm-12">
+            <table style="width: 100%;" id="example" class="table table-hover table-striped table-bordered dataTable dtr-inline" role="grid" aria-describedby="example_info">
+                <thead>
+                    <tr>
+                        <th>Sr#</th>
+                        <th>
+                            Name
+                        </th>
+                        <th>
+                            Charges in Rupees
+                        </th>
+                        <th>
+                            Charges in Dollars
+                        </th>
+                        <th>
+                            Experience
+                        </th>
+                        @*<th>Action</th>*@
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@i</td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.FirstName)
+                                @Html.DisplayFor(modelItem => item.LastName)
+                            </td>
+                            <td>
+                                Rs. @Html.DisplayFor(modelItem => item.VirtualChargesPkr)
+                            </td>
+                            <td>
+                                $  @Html.DisplayFor(modelItem => item.VirtualChargesUs)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.TotalExperience) Years
+                            </td>
+
+                            @*<td>
+                       <a class="mb-2 mr-2 btn-icon btn-icon-only btn-shadow btn-dashed btn btn-outline-info" href="~/Lawyer/LawyerProfile1/@item.LawyerId"><i class="lnr-user"> </i></a>
+
+                    </td>*@
+                        </tr>
+                        i++;
+                    }
+
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <th>Sr#</th>
+                        <th>
+                            Name
+                        </th>
+                        <th>
+                            Charges in Rupees
+                        </th>
+                        <th>
+                            Charges in Dollars
+                        </th>
+                        <th>
+                            Experience
+                        </th>
+
+                        @*<th>Action</th>*@
+                    </tr>
+                </tfoot>
+            </table>
         </div>
     </div>
+
 </div>
 
 
-@*<p>
+
+
+@*<h1>Lawyers Not Approved By Admin</h1>
+
+    <p>
         <a asp-action="Create">Create New</a>
     </p>
     <table class="table">
@@ -158,6 +170,15 @@
                 </th>
                 <th>
                     @Html.DisplayNameFor(model => model.AppUser)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ProfileVerified)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Status)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ProfileCompleted)
                 </th>
                 <th></th>
             </tr>
@@ -231,6 +252,15 @@
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.AppUser.Id)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ProfileVerified)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Status)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ProfileCompleted)
                     </td>
                     <td>
                         <a asp-action="Edit" asp-route-id="@item.LawyerId">Edit</a> |
