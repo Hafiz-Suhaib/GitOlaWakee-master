@@ -19,13 +19,16 @@ namespace OlaWakeel.Controllers
         private readonly SignInManager<AppUser> _signInManager;
         private readonly UserManager<AppUser> _userManager;
         private readonly RoleManager<AppRole> _roleManager;
+
+        public object Session { get; private set; }
+
         public AuthController(RoleManager<AppRole> roleManager, UserManager<AppUser> userManager, SignInManager<AppUser> signInManager)
         {
             _roleManager = roleManager;
             _userManager = userManager;
             _signInManager = signInManager;
         }
-        //[Authorize(Roles = "Admin")]
+       // [Authorize(Roles = "Admin")]
         public IActionResult Index()
         {
             return View();
@@ -39,8 +42,12 @@ namespace OlaWakeel.Controllers
         public async Task<IActionResult> Login(LoginDto loginDto)
         {
             var result = await _signInManager.PasswordSignInAsync(loginDto.username, loginDto.password, false, false);
+           // var sd = "ss";
             if (result.Succeeded)
             {
+                //Session["UserName"] = username.Text;
+              //  Session["username"] = sd;
+               // HttpContext.Session.SetString("username", result.username);
                 return RedirectToAction("Index", "Dashboard");
             }
             else
@@ -56,7 +63,7 @@ namespace OlaWakeel.Controllers
             return RedirectToAction("Login", "Auth");
         }
         [HttpGet]
-        //[Authorize(Roles = "Admin")]
+       // [Authorize(Roles = "Admin")]
         public IActionResult Register()
         {
             ViewBag.Rolelist = new SelectList(_roleManager.Roles, "Name", "Name");
@@ -64,7 +71,7 @@ namespace OlaWakeel.Controllers
             return View();
         }
         [HttpPost]
-        //[Authorize(Roles = "Admin")]
+      //  [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Register(RegisterDto registerDto)
         {
             try
@@ -102,16 +109,62 @@ namespace OlaWakeel.Controllers
             return View();
         }
         [HttpGet]
+        // [Authorize(Roles = "Admin")]
+        public IActionResult Register1()
+        {
+            ViewBag.Rolelist = new SelectList(_roleManager.Roles, "Name", "Name");
+            // ViewBag.ShopLogo = _scheduleService.GetSchedule().ShopLogo;
+            return View();
+        }
+        [HttpPost]
+        // [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> Register1(RegisterDto registerDto)
+        {
+            try
+            {
+                AppUser user = await _userManager.FindByNameAsync(registerDto.userName);
+                if (user == null)
+                {
+                    user = new AppUser
+                    {
+                        UserName = registerDto.userName,
+                        Email = registerDto.email,
+                        FirstName = registerDto.firstName,
+                        LastName = registerDto.lastName,
+                      //  PhoneNumber = registerDto.phoneNumber,
+                       // City = registerDto.city,
+                      //  Address = registerDto.address
+                    };
 
+                    IdentityResult result = await _userManager.CreateAsync(user, registerDto.password);
+                    if (result.Succeeded)
+
+                        ViewBag.Message = "User successfully created!";
+                    {
+                        await _userManager.AddToRoleAsync(user, registerDto.RoleName);
+
+                        return RedirectToAction("AllAdminUsers", "Auth");
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ViewBag.Message = ex.Message;
+            }
+
+            return View();
+        }
+
+        [HttpGet]
         public async Task<ActionResult> AllAdminUsers()
         {
-            // ViewBag.Role = new SelectList(_roleManager.Roles, "Name", "Name");
+             ViewBag.Role = new SelectList(_roleManager.Roles, "Name", "Name");
             var users = await _userManager.GetUsersInRoleAsync("Admin");
             return View(users);
         }
 
         [HttpPost]
-        //[Authorize(Roles = "Admin")]
+       // [Authorize(Roles = "Admin")]
         public async Task<IActionResult> CreateRole(RoleDto roleDto)
         {
             if (ModelState.IsValid)
@@ -128,7 +181,7 @@ namespace OlaWakeel.Controllers
         }
 
         [HttpGet]
-        //[Authorize(Roles = "Admin")]
+       // [Authorize(Roles = "Admin")]
         public IActionResult Roles()
         {
             RoleDto roleList = new RoleDto();
@@ -137,7 +190,7 @@ namespace OlaWakeel.Controllers
             return View(roleList);
         }
 
-        [Authorize(Roles = "Admin")]
+        //[Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(int Id)
         {
             string userId = Id.ToString();
@@ -167,14 +220,14 @@ namespace OlaWakeel.Controllers
             }
         }
         [HttpGet]
-        [Authorize]
+       // [Authorize]
         public IActionResult ChangePassword()
         {
             return View();
         }
 
         [HttpPost]
-        [Authorize]
+      //  [Authorize]
         public async Task<ActionResult> ChangePassword(ChangePasswordDto changePasswordDto)
         {
             if (ModelState.IsValid)
@@ -203,7 +256,7 @@ namespace OlaWakeel.Controllers
         }
 
         [HttpPost]
-        //[Authorize(Roles = "Admin")]
+       // [Authorize(Roles = "Admin")]
         public async Task<JsonResult> CheckUserAvailabilty(IFormCollection form, string old)
         {
             var appUser = JsonConvert.DeserializeObject<AppUser>(form["appUser"]);

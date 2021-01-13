@@ -19,7 +19,7 @@
 <head>
     <meta charset="UTF-8">
     <meta content="width=device-width, initial-scale=1" name="viewport" />
-    <title>Ria Pizza - Login Dashbaord</title>
+    <title>OlaWakeel - Login Dashbaord</title>
     <!-- Favicon-->
     <link rel="icon" href="~/assets/images/favicon.ico" type="image/x-icon">
 
@@ -38,27 +38,31 @@
                 <form class="login100-form validate-form" asp-controller="Auth" asp-action="Login" method="post">
                     <span>
                         @*<img src="~/Uploads/@ViewBag.ShopLogo" class="col-md-5 center"/>*@
-                        <img src="~/Uploads/fa044b59-79f3-4804-a24f-b2db2501e6c6_logo.png" class="col-md-7 center" />
+                        <img src="~/Uploads/logoxy.png" class="col-md-7 center" />
                     </span>
                     <span class="login100-form-title p-b-34 p-t-27">
                         Log in
                     </span>
+                    @*<div class="wrap-input100 validate-input" data-validate="Enter email">
+                        <input class="input100" asp-for="email" value="" type="email" name="email" placeholder="email" style="border-radius: 5px">
+                        <i class="material-icons focus-input1001">person</i>
+                    </div>*@
                     <div class="wrap-input100 validate-input" data-validate="Enter username">
-                        <input class="input100" asp-for="username" value="" type="text" name="username" placeholder="Username">
+                        <input class="input100" asp-for="username" value="" type="text" name="username" placeholder="Username" style="border-radius: 5px">
                         <i class="material-icons focus-input1001">person</i>
                     </div>
                     <div class="wrap-input100 validate-input" data-validate="Enter password">
-                        <input class="input100" asp-for="password" value="" type="password"  placeholder="Password">
+                        <input class="input100" asp-for="password" value="" type="password" placeholder="Password" style="border-radius: 5px">
                         <i class="material-icons focus-input1001">lock</i>
                     </div>
                     <div class="container-login100-form-btn">
                         <button class="login100-form-btn" type="submit">
                             Login
                         </button>
-                        
+
                     </div>
                     <div class="text-center p-t-50">
-                        <a class="txt1" asp-action="Register" asp-controller="Auth">
+                        <a class="txt1" asp-action="Register1" asp-controller="Auth">
                             Register
                         </a>
                     </div>

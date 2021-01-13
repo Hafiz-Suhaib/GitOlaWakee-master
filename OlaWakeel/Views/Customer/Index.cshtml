@@ -101,7 +101,7 @@
                                         <a class="mb-2 mr-2 btn-icon btn-icon-only btn-shadow btn-dashed btn btn-outline-success" data-backdrop="false" data-toggle="modal" data-target=".details_@count" href="~/Lawyer/LawyerProfile/@item.AppUser.Id"><i class="fas fa-info-circle"></i></a>
                                         
                                         <div class="modal bd-example-modal-sm details_@count" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
-                                            <div class="modal-dialog modal-sm">
+                                            <div class="modal-dialog modal-lg">
                                                 <div class="modal-content">
                                                     <div class="modal-header">
                                                         <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
@@ -114,8 +114,16 @@
                                                             <tr>
                                                                 <th>Address</th>
                                                                 <th>Profile Pic</th>
+                                                                <th>Age</th>
+                                                                <th>User Name</th>
+
                                                             </tr>
-                                                            <tr><td>@item.Address</td><td><img style="cursor:pointer;width:100px;height:150px;" src="@Url.Content("~/CustomerImages/"+item.ProfilePic)" alt="' + file_data.name + '" /></td></tr>
+                                                            <tr>
+                                                            <td>@item.Address</td>
+                                                            <td><img style="cursor:pointer;width:100px;height:150px;" src="@Url.Content("~/CustomerImages/"+item.ProfilePic)" alt="' + file_data.name + '" /></td>
+                                                                <td>@item.Age</td>
+                                                                <td>@item.AppUser.FirstName @item.AppUser.LastName</td>
+                                                            </tr>
                                                         </table>
                                                     </div>
                                                     @*<div class="modal-footer">

@@ -3,43 +3,6 @@
     ViewData["Title"] = "AddCustomer";
     Layout = "~/Views/Shared/_Layout1.cshtml";
 }
-@*<style>
-        .field-icon {
-            float: right;
-            margin-right: 8px;
-            margin-top: -30px;
-            position: relative;
-            z-index: 2;
-            cursor: pointer;
-        }
-
-        .centerBtn {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            cursor: pointer;
-            background-color: #555;
-            color: white;
-            font-size: 30px;
-            padding: 12px 15px;
-            border: none;
-            cursor: pointer;
-            border-radius: 50px;
-            opacity: 0.6;
-        }
-
-        .center {
-            display: block;
-            margin-left: auto;
-            margin-right: auto;
-            width: 50%;
-        }
-    </style>*@
-
-
-
-
 <div class="app-page-title">
     <div class="page-title-wrapper">
         <div class="page-title-heading">
@@ -48,52 +11,8 @@
             </div>
             <div>
                 Add Customer 
-                @*<div class="page-title-subheading">This is an example dashboard created using build-in elements and components.</div>*@
             </div>
         </div>
-        @*<div class="page-title-actions">
-            <button type="button" data-toggle="tooltip" title="Example Tooltip" data-placement="bottom" class="btn-shadow mr-3 btn btn-dark">
-                <i class="fa fa-star"></i>
-            </button>
-            <div class="d-inline-block dropdown">
-                <button type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="btn-shadow dropdown-toggle btn btn-info">
-                    <span class="btn-icon-wrapper pr-2 opacity-7">
-                        <i class="fa fa-business-time fa-w-20"></i>
-                    </span>
-                    Buttons
-                </button>
-                <div tabindex="-1" role="menu" aria-hidden="true" class="dropdown-menu dropdown-menu-right">
-                    <ul class="nav flex-column">
-                        <li class="nav-item">
-                            <a class="nav-link">
-                                <i class="nav-link-icon lnr-inbox"></i>
-                                <span> Inbox</span>
-                                <div class="ml-auto badge badge-pill badge-secondary">86</div>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link">
-                                <i class="nav-link-icon lnr-book"></i>
-                                <span> Book</span>
-                                <div class="ml-auto badge badge-pill badge-danger">5</div>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link">
-                                <i class="nav-link-icon lnr-picture"></i>
-                                <span> Picture</span>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a disabled="" class="nav-link disabled">
-                                <i class="nav-link-icon lnr-file-empty"></i>
-                                <span> File Disabled</span>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>*@
     </div>
 </div>
 <script src="~/Angular/Controllers/CustomerCtrl.js">
@@ -130,15 +49,6 @@
                         </div>
                     </div>
                     <div class="row clearfix">
-                        @*<div class="col-sm-4">
-                <div class="form-group">
-                    <div class="form-line">
-                        <label><b> Name</b> <span class="text-danger">*</span></label>
-                        <input type="text" ng-model="addCustomerProfile.name" name="name" required class="form-control" placeholder="Enter  Name" />
-                    </div>
-
-                </div>
-            </div>*@
                         <div class="col-sm-4">
                             <div class="form-group">
                                 <div class="form-line">
@@ -222,13 +132,6 @@
                     <div class="row clearfix">
 
                         <div class="col-md-3">
-                            @*<label>Profile Picture <span class="text-danger">*</span></label>
-                <div class="form-group">
-                    <input style="display:none" type="file" accept="image/*" id="fileInput" oninput="showImage()">
-                    <div id="ImageTab" class="center">
-                    </div>
-                    <img style="width:40px;margin-left: 20px; margin-right:20px" id="selectImageBtn" class="icon-colored pointer" onclick="$('#fileInput').click()" src="~/assets/images/details_open.png" title="add_image.svg">
-                </div>*@
                         </div>
                         <div class="col-sm-9">
                             <p class="text-danger" style="display:none" id="validation">Please fill all required data</p>
@@ -248,12 +151,7 @@
     var placeSearch, autocomplete;
 
         var componentForm = {
-            /* street_number: 'short_name',*/
-            /* route: 'long_name',*/
             locality: 'long_name'
-            /* administrative_area_level_1: 'short_name',*/
-            //country: 'long_name'
-            /* postal_code: 'short_name'*/
         };
 
         function initAutocomplete() {
@@ -363,210 +261,4 @@
            // angular.element(document.getElementById('LawyerCtrl')).scope().validateIntro();
         }
 </script>
-    @*<script>
-            $(".toggle-password").click(function () {
-
-                $(this).toggleClass("fa-eye fa-eye-slash");
-                var input = $($(this).attr("toggle"));
-                if (input.attr("type") == "password") {
-                    input.attr("type", "text");
-                } else {
-                    input.attr("type", "password");
-                }
-            });
-
-        </script>*@
-}
-
-
-@*@{
-        ViewData["Title"] = "AddCustomer";
-        Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
-    }
-    <style>
-        .field-icon {
-            float: right;
-            margin-right: 8px;
-            margin-top: -30px;
-            position: relative;
-            z-index: 2;
-            cursor: pointer;
-        }
-
-        .centerBtn {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            cursor: pointer;
-            background-color: #555;
-            color: white;
-            font-size: 30px;
-            padding: 12px 15px;
-            border: none;
-            cursor: pointer;
-            border-radius: 50px;
-            opacity: 0.6;
-        }
-
-        .center {
-            display: block;
-            margin-left: auto;
-            margin-right: auto;
-            width: 50%;
-        }
-    </style>
-    @section css{
-
-        <link href="~/assets/js/bundles/multiselect/css/multi-select.css" rel="stylesheet">
-
-        <link href="~/assets/css/form.min.css" rel="stylesheet">
-        <link href="~/assets/css/style.css" rel="stylesheet">
-        <link href="~/assets/css/styles/all-themes.css" rel="stylesheet" />
-
-    }
-    <script src="~/Angular/Controllers/CustomerCtrl.js"></script>
-    <div class="container-fluid" ng-controller="CustomerCtrl">
-        <div class="block-header">
-            <div class="row">
-                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                    <ul class="breadcrumb breadcrumb-style ">
-                        <li class="breadcrumb-item bcrumb-1">
-                            <a href="~/Home/Index">
-                                <i class="fas fa-home"></i> Home
-                            </a>
-                        </li>
-                        <li class="breadcrumb-item bcrumb-2">
-                            <a href="#" onClick="return false;">Add Customer</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-        <div class="body">
-
-            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                <div class="card">
-
-                    <div class="body">
-
-                        <h2 class="card-inside-title">Register Customer</h2>
-                        <form name="customerProfileForm">
-                            <div class="row clearfix">
-                                <div class="col-sm-4">
-                                    <div class="form-group">
-                                        <div class="form-line">
-                                            <label> Name <span class="text-danger">*</span></label>
-                                            <input type="text" ng-model="addCustomerProfile.name" name="name" required class="form-control" placeholder="Enter  Name" />
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-sm-4">
-                                    <div class="form-group">
-                                        <div class="form-line">
-                                            <label>Username <span class="text-danger">*</span></label>
-                                            <input type="text" ng-model="addCustomerAccount.userName" ng-change="checkUserAvailable()" required class="form-control" placeholder="Enter Username" />
-                                        </div>
-                                        <p class="text-danger" style="display:none" id="checkUser">this username is already exit</p>
-                                    </div>
-                                </div>
-                                <div class="col-sm-4">
-                                    <div class="form-group">
-                                        <div class="form-line">
-                                            <label>Email <span class="text-danger">*</span></label>
-                                            <input type="email" ng-model="addCustomerAccount.email" required class="form-control" placeholder="Email Exabcd@gmail.com" />
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="row clearfix">
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label>Password <span class="text-danger">*</span></label>
-                                        <input id="password-field" name="password" ng-pattern="/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,20}$/" ng-model="addCustomerAccount.passwordHash" type="password" placeholder="Password Ex: Abcde@12" required class="form-control">
-                                        <span toggle="#password-field" class="fa fa-lg fa-eye field-icon toggle-password"></span>
-                                        <span style="color:Red" ng-show="customerProfileForm.password.$error.pattern">[Min 8 char]atleast one special,Uppercase & digit</span>
-                                    </div>
-                                </div>
-
-                                <div class="col-md-4">
-                                    <span class="text-danger">*</span>
-                                    <div class="input-field col s12">
-                                        <select ng-model="addCustomerProfile.gender" required>
-                                            <option value="" disabled selected>Gender</option>
-                                            <option value="male">Male</option>
-                                            <option value="female">Female</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-sm-4">
-                                    <div class="form-group">
-                                        <div class="form-line">
-                                            <label>Mobile <span class="text-danger">*</span></label>
-                                            <input type="text" required class="form-control mobile-phone-number" name="contact" ng-model="addCustomerProfile.contact" ng-pattern="/^[0-9]{11,11}$/" placeholder="Contact Ex: 03001234567" />
-                                        </div>
-                                        <span style="color:Red" ng-show="customerProfileForm.contact.$error.pattern">enter 11 digits Ex: 03001234567</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row clearfix">
-                                <div class="col-sm-4">
-                                    <div class="form-group">
-                                        <div class="form-line">
-                                            <label>City <span class="text-danger">*</span></label>
-                                            <input type="text" ng-model="addCustomerProfile.city" required class="form-control" placeholder="Enter City" />
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-sm-8">
-                                    <div class="form-group">
-                                        <div class="form-line">
-                                            <label>Address <span class="text-danger">*</span></label>
-                                            <input type="text" ng-model="addCustomerProfile.address" required class="form-control" placeholder="Enter Address" />
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-
-                            <div class="row clearfix">
-
-                                <div class="col-md-3">
-
-                                </div>
-                                <div class="col-sm-9">
-                                    <p class="text-danger" style="display:none" id="validation">Please fill all required data</p>
-                                    <button class="btn-hover color-8" ng-click="addCustomer()" style="margin-left:-1px;float:right">Register</button>
-                                </div>
-
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    @section scripts{
-
-
-        <script src="~/assets/js/form.min.js"></script>
-        <script src="~/assets/js/pages/forms/advanced-form-elements.js"></script>
-        <script src="~/assets/js/bundles/multiselect/js/jquery.multi-select.js"></script>
-
-        <script src="~/assets/js/bundles/bootstrap-colorpicker/dist/js/bootstrap-colorpicker.js"></script>
-
-        <script>
-            $(".toggle-password").click(function () {
-
-                $(this).toggleClass("fa-eye fa-eye-slash");
-                var input = $($(this).attr("toggle"));
-                if (input.attr("type") == "password") {
-                    input.attr("type", "text");
-                } else {
-                    input.attr("type", "password");
-                }
-            });
-
-        </script>
-    }*@
+   }

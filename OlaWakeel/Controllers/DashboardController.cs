@@ -8,7 +8,7 @@ using OlaWakeel.Services.LawyerService;
 
 namespace OlaWakeel.Controllers
 {
-    //[Authorize(Roles = "Admin")]
+   // [Authorize(Roles = "Admin")]
     public class DashboardController : Controller
     {
         private readonly ILawyerService _lawyerService;

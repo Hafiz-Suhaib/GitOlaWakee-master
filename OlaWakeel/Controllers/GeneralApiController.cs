@@ -186,6 +186,7 @@ namespace OlaWakeel.Controllers
                         CaseCategoryId = c.CaseCategoryId,
                     }).ToList(),
                     LawyerPackages = _context.LawyerTimings.OrderByDescending(or => or.SlotDate).OrderByDescending(df => df.LawyerAddressId).Where(t => t.LawyerId == x.LawyerId && t.Status && t.SlotDate.Date >= DateTime.Now.Date).Select(p => new
+
                     {
                         Day = p.Day,
                         StartTime = p.TimeFrom,
@@ -197,8 +198,8 @@ namespace OlaWakeel.Controllers
                         OfficeAddress = p.LawyerAddress.Address,
                         Check1 = p.Check,
                         Check2 = p.Check2,
-                        InternationalCharges=p.InternationalCharges,
-                        SlotDate=p.SlotDate,
+                        InternationalCharges = p.InternationalCharges,
+                        SlotDate = p.SlotDate,
                         InternationalIndex = p.InternationalIndex,
                         LocalIndex = p.LocalIndex,
                         StartTime24 = p.StartTime24,
@@ -206,6 +207,10 @@ namespace OlaWakeel.Controllers
 
 
                     }).ToList(),
+                    //if (LawyerPackages != null)
+                    //    return Ok(LawyerPackages);
+
+
                     //OfficeLocation = _context.LawyerAddresses.Where(a => a.LawyerId == x.LawyerId).Select(loc => new
                     //{
                     //    LawyerAddressId = loc.LawyerAddressId,
@@ -220,8 +225,22 @@ namespace OlaWakeel.Controllers
                         Language = la.Language,
                     }).ToList(),
                 }).ToList();
-                var allLawyers = LawyerData.Where(a =>checkLawyerProfile(a.LawyerId)).ToList();
-                return Ok(allLawyers);
+
+               // var allLawyers = LawyerData.Where(a => checkLawyerProfile(a.LawyerId)).ToList();
+                LawyerData = LawyerData.Where(a => (a.LawyerPackages.Count()>0)).ToList();
+                //return Ok(allLawyers);
+                //LawyerPackage test start
+                var checkpkg = new
+                {
+                    LawyerData = LawyerData,
+                    //allLawyers = allLawyers,
+                };
+                if (checkpkg != null)
+                    return Ok(checkpkg);
+                var checkpkgs = new { Lawyer = "Not Exist" };
+                return Ok(JsonConvert.SerializeObject(checkpkgs));
+                //Checking for lawyerPackage test end
+
             }
             catch (Exception e)
             {
@@ -232,6 +251,77 @@ namespace OlaWakeel.Controllers
 
 
         }
+
+
+
+        //[HttpGet]
+        //[Route("GetLawyers")]
+        //public ActionResult GetLawyers()
+        //{
+        //    try
+        //    {
+        //        _context.Database.SetCommandTimeout(0);
+        //        var LawyerData = _context.Lawyers.Select(x => new
+        //        {
+        //            LawyerId = x.LawyerId,
+        //            LawyerName = x.FirstName + " " + x.LastName,
+        //            LawyerPic = x.ProfilePic,
+        //            TotalExperience = x.TotalExperience,
+        //            Rating = x.Rating,
+        //            LawyerGender = x.Gender,
+        //            OnlineStatus = x.OnlineStatus,
+        //            FirbaseToken = x.FirbaseToken,
+        //            ServiceProvide = _context.LawyerCaseCategories.Where(sp => sp.LawyerId == x.LawyerId).Select(c => new
+        //            {
+        //                ServiceName = c.CaseCategory.Name,
+        //                LawyerServiceId = c.LawyerCaseCategoryId,
+        //                CaseCategoryId = c.CaseCategoryId,
+        //            }).ToList(),
+        //            LawyerPackages = _context.LawyerTimings.OrderByDescending(or => or.SlotDate).OrderByDescending(df => df.LawyerAddressId).Where(t => t.LawyerId == x.LawyerId && t.Status && t.SlotDate.Date >= DateTime.Now.Date).Select(p => new
+
+        //            {
+        //                Day = p.Day,
+        //                StartTime = p.TimeFrom,
+        //                EndTime = p.TimeTo,
+        //                Location = p.Location,
+        //                PackageType = p.SlotType,
+        //                LocalCharges = p.Charges,
+        //                OfficeAddressId = p.LawyerAddressId,
+        //                OfficeAddress = p.LawyerAddress.Address,
+        //                Check1 = p.Check,
+        //                Check2 = p.Check2,
+        //                InternationalCharges = p.InternationalCharges,
+        //                SlotDate = p.SlotDate,
+        //                InternationalIndex = p.InternationalIndex,
+        //                LocalIndex = p.LocalIndex,
+        //                StartTime24 = p.StartTime24,
+        //                EndTime24 = p.EndTime24
+
+        //            }).ToList(),
+        //            //OfficeLocation = _context.LawyerAddresses.Where(a => a.LawyerId == x.LawyerId).Select(loc => new
+        //            //{
+        //            //    LawyerAddressId = loc.LawyerAddressId,
+        //            //    Address = loc.Address
+        //            //}).ToList(),
+        //            LawyerDegree = _context.LawyerQualifications.Where(de => de.LawyerId == x.LawyerId).Select(d => new
+        //            {
+        //                DegreeName = d.Degree.Name
+        //            }).ToList(),
+        //            LawyerLanguages = _context.LawyerLanguages.Where(a => a.LawyerId == x.LawyerId).Select(la => new
+        //            {
+        //                Language = la.Language,
+        //            }).ToList(),
+        //        }).ToList();
+        //        var allLawyers = LawyerData.Where(a => checkLawyerProfile(a.LawyerId)).ToList();
+        //        return Ok(allLawyers);
+        //    }
+        //    catch (Exception e)
+        //    {
+        //        var configs = new { Lawyer = "Not Exist" };
+
+        //        return Ok(JsonConvert.SerializeObject(configs));
+        //    }
+        //}
         public bool checkLawyerProfile(int id)
         {
             var d = new
@@ -283,6 +373,7 @@ namespace OlaWakeel.Controllers
                         PackageType = p.SlotType,
                         LocalCharges = p.Charges,
                         OfficeAddressId = p.LawyerAddressId,
+                        OfficeAddressName=p.LawyerAddress.Address,
                         Check1 = p.Check,
                         Check2 = p.Check2,
                         InternationalCharges = p.InternationalCharges,

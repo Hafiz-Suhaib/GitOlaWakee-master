@@ -1,9 +1,8 @@
-﻿
-@{
-    ViewData["Title"] = "DashBoard";
-    Layout = "~/Views/Shared/_Layout1.cshtml";
-}
-
+﻿@{ ViewData["Title"] = "DashBoard";
+    Layout = "~/Views/Shared/_Layout1.cshtml"; }
+@*@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager*@
 
 <div class="app-container app-theme-white body-tabs-shadow fixed-header fixed-sidebar" ng-controller="ShopScheduleCtrl">
     <div class="app-header header-shadow">
@@ -1126,7 +1125,7 @@
                             </div>
                         </div>
                         <!--Wakeel Dashboard Start-->
-                       
+
                     </div>
                     <div class="text-center mbg-3">
                         <button class="btn-wide btn-pill btn-shadow fsize-1 btn btn-focus btn-lg">
