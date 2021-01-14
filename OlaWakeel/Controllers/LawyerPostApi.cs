@@ -92,7 +92,8 @@ namespace OlaWakeel.Controllers
         {
             try
             {
-                var user = new AppUser { PhoneNumber = PhoneNo };
+                var pho = "+" + PhoneNo.Trim();
+                var user = new AppUser { PhoneNumber = pho };
                 //  user.Email = "abc@gmail.com";
                 Random rndm = new Random();
                 user.UserName = (FirstName.ToLower().Replace(" ", "")) + (LastName.ToLower().Replace(" ", "")) + rndm.Next(0000, 9999);
@@ -107,7 +108,7 @@ namespace OlaWakeel.Controllers
                     await _userManager.AddToRoleAsync(user, Lawyer);
                     lawyer.FirstName = FirstName;
                     lawyer.LastName = LastName;
-                    lawyer.Contact = PhoneNo;
+                    lawyer.Contact = pho;
                     //ye application user me add krna ha
                     lawyer.FirbaseToken = FirbaseToken;
                     lawyer.OnlineStatus = "Online";

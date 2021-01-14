@@ -81,16 +81,38 @@ namespace OlaWakeel.Controllers
             }
         }
 
+        //[HttpGet]
+        //[Route("LawyerExist")]
+        //public ActionResult LawyerExist(string PhoneNo)
+        //{
+        //    try
+        //    {
+
+        //        var pho = "+" + PhoneNo.Trim();
+        //        var configs = new { does_exist = _context.Customers.Any(a => a.Contact == pho) };
+
+        //        var lawyerExist = JsonConvert.SerializeObject(configs);
+        //        return Ok(lawyerExist);
+        //    }
+        //    catch (Exception e)
+        //    {
+        //        return Ok("Invalid Data");
+        //    }
+        //}
+
+
+
         [HttpGet]
         [Route("LawyerExist")]
         public ActionResult LawyerExist(string PhoneNo)
         {
             try
             {
-                if (_context.Lawyers.Any(a => a.Contact == phone(PhoneNo)))
+                var pho = "+" + PhoneNo.Trim();
+                if (_context.Lawyers.Any(a => a.Contact == phone(pho)))
                 {
 
-                    var lawyer = _context.Lawyers.Where(a => a.Contact == phone(PhoneNo)).Select(x => new
+                    var lawyer = _context.Lawyers.Where(a => a.Contact == phone(pho)).Select(x => new
                     {
                         LawyerId = x.LawyerId,
                         lawyerName = x.FirstName + " " + x.LastName,
@@ -125,6 +147,7 @@ namespace OlaWakeel.Controllers
             }
 
         }
+
         public string phone(string pho)
         {
             if (pho.Contains("+"))
